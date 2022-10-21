@@ -11,9 +11,9 @@ public class Menu {
 
 	public void start() {
 		s = new Scanner(System.in);
-		Usuario u=login();
+		/*Usuario u=login();
 		System.out.println("Bienvenido "+u.getNombre()+" "+u.getApellido());
-		System.out.println();
+		System.out.println();*/
 		
 		String command;
 		do {
@@ -60,7 +60,7 @@ public class Menu {
 		System.out.print("comando: ");
 		return s.nextLine();
 	}
-	
+	/*
 	public Usuario login() {
 		Usuario p=new Usuario();
 		
@@ -74,6 +74,6 @@ public class Menu {
 		
 		return p;
 		
-	}
+	}*/
 
 }
