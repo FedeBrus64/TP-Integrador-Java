@@ -160,13 +160,13 @@ CREATE TABLE `usuario` (
   `apellido` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `tipoUsuario` varchar(45) DEFAULT NULL,
-  `informacionPago` varchar(45) DEFAULT NULL,
+  `informacionPago` varchar(255) DEFAULT NULL,
   `codigoPostal` int DEFAULT NULL,
   `localidad` varchar(45) DEFAULT NULL,
   `direccion` varchar(45) DEFAULT NULL,
   `fechaIngreso` date DEFAULT NULL,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,8 +175,43 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'fedeBruschi','fede1234','Federico','Bruschi','fedejbruschi@gmail.com','cliente','Visa nro 123456789012 cvv 123 fecha venc 02/30',2000,'Rosario','España 270','2022-10-19');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `venta`
+--
+
+DROP TABLE IF EXISTS `venta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `venta` (
+  `nroVenta` int NOT NULL,
+  `fechaVenta` date DEFAULT NULL,
+  `importeTotal` float DEFAULT NULL,
+  `idCliente` int DEFAULT NULL,
+  `idPrenda` int DEFAULT NULL,
+  PRIMARY KEY (`nroVenta`),
+  KEY `ventaClienteFK_idx` (`idCliente`),
+  KEY `ventaPrendaFK_idx` (`idPrenda`),
+  CONSTRAINT `ventaClienteFK` FOREIGN KEY (`idCliente`) REFERENCES `usuario` (`idUsuario`),
+  CONSTRAINT `ventaPrendaFK` FOREIGN KEY (`idPrenda`) REFERENCES `prenda` (`codPrenda`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `venta`
+--
+
+LOCK TABLES `venta` WRITE;
+/*!40000 ALTER TABLE `venta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `venta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping events for database 'tienda_ropa'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -187,4 +222,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-10  8:52:07
+-- Dump completed on 2022-10-19 14:31:09
