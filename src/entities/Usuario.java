@@ -78,6 +78,16 @@ public class Usuario {
 	public boolean hasRol(Rol rolToCheck) {
 		return this.roles.containsKey(rolToCheck.getIdRol());
 	}
+	
+	@Override
+	public String toString() {
+		
+		return "Product [id=" + idUsuario + ", Nombre de usuario=" + nomUsuario + ", nombre=" + nombre 
+				+ ", apellido=" + apellido + ", email="+ email + ", localidad=" + localidad
+				+ ", direccion=" + direccion
+				+ "]\n";
+	}
+
 }
 
 
