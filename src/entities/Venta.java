@@ -39,4 +39,16 @@ public class Venta {
 		this._prenda = _prenda;
 	}
 	
+	@Override
+	public String toString() {
+		
+		return "Venta [Numero=" + nroVenta + ", Fecha=" + fechaVenta + ", Importe total=" + importeTotal 
+				+"\nDatos del cliente:\n" + "nombre de usuario: " + _cliente.getNomUsuario() + ", nombre: "
+				+ _cliente.getNombre() + ", apellido: " + _cliente.getApellido() + ", informacion de pago: " + _cliente.getInformacionPago()
+				+"\nDatos de la prenda:\n" + "nombre de la prenda: " + _prenda.getNombrePrenda() 
+				+ ", color: " + _prenda.getColor() + ", marca: " + _prenda.getMarca()
+				+ ", talle: " + _prenda.getTalle()
+				+ "]\n";
+	}
+	
 }

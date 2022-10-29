@@ -9,6 +9,7 @@ import entities.*;
 
 public class DataPrenda {
 	public LinkedList<Prenda> getAll(){
+		DataTipoPrenda dtp = new DataTipoPrenda();
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Prenda> prendas= new LinkedList<>();
@@ -19,13 +20,14 @@ public class DataPrenda {
 			if(rs!=null) {
 				while(rs.next()) {
 					Prenda p=new Prenda();
+					p.set_tipoPrenda(new TipoPrenda());
 					p.setCodPrenda(rs.getInt("codPrenda"));
 					p.setNombrePrenda(rs.getString("nombrePrenda"));
 					p.setColor(rs.getString("color"));
 					p.setMarca(rs.getString("marca"));
 					p.setTalle(rs.getString("talle"));
 					p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
-					p.get_tipoPrenda().setDescTipoPrenda(rs.getString("descTipoPrenda"));
+					dtp.setPrendas(p);
 					prendas.add(p);
 				}
 			}
@@ -55,17 +57,16 @@ public class DataPrenda {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select * from prenda where codPrenda=?"
 					);
-			stmt.setInt(1, PrendaToSearch.getCodPrenda());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				p=new Prenda();
+				p.set_tipoPrenda(new TipoPrenda());
 				p.setCodPrenda(rs.getInt("codPrenda"));
 				p.setNombrePrenda(rs.getString("nombrePrenda"));
 				p.setColor(rs.getString("color"));
 				p.setMarca(rs.getString("marca"));
 				p.setTalle(rs.getString("talle"));
 				p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
-				p.get_tipoPrenda().setDescTipoPrenda(rs.getString("descTipoPrenda"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,7 +101,6 @@ public class DataPrenda {
 				p.setMarca(rs.getString("marca"));
 				p.setTalle(rs.getString("talle"));
 				p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
-				p.get_tipoPrenda().setDescTipoPrenda(rs.getString("descTipoPrenda"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,30 +117,32 @@ public class DataPrenda {
 		return p;
 	}
 	
-	public Prenda getByTipoPrenda(Prenda pre) {
-		DataTipoPrenda dtp=new DataTipoPrenda();
-		Prenda p=null;
+	public void setVenta(Venta ven) {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select id,nombre,apellido,tipo_doc,nro_doc,email,tel,habilitado from persona where tipo_doc=? and nro_doc=?"
+					  "select prenda.* "
+					+ "from prenda "
+					+ "inner join venta "
+					+ "on prenda.codPrenda = venta.idPrenda "
+					+ "where nroVenta=?"
 					);
-			stmt.setInt(1, pre.get_tipoPrenda().getCodTipoPrenda());
-			stmt.setString(2, pre.get_tipoPrenda().getDescTipoPrenda());
-			rs=stmt.executeQuery();
-			if(rs!=null && rs.next()) {
-				p=new Prenda();
-				p.setCodPrenda(rs.getInt("codPrenda"));
-				p.setNombrePrenda(rs.getString("nombrePrenda"));
-				p.setColor(rs.getString("color"));
-				p.setMarca(rs.getString("marca"));
-				p.setTalle(rs.getString("talle"));
-				p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
-				p.get_tipoPrenda().setDescTipoPrenda(rs.getString("descTipoPrenda"));
-				//
-				dtp.setPrendas(p);
+			stmt.setInt(1, ven.getNroVenta());
+			rs= stmt.executeQuery();
+			if(rs!=null) {
+				while(rs.next()) {
+					Prenda pre = new Prenda();
+					pre.setCodPrenda(rs.getInt("codPrenda"));
+					pre.setNombrePrenda(rs.getString("nombrePrenda"));
+					pre.setColor(rs.getString("color"));
+					pre.setMarca(rs.getString("marca"));
+					pre.setTalle(rs.getString("talle"));
+					pre.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
+					ven.set_prenda(pre);
+				}
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -152,8 +154,6 @@ public class DataPrenda {
 				e.printStackTrace();
 			}
 		}
-		
-		return p;
 	}
 
 	public void add(Prenda prenda) {
@@ -162,7 +162,7 @@ public class DataPrenda {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into prenda(nombrePrenda, color, marca, talle, codTipoPrenda) values(?,?,?,?,?,?)",
+							"insert into prenda(nombrePrenda, color, marca, talle, codTipoPrenda) values(?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, prenda.getNombrePrenda());

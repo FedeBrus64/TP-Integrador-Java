@@ -124,7 +124,7 @@ public class DataUsuario {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into Usuario(nomUsuario,nombre,apellido,direccion,email,localidad) values(?,?,?,?,?,?)",
+							"insert into usuario(nomUsuario,nombre,apellido,direccion,email,localidad) values(?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, usuario.getNomUsuario());
@@ -186,7 +186,7 @@ public class DataUsuario {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from Usuario where idUsuario=?");
+							"delete from usuario where idUsuario=?");
 			stmt.setInt(1, Usuario.getIdUsuario());
 			stmt.executeUpdate();
 		} catch (SQLException e) {

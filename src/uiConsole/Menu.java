@@ -1,20 +1,23 @@
 package uiConsole;
 
 import java.util.Scanner;
+import data.*;
 
 import entities.*;
-import logic.Login;
+import views.*;
 
 public class Menu {
 	Scanner s=null;
-	Login ctrlLogin = new Login();
+	private ViewsCliente vc = new ViewsCliente();
+	private	ViewsEmpleado ve = new ViewsEmpleado();
+	private ViewsPrenda vp = new ViewsPrenda();
+	private	ViewsTipoPrenda vtp = new ViewsTipoPrenda();
+	private	ViewsUsuario vu = new ViewsUsuario();
+	private ViewsVenta vv = new ViewsVenta();
+	
 
 	public void start() {
 		s = new Scanner(System.in);
-		/*Usuario u=login();
-		System.out.println("Bienvenido "+u.getNombre()+" "+u.getApellido());
-		System.out.println();*/
-		
 		String command;
 		do {
 			command=getCommand();
@@ -28,20 +31,23 @@ public class Menu {
 
 	private void executeCommand(String command) {
 		switch (command) {
-		case "list":
-			System.out.println(ctrlLogin.getAll());
+		case "cliente":
+			vc.start();
 			break;
-		case "search":
-	
+		case "empleado":
+			ve.start();
 			break;
-		case "new":
-			
+		case "prenda":
+			vp.start();
 			break;
-		case "edit":
-			
+		case "tipoprenda":
+			vtp.start();
 			break;
-		case "delete":
-			
+		case "usuario":
+			vu.start();
+			break;
+		case "venta":
+			vv.start();
 			break;
 		default:
 			break;
@@ -50,30 +56,15 @@ public class Menu {
 
 	private String getCommand() {
 		System.out.println("Ingrese el comando según la opción que desee realizar");
-		System.out.println("list\t\tlistar todos");
-		System.out.println("find\t\tbuscar por tipo y nro de documento"); //solo debe devolver 1
-		System.out.println("search\t\tlistar por apellido"); //puede devolver varios
-		System.out.println("new\t\tcrea una nueva Usuario y asigna un rol existente");
-		System.out.println("edit\t\tbusca por tipo y nro de documento y actualiza todos los datos");
-		System.out.println("delete\t\tborra por tipo y nro de documento");
+		System.out.println("cliente\t\tmenu de clientes");
+		System.out.println("empleado\t\tmenu de empleados"); //solo debe devolver 1
+		System.out.println("prenda\t\tmenu de prendas"); //puede devolver varios
+		System.out.println("tipoprenda\t\tmenu de tipos de prenda");
+		System.out.println("usuario\t\tmenu de usuarios");
+		System.out.println("venta\t\tmenu de ventas");
 		System.out.println();
 		System.out.print("comando: ");
 		return s.nextLine();
 	}
-	/*
-	public Usuario login() {
-		Usuario p=new Usuario();
-		
-		System.out.print("Email: ");
-		p.setEmail(s.nextLine());
-
-		System.out.print("password: ");
-		p.setContraseña(s.nextLine());
-		
-		p=ctrlLogin.validate(p);
-		
-		return p;
-		
-	}*/
-
+	
 }

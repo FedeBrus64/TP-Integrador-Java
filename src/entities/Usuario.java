@@ -82,7 +82,7 @@ public class Usuario {
 	@Override
 	public String toString() {
 		
-		return "Product [id=" + idUsuario + ", Nombre de usuario=" + nomUsuario + ", nombre=" + nombre 
+		return "User [id=" + idUsuario + ", Nombre de usuario=" + nomUsuario + ", nombre=" + nombre 
 				+ ", apellido=" + apellido + ", email="+ email + ", localidad=" + localidad
 				+ ", direccion=" + direccion
 				+ "]\n";
