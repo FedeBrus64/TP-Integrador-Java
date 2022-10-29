@@ -15,4 +15,11 @@ public class TipoPrenda {
 	public void setDescTipoPrenda(String descTipoPrenda) {
 		this.descTipoPrenda = descTipoPrenda;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return "Tipo de Prenda [Codigo=" + codTipoPrenda + ", Nombre=" + descTipoPrenda  
+				+ "]\n";
+	}
 }

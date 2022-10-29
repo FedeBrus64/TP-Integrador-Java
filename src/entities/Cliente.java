@@ -16,5 +16,14 @@ public class Cliente extends Usuario {
 		this.codigoPostal = codigoPostal;
 	}
 	
+	@Override
+	public String toString() {
+		
+		return "User [id=" + super.getIdUsuario() + ", Nombre de usuario=" + super.getNomUsuario() + ", nombre=" + super.getNombre() 
+				+ ", apellido=" + super.getApellido() + ", email="+ super.getEmail() + ", localidad=" + super.getLocalidad()
+				+ ", direccion=" + super.getDireccion() + ", Información de pago=" + informacionPago
+				+ ", Codigo postal=" + codigoPostal
+				+ "]\n";
+	}
 
 }

@@ -4,30 +4,32 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import entities.*;
 
 public class DataEmpleado {
 	
-	public LinkedList<Usuario> getAll(){
+	public LinkedList<Empleado> getAll(){
 		Statement stmt=null;
 		ResultSet rs=null;
-		LinkedList<Usuario> usuarios= new LinkedList<>();
+		LinkedList<Empleado> empleados= new LinkedList<>();
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
 			rs= stmt.executeQuery("select * from usuario");
 			if(rs!=null) {
 				while(rs.next()) {
-					Usuario u=new Usuario();
-					u.setIdUsuario(rs.getInt("idUsuario"));
-					u.setNomUsuario(rs.getString("nomUsuario"));
-					u.setNombre(rs.getString("nombre"));
-					u.setApellido(rs.getString("apellido"));
-					u.setDireccion(rs.getString("direccion"));
-					u.setEmail(rs.getString("email"));
-					u.setLocalidad(rs.getString("localidad"));
-					usuarios.add(u);
+					Empleado emp=new Empleado();
+					emp.setIdUsuario(rs.getInt("idEmpleado"));
+					emp.setNomUsuario(rs.getString("nomEmpleado"));
+					emp.setNombre(rs.getString("nombre"));
+					emp.setApellido(rs.getString("apellido"));
+					emp.setDireccion(rs.getString("direccion"));
+					emp.setEmail(rs.getString("email"));
+					emp.setLocalidad(rs.getString("localidad"));
+					emp.setFechaIngreso(rs.getObject("fechaIngreso",LocalDateTime.class));
+					empleados.add(emp);
 				}
 			}
 			
@@ -45,28 +47,29 @@ public class DataEmpleado {
 		}
 		
 		
-		return usuarios;
+		return empleados;
 	}
 	
-	public Usuario getByIdUsuario(Usuario UsuarioToSearch) {
-		Usuario u=null;
+	public Empleado getByIdUsuario(Empleado EmpleadoToSearch) {
+		Empleado emp=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select * from usuario where idUsuario=?"
 					);
-			stmt.setInt(1, UsuarioToSearch.getIdUsuario());
+			stmt.setInt(1, EmpleadoToSearch.getIdUsuario());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
-				u=new Usuario();
-				u.setIdUsuario(rs.getInt("idUsuario"));
-				u.setNomUsuario(rs.getString("nomUsuario"));
-				u.setNombre(rs.getString("nombre"));
-				u.setApellido(rs.getString("apellido"));
-				u.setDireccion(rs.getString("direccion"));
-				u.setEmail(rs.getString("email"));
-				u.setLocalidad(rs.getString("localidad"));
+				emp=new Empleado();
+				emp.setIdUsuario(rs.getInt("idUsuario"));
+				emp.setNomUsuario(rs.getString("nomUsuario"));
+				emp.setNombre(rs.getString("nombre"));
+				emp.setApellido(rs.getString("apellido"));
+				emp.setDireccion(rs.getString("direccion"));
+				emp.setEmail(rs.getString("email"));
+				emp.setLocalidad(rs.getString("localidad"));
+				emp.setFechaIngreso(rs.getObject("fechaIngreso",LocalDateTime.class));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,28 +83,29 @@ public class DataEmpleado {
 			}
 		}
 		
-		return u;
+		return emp;
 	}
 	
-	public Usuario getByNomUsuario(Usuario UsuarioToSearch) {
-		Usuario u=null;
+	public Empleado getByNomUsuario(Empleado EmpleadoToSearch) {
+		Empleado emp=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select * from usuario where nomUsuario=?"
 					);
-			stmt.setInt(1, UsuarioToSearch.getIdUsuario());
+			stmt.setInt(1, EmpleadoToSearch.getIdUsuario());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
-				u=new Usuario();
-				u.setIdUsuario(rs.getInt("idUsuario"));
-				u.setNomUsuario(rs.getString("nomUsuario"));
-				u.setNombre(rs.getString("nombre"));
-				u.setApellido(rs.getString("apellido"));
-				u.setDireccion(rs.getString("direccion"));
-				u.setEmail(rs.getString("email"));
-				u.setLocalidad(rs.getString("localidad"));
+				emp=new Empleado();
+				emp.setIdUsuario(rs.getInt("idEmpleado"));
+				emp.setNomUsuario(rs.getString("nomEmpleado"));
+				emp.setNombre(rs.getString("nombre"));
+				emp.setApellido(rs.getString("apellido"));
+				emp.setDireccion(rs.getString("direccion"));
+				emp.setEmail(rs.getString("email"));
+				emp.setLocalidad(rs.getString("localidad"));
+				emp.setFechaIngreso(rs.getObject("fechaIngreso",LocalDateTime.class));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,29 +119,30 @@ public class DataEmpleado {
 			}
 		}
 		
-		return u;
+		return emp;
 	}
 
-	public void add(Usuario usuario) {
+	public void add(Empleado empleado) {
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into Usuario(nomUsuario,nombre,apellido,direccion,email,localidad) values(?,?,?,?,?,?)",
+							"insert into usuario(nomUsuario,nombre,apellido,direccion,email,localidad,fechaIngreso) values(?,?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
-			stmt.setString(1, usuario.getNomUsuario());
-			stmt.setString(2, usuario.getNombre());
-			stmt.setString(3, usuario.getApellido());
-			stmt.setString(4, usuario.getDireccion());
-			stmt.setString(5, usuario.getEmail());
-			stmt.setString(6, usuario.getLocalidad());
+			stmt.setString(1, empleado.getNomUsuario());
+			stmt.setString(2, empleado.getNombre());
+			stmt.setString(3, empleado.getApellido());
+			stmt.setString(4, empleado.getDireccion());
+			stmt.setString(5, empleado.getEmail());
+			stmt.setString(6, empleado.getLocalidad());
+			stmt.setObject(7, empleado.getFechaIngreso());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next()){
-                usuario.setIdUsuario(keyResultSet.getInt(1));
+                empleado.setIdUsuario(keyResultSet.getInt(1));
             }
 
 			
@@ -155,19 +160,20 @@ public class DataEmpleado {
 
 	}
 	
-	public void update(Usuario usuario) {
+	public void update(Empleado empleado) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update usuario set nomUsuario=?,nombre=?,apellido=?,direccion=?,email=?,localidad=? where idUsuario=?");
-			stmt.setString(1, usuario.getNomUsuario());
-			stmt.setString(2, usuario.getNombre());
-			stmt.setString(3, usuario.getApellido());
-			stmt.setString(4, usuario.getDireccion());
-			stmt.setString(5, usuario.getEmail());
-			stmt.setString(6, usuario.getLocalidad());
-			stmt.setInt(7, usuario.getIdUsuario());
+							"update usuario set nomUsuario=?,nombre=?,apellido=?,direccion=?,email=?,localidad=?,fechaIngreso=? where idEmpleado=?");
+			stmt.setString(1, empleado.getNomUsuario());
+			stmt.setString(2, empleado.getNombre());
+			stmt.setString(3, empleado.getApellido());
+			stmt.setString(4, empleado.getDireccion());
+			stmt.setString(5, empleado.getEmail());
+			stmt.setString(6, empleado.getLocalidad());
+			stmt.setObject(7, empleado.getFechaIngreso());
+			stmt.setInt(8, empleado.getIdUsuario());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
@@ -181,13 +187,13 @@ public class DataEmpleado {
 		}
 	}
 	
-	public void remove(Usuario Usuario) {
+	public void remove(Empleado Empleado) {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from Usuario where idUsuario=?");
-			stmt.setInt(1, Usuario.getIdUsuario());
+							"delete from usuario where idUsuario=?");
+			stmt.setInt(1, Empleado.getIdUsuario());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();

@@ -12,4 +12,13 @@ public class Empleado extends Usuario {
 	public void setFechaIngreso(LocalDateTime fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return "User [id=" + super.getIdUsuario() + ", Nombre de usuario=" + super.getNomUsuario() + ", nombre=" + super.getNombre() 
+				+ ", apellido=" + super.getApellido() + ", email="+ super.getEmail() + ", localidad=" + super.getLocalidad()
+				+ ", direccion=" + super.getDireccion() + ", fecha de ingreso=" + fechaIngreso
+				+ "]\n";
+	}
 }

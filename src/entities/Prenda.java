@@ -43,4 +43,13 @@ public class Prenda {
 	public void set_tipoPrenda(TipoPrenda _tipoPrenda) {
 		this._tipoPrenda = _tipoPrenda;
 	}
+	
+	@Override
+	public String toString() {
+		
+		return "Prenda [Codigo=" + codPrenda + ", Nombre=" + nombrePrenda + ", Talle=" + talle
+				+ ", Color=" + color + ", Marca=" + marca +"\nDatos del tipo de prenda:\n" +
+				"codigo=" + _tipoPrenda.getCodTipoPrenda() + ", descripcion=" + _tipoPrenda.getDescTipoPrenda()
+				+ "]\n";
+	}
 }

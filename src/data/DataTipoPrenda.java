@@ -55,8 +55,8 @@ public class DataTipoPrenda {
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				tp=new TipoPrenda();
-				tp.setCodTipoPrenda(rs.getInt("id"));
-				tp.setDescTipoPrenda(rs.getString("descripcion"));
+				tp.setCodTipoPrenda(rs.getInt("codTipoPrenda"));
+				tp.setDescTipoPrenda(rs.getString("descTipoPrenda"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -144,7 +144,7 @@ public class DataTipoPrenda {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into tipoprenda(descripcion) values(?)",
+							"insert into tipoprenda(descTipoPrenda) values(?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, TipoPrenda.getDescTipoPrenda());
@@ -175,7 +175,7 @@ public class DataTipoPrenda {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update tipoprenda set descripcion=? where id=?");
+							"update tipoprenda set descripcion=? where codTipoPrenda=?");
 			stmt.setString(1, TipoPrenda.getDescTipoPrenda());
 			stmt.setInt(2, TipoPrenda.getCodTipoPrenda());
 			stmt.executeUpdate();
@@ -196,7 +196,7 @@ public class DataTipoPrenda {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"delete from tipoprenda where id=?");
+							"delete from tipoprenda where codTipoPrenda=?");
 			stmt.setInt(1, TipoPrenda.getCodTipoPrenda());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
