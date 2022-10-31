@@ -30,6 +30,7 @@
     	DataTipoPrenda dtp = new DataTipoPrenda();
 		LinkedList<TipoPrenda> ltp =  dtp.getAll();
     	LinkedList<Prenda> lp = (LinkedList<Prenda>)request.getAttribute("listaPrendas");
+    	Prenda upre = (Prenda)request.getAttribute("updatePrenda");
 	%>
 	
 </head>
@@ -64,7 +65,6 @@
                     				<td><%=pre.get_tipoPrenda().getDescTipoPrenda()%></td>
                     				
                     				<td><a href='EditPrenda?updPre=<%=pre.getCodPrenda()%>' class=''>Edit</a></td><!-- editar -->
-                    				<td><a href='Prendas?delPre=<%=pre.getCodPrenda()%>' class=''>Delete</a></td><!-- borrar -->
                     			</tr>
                     		<% } %>
                     		</tbody>	
@@ -73,19 +73,23 @@
 			</div>
 		</div>
 	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="Prendas" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Crear nueva prenda</h2>
+	<form class="form-list" action="EditPrenda" method="post">
+      <h2 class="h3 mb-3 font-weight-normal">Editar prenda</h2>
+      
+      <label for="inputCodPrenda" class="sr-only">Codigo de la prenda actual</label>
+      <input id="inputCodPrenda" name="codPrenda" class="form-control" required type="number" readonly value="<%=upre.getCodPrenda()%>">
+      
       <label for="inputNombrePrenda" class="sr-only">Nombre de la prenda</label>
-      <input id="inputNombrePrenda" name="nombrePrenda" class="form-control" placeholder="Nombre de la prenda" required type="text">
+      <input id="inputNombrePrenda" name="nombrePrenda" class="form-control" placeholder="Nombre de la prenda" required type="text" value="<%=upre.getNombrePrenda()%>">
       
       <label for="inputTalle" class="sr-only">Talle</label>
-      <input id="inputTalle" name="talle" class="form-control" placeholder="Talle" required type="text">
+      <input id="inputTalle" name="talle" class="form-control" placeholder="Talle" required type="text" value="<%=upre.getTalle()%>">
       
       <label for="inputColor" class="sr-only">Color</label>
-      <input id="inputColor" name="color" class="form-control" placeholder="Color" required type="text">
+      <input id="inputColor" name="color" class="form-control" placeholder="Color" required type="text" value="<%=upre.getColor()%>">
       
       <label for="inputMarca" class="sr-only">Marca</label>
-      <input id="inputMarca" name="marca" class="form-control" placeholder="Marca" required type="text">
+      <input id="inputMarca" name="marca" class="form-control" placeholder="Marca" required type="text" value="<%=upre.getMarca()%>">
       
       <label for="inputTipoPrenda" class="sr-only">Tipo de Prenda</label>
       <select name="tipoPrenda" id="inputTipoPrenda" class="sr-only">
@@ -94,7 +98,7 @@
       	<% } %>
       </select>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
     </form>
     </div>
 </body>

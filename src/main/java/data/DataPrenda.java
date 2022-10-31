@@ -57,6 +57,7 @@ public class DataPrenda {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"select * from prenda where codPrenda=?"
 					);
+			stmt.setInt(1, PrendaToSearch.getCodPrenda());
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				p=new Prenda();
@@ -133,6 +134,7 @@ public class DataPrenda {
 			if(rs!=null) {
 				while(rs.next()) {
 					Prenda pre = new Prenda();
+					pre.set_tipoPrenda(new TipoPrenda());
 					pre.setCodPrenda(rs.getInt("codPrenda"));
 					pre.setNombrePrenda(rs.getString("nombrePrenda"));
 					pre.setColor(rs.getString("color"));

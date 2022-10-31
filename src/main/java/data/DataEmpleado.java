@@ -165,7 +165,7 @@ public class DataEmpleado {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update usuario set nomUsuario=?,nombre=?,apellido=?,direccion=?,email=?,localidad=?,fechaIngreso=? where idEmpleado=?");
+							"update usuario set nomUsuario=?,nombre=?,apellido=?,direccion=?,email=?,localidad=?,fechaIngreso=? where idUsuario=?");
 			stmt.setString(1, empleado.getNomUsuario());
 			stmt.setString(2, empleado.getNombre());
 			stmt.setString(3, empleado.getApellido());

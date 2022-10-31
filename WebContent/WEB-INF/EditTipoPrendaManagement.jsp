@@ -28,6 +28,7 @@
     <%
 		DataTipoPrenda dtp = new DataTipoPrenda();
     	LinkedList<TipoPrenda> ltp = (LinkedList<TipoPrenda>)request.getAttribute("listaTiposPrendas");
+    	TipoPrenda utp = (TipoPrenda)request.getAttribute("updateTipoPrenda");
 	%>
 	
 </head>
@@ -35,7 +36,7 @@
 	<div class="container">
 		<div class="row">
         	<h1>Tipos de Prenda</h1>
-        	<a class="btn btn-lg btn-primary btn-block" href='Signin'>Atras</a>
+        	<a class="btn btn-lg btn-primary btn-block" href='TiposPrendas'>Atras</a>
             	<div class="col-12 col-sm-12 col-lg-12">
                 	<div class="table-responsive">
                     	<table class="table">
@@ -53,8 +54,8 @@
                     				<td><%=tp.getCodTipoPrenda()%></td>
                     				<td><%=tp.getDescTipoPrenda()%></td>
                     				
-                    				<td><a href='EditTipoPrenda?updTp=<%=tp.getCodTipoPrenda()%>' class=''>Edit</a></td>
-                    				<td><a href='TiposPrendas?delTp=<%=tp.getCodTipoPrenda()%>' class=''>Delete</a></td><!-- borrar -->
+                    				<td><input type="Submit" name="edit_tipoprenda" value="Edit"/></td><!-- editar -->
+                    				<td><a href='TiposPrendas?updTp=<%=tp.getCodTipoPrenda()%>' class=''>Edit</a></td>
                     			</tr>
                     		<% } %>
                     		</tbody>	
@@ -64,12 +65,16 @@
 			</div>
 		</div>
 	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="TiposPrendas" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Crear nuevo Tipo de Prenda</h2>
-      <label for="inputDescripcion" class="sr-only">Descripcion</label>
-      <input id="inputDescripcion" name="descripcion" class="form-control" placeholder="Descripcion" required type="text">
+	<form class="form-list" action="EditTipoPrenda" method="post">
+      <h2 class="h3 mb-3 font-weight-normal">Editar Tipo de Prenda</h2>
       
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+      <label for="inputId" class="sr-only">ID del tipo de prenda a editar</label>
+      <input id="inputId" name="codtipoprenda" value="<%=utp.getCodTipoPrenda()%>" class="form-control" required type="number" readonly>
+      
+      <label for="inputDescripcion" class="sr-only">Descripcion</label>
+      <input id="inputDescripcion" name="descripcion" value="<%=utp.getDescTipoPrenda()%>" class="form-control" placeholder="Descripcion" required type="text">
+      
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
     </form>
     </div>
 </body>

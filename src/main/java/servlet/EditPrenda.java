@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.*;
-import data.*;
+import data.DataPrenda;
+import data.DataTipoPrenda;
+import entities.Prenda;
+import entities.TipoPrenda;
 
 /**
- * Servlet implementation class Prendas
+ * Servlet implementation class EditPrenda
  */
-@WebServlet({ "/Prendas", "/prendas" })
-public class Prendas extends HttpServlet {
+@WebServlet({ "/EditPrenda", "/editprenda" })
+public class EditPrenda extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Prendas() {
+    public EditPrenda() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +35,16 @@ public class Prendas extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DataPrenda dp = new DataPrenda();
-		
-		if(request.getParameter("delPre") != null) {
-			Prenda delPre = new Prenda();
-			delPre.setCodPrenda(Integer.parseInt(request.getParameter("delPre")));
-			Prenda deletedPrenda = dp.getByCodPrenda(delPre);
-			dp.remove(deletedPrenda);
-		}
+		Prenda updPre = new Prenda();
 		
 		LinkedList<Prenda> prendas = dp.getAll();
 		request.setAttribute("listaPrendas", prendas);
 		
-		request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
+		updPre.setCodPrenda(Integer.parseInt(request.getParameter("updPre")));
+		Prenda updatePrenda = dp.getByCodPrenda(updPre);
+		request.setAttribute("updatePrenda", updatePrenda);
+		
+		request.getRequestDispatcher("WEB-INF/EditPrendaManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -57,6 +57,7 @@ public class Prendas extends HttpServlet {
 		DataPrenda dp = new DataPrenda();
 		DataTipoPrenda dtp = new DataTipoPrenda();
 		
+		String codPrenda = request.getParameter("codPrenda");
 		String nombrePrenda = request.getParameter("nombrePrenda");
 		String talle = request.getParameter("talle");
 		String color = request.getParameter("color");
@@ -66,13 +67,14 @@ public class Prendas extends HttpServlet {
 		
 		TipoPrenda tipoPrenda = dtp.getById(tp);
 		
+		pre.setCodPrenda(Integer.parseInt(codPrenda));
 		pre.setNombrePrenda(nombrePrenda);
 		pre.setTalle(talle);
 		pre.setColor(color);
 		pre.setMarca(marca);
 		pre.set_tipoPrenda(tipoPrenda);
 		
-		dp.add(pre);
+		dp.update(pre);
 		
 		LinkedList<Prenda> prendas = dp.getAll();
 		

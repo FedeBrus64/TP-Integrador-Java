@@ -2,8 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.util.LinkedList;
-import java.time.*;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.*;
 import data.*;
+import entities.*;
 
 /**
- * Servlet implementation class Empleados
+ * Servlet implementation class EditUsuario
  */
-@WebServlet({ "/Empleados", "/empleados" })
-public class Empleados extends HttpServlet {
+@WebServlet({ "/EditUsuario", "/editusuario" })
+public class EditUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Empleados() {
+    public EditUsuario() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,19 +32,17 @@ public class Empleados extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		DataEmpleado de = new DataEmpleado();
+		DataUsuario du = new DataUsuario();
+		Usuario updUsu = new Usuario();
 		
-		if(request.getParameter("delEmp") != null) {
-			Empleado delEmp = new Empleado();
-			delEmp.setIdUsuario(Integer.parseInt(request.getParameter("delEmp")));
-			Empleado deletedEmpleado = de.getByIdUsuario(delEmp);
-			de.remove(deletedEmpleado);
-		}
+		LinkedList<Usuario> usuarios = du.getAll();
+		request.setAttribute("listaUsuarios", usuarios);
 		
-		LinkedList<Empleado> empleados = de.getAll();
-		request.setAttribute("listaEmpleados", empleados);
+		updUsu.setIdUsuario(Integer.parseInt(request.getParameter("updUsu")));
+		Usuario updateUsuario = du.getByIdUsuario(updUsu);
+		request.setAttribute("updateUsuario", updateUsuario);
 		
-		request.getRequestDispatcher("WEB-INF/EmpleadoManagement.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/EditUsuarioManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -54,11 +50,10 @@ public class Empleados extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Usuario usu = new Usuario();
+		DataUsuario du = new DataUsuario();
 		
-		
-		Empleado emp = new Empleado();
-		DataEmpleado de = new DataEmpleado();
-		
+		String idUsuario = request.getParameter("idUsuario");
 		String nomUsuario = request.getParameter("nomUsuario");
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
@@ -66,26 +61,23 @@ public class Empleados extends HttpServlet {
 		String direccion = request.getParameter("direccion");
 		String localidad = request.getParameter("localidad");
 		String password = request.getParameter("password");
-		String fechaIngreso = request.getParameter("fechaIngreso") + "T00:00:00";
 		
+		usu.setIdUsuario(Integer.parseInt(idUsuario));
+		usu.setNomUsuario(nomUsuario);
+		usu.setContraseña(password);
+		usu.setNombre(nombre);
+		usu.setApellido(apellido);
+		usu.setEmail(email);
+		usu.setDireccion(direccion);
+		usu.setLocalidad(localidad);
 		
-		emp.setNomUsuario(nomUsuario);
-		emp.setContraseña(password);
-		emp.setNombre(nombre);
-		emp.setApellido(apellido);
-		emp.setEmail(email);
-		emp.setDireccion(direccion);
-		emp.setLocalidad(localidad);
-		emp.setFechaIngreso(LocalDateTime.parse(fechaIngreso));
+		du.update(usu);
 		
-		de.add(emp);
+		LinkedList<Usuario> usuarios = du.getAll();
 		
-		LinkedList<Empleado> empleados = de.getAll();
+		request.setAttribute("listaUsuarios", usuarios);
 		
-		request.setAttribute("listaEmpleados", empleados);
-		
-		request.getRequestDispatcher("WEB-INF/EmpleadoManagement.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
 		
 	}
 

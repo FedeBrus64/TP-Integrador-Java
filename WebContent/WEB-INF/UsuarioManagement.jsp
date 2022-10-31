@@ -1,5 +1,6 @@
 <%@ page import="java.util.LinkedList" %>
 <%@ page import="entities.Usuario" %>
+<%@ page import="data.DataUsuario" %>
 <%@ page import="java.util.LinkedList" %>
 
 
@@ -25,7 +26,7 @@
     <link href="style/list.css" rel="stylesheet">
     
     <%
-
+		DataUsuario du = new DataUsuario();
     	LinkedList<Usuario> lu = (LinkedList<Usuario>)request.getAttribute("listaUsuarios");
 	%>
 	
@@ -61,8 +62,8 @@
                     				<td><%=usu.getDireccion()%></td>
                     				<td><%=usu.getLocalidad()%></td>
                     				
-                    				<td></td><!-- editar -->
-                    				<td></td><!-- borrar -->
+                    				<td><a href='EditUsuario?updUsu=<%=usu.getIdUsuario()%>' class=''>Edit</a></td><!-- editar -->
+                    				<td><a href='Usuarios?delUsu=<%=usu.getIdUsuario()%>' class=''>Delete</a></td><!-- borrar -->
                     			</tr>
                     		<% } %>
                     		</tbody>	
@@ -71,5 +72,33 @@
 				</div>
 			</div>
 		</div>
+	<a class="btn btn-lg btn-primary btn-block" href='Signin'>Atras</a>
+	<div class ='col-12 col-sm-12 col-lg-12'>
+	<form class="form-list" action="Usuarios" method="post">
+      <h2 class="h3 mb-3 font-weight-normal">Crear nuevo Usuario</h2>
+      <label for="inputNomUsuario" class="sr-only">Nombre de usuario</label>
+      <input id="inputNomUsuario" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required type="text">
+      
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input id="inputPassword" name="password" class="form-control" placeholder="Password" required type="password">
+      
+      <label for="inputNombre" class="sr-only">Nombre</label>
+      <input id="inputNombre" name="nombre" class="form-control" placeholder="Nombre" required type="text">
+      
+      <label for="inputApellido" class="sr-only">Apellido</label>
+      <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required type="text">
+      
+      <label for="inputEmail" class="sr-only">Email</label>
+      <input id="inputEmail" name="email" class="form-control" placeholder="Email" required type="email">
+      
+      <label for="inputLocalidad" class="sr-only">Localidad</label>
+      <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text">
+      
+      <label for="inputDireccion" class="sr-only">Direccion</label>
+      <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text">
+      
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+    </form>
+    </div>
 </body>
 </html>

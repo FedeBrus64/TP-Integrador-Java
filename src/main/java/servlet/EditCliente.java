@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.*;
-import data.*;
+import data.DataCliente;
+import entities.Cliente;
 
 /**
- * Servlet implementation class Clientes
+ * Servlet implementation class EditCliente
  */
-@WebServlet({ "/Clientes", "/clientes" })
-public class Clientes extends HttpServlet {
+@WebServlet({ "/EditCliente", "/editcliente" })
+public class EditCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Clientes() {
+    public EditCliente() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +33,16 @@ public class Clientes extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DataCliente dc = new DataCliente();
-		
-		if(request.getParameter("delCli") != null) {
-			Cliente delCli = new Cliente();
-			delCli.setIdUsuario(Integer.parseInt(request.getParameter("delCli")));
-			Cliente deletedCliente = dc.getByIdUsuario(delCli);
-			dc.remove(deletedCliente);
-		}
+		Cliente updCli = new Cliente();
 		
 		LinkedList<Cliente> clientes = dc.getAll();
 		request.setAttribute("listaClientes", clientes);
 		
-		request.getRequestDispatcher("WEB-INF/ClienteManagement.jsp").forward(request, response);
+		updCli.setIdUsuario(Integer.parseInt(request.getParameter("updCli")));
+		Cliente updateCliente = dc.getByIdUsuario(updCli);
+		request.setAttribute("updateCliente", updateCliente);
+		
+		request.getRequestDispatcher("WEB-INF/EditClienteManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -55,6 +53,7 @@ public class Clientes extends HttpServlet {
 		Cliente cli = new Cliente();
 		DataCliente dc = new DataCliente();
 		
+		String idUsuario = request.getParameter("idUsuario");
 		String nomUsuario = request.getParameter("nomUsuario");
 		String nombre = request.getParameter("nombre");
 		String apellido = request.getParameter("apellido");
@@ -65,6 +64,7 @@ public class Clientes extends HttpServlet {
 		String informacionPago = request.getParameter("informacionPago");
 		String codigoPostal = request.getParameter("codigoPostal");
 		
+		cli.setIdUsuario(Integer.parseInt(idUsuario));
 		cli.setNomUsuario(nomUsuario);
 		cli.setContraseña(password);
 		cli.setNombre(nombre);
@@ -75,7 +75,7 @@ public class Clientes extends HttpServlet {
 		cli.setInformacionPago(informacionPago);
 		cli.setCodigoPostal(Integer.parseInt(codigoPostal));
 		
-		dc.add(cli);
+		dc.update(cli);
 		
 		LinkedList<Cliente> clientes = dc.getAll();
 		

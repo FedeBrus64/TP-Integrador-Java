@@ -175,7 +175,7 @@ public class DataTipoPrenda {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update tipoprenda set descripcion=? where codTipoPrenda=?");
+							"update tipoprenda set descTipoPrenda=? where codTipoPrenda=?");
 			stmt.setString(1, TipoPrenda.getDescTipoPrenda());
 			stmt.setInt(2, TipoPrenda.getCodTipoPrenda());
 			stmt.executeUpdate();

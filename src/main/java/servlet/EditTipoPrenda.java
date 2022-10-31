@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.*;
-import data.*;
+import data.DataTipoPrenda;
+import entities.TipoPrenda;
 
 /**
- * Servlet implementation class TiposPrendas
+ * Servlet implementation class EditTipoPrenda
  */
-@WebServlet({ "/TiposPrendas", "/tiposprendas", "/tiposPrendas" })
-public class TiposPrendas extends HttpServlet {
+@WebServlet({ "/EditTipoPrenda", "/edittipoprenda" })
+public class EditTipoPrenda extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TiposPrendas() {
+    public EditTipoPrenda() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,19 +33,15 @@ public class TiposPrendas extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DataTipoPrenda dtp = new DataTipoPrenda();
-		
-		if(request.getParameter("delTp") != null) {
-			TipoPrenda delTp = new TipoPrenda();
-			delTp.setCodTipoPrenda(Integer.parseInt(request.getParameter("delTp")));
-			TipoPrenda deletedTipoPrenda = dtp.getById(delTp);
-			dtp.remove(deletedTipoPrenda);	
-		}
+		TipoPrenda updTp = new TipoPrenda();
 		
 		LinkedList<TipoPrenda> tiposprendas = dtp.getAll();
 		request.setAttribute("listaTiposPrendas", tiposprendas);
+		updTp.setCodTipoPrenda(Integer.parseInt(request.getParameter("updTp")));
+		TipoPrenda updateTipoPrenda = dtp.getById(updTp);
+		request.setAttribute("updateTipoPrenda", updateTipoPrenda);
 		
-		request.getRequestDispatcher("WEB-INF/TipoPrendaManagement.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("WEB-INF/EditTipoPrendaManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -56,22 +52,19 @@ public class TiposPrendas extends HttpServlet {
 		TipoPrenda tp = new TipoPrenda();
 		DataTipoPrenda dtp = new DataTipoPrenda();
 		
+		String codtipoprenda = request.getParameter("codtipoprenda");
 		String descripcion = request.getParameter("descripcion");
 		
+		tp.setCodTipoPrenda(Integer.parseInt(codtipoprenda));
 		tp.setDescTipoPrenda(descripcion);
 		
-		dtp.add(tp);
+		dtp.update(tp);
 		
 		LinkedList<TipoPrenda> tiposprendas = dtp.getAll();
 		
 		request.setAttribute("listaTiposPrendas", tiposprendas);
 		
 		request.getRequestDispatcher("WEB-INF/TipoPrendaManagement.jsp").forward(request, response);
-	}
-	
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

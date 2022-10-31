@@ -25,8 +25,8 @@
     <link href="style/list.css" rel="stylesheet">
     
     <%
-
     	LinkedList<Empleado> le = (LinkedList<Empleado>)request.getAttribute("listaEmpleados");
+    	Empleado uemp = (Empleado)request.getAttribute("updateEmpleado");
 	%>
 	
 </head>
@@ -34,7 +34,7 @@
 	<div class="container">
 		<div class="row">
         	<h1>Empleados</h1>
-        	<a class="btn btn-lg btn-primary btn-block" href='Signin'>Atras</a>
+        	<a class="btn btn-lg btn-primary btn-block" href='Empleados'>Atras</a>
             	<div class="col-12 col-sm-12 col-lg-12">
                 	<div class="table-responsive">
                     	<table class="table">
@@ -65,7 +65,6 @@
                     				<td><%=emp.getFechaIngreso()%></td>
                     				
                     				<td><a href='EditEmpleado?updEmp=<%=emp.getIdUsuario()%>' class=''>Edit</a></td><!-- editar -->
-                    				<td><a href='Empleados?delEmp=<%=emp.getIdUsuario()%>' class=''>Delete</a></td><!-- borrar -->
                     			</tr>
                     		<% } %>
                     		</tbody>	
@@ -74,33 +73,38 @@
 			</div>
 		</div>
 	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="Empleados" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Crear nuevo Empleado</h2>
+	<form class="form-list" action="EditEmpleado" method="post">
+      <h2 class="h3 mb-3 font-weight-normal">Editar Empleado</h2>
+      
+      <label for="inputIdUsuario" class="sr-only">ID del cliente actual</label>
+      <input id="inputIdUsuario" name="idUsuario" class="form-control" required type="number" readonly value="<%=uemp.getIdUsuario()%>">
+      
+      
       <label for="inputNomUsuario" class="sr-only">Nombre de usuario</label>
-      <input id="inputNomUsuario" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required type="text">
+      <input id="inputNomUsuario" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required type="text" value="<%=uemp.getNomUsuario()%>">
       
       <label for="inputPassword" class="sr-only">Password</label>
-      <input id="inputPassword" name="password" class="form-control" placeholder="Password" required type="password">
+      <input id="inputPassword" name="password" class="form-control" placeholder="Password" required type="password" value="<%=uemp.getContraseña()%>">
       
       <label for="inputNombre" class="sr-only">Nombre</label>
-      <input id="inputNombre" name="nombre" class="form-control" placeholder="Nombre" required type="text">
+      <input id="inputNombre" name="nombre" class="form-control" placeholder="Nombre" required type="text" value="<%=uemp.getNombre()%>">
       
       <label for="inputApellido" class="sr-only">Apellido</label>
-      <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required type="text">
+      <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required type="text" value="<%=uemp.getApellido()%>">
       
       <label for="inputEmail" class="sr-only">Email</label>
-      <input id="inputEmail" name="email" class="form-control" placeholder="Email" required type="email">
+      <input id="inputEmail" name="email" class="form-control" placeholder="Email" required type="email" value="<%=uemp.getEmail()%>">
       
       <label for="inputLocalidad" class="sr-only">Localidad</label>
-      <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text">
+      <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text" value="<%=uemp.getLocalidad()%>">
       
       <label for="inputDireccion" class="sr-only">Direccion</label>
-      <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text">
+      <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text" value="<%=uemp.getDireccion()%>">
       
       <label for="inputFechaIngreso" class="sr-only">Fecha de Ingreso</label>
-      <input id="inputFechaIngreso" name="fechaIngreso" class="form-control" required type="date">
+      <input id="inputFechaIngreso" name="fechaIngreso" class="form-control" required type="date" value="<%=uemp.getFechaIngreso()%>">
       
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
     </form>
     </div>
 </body>

@@ -22,6 +22,8 @@ public class DataVenta {
 			if(rs!=null) {
 				while(rs.next()) {
 					Venta v=new Venta();
+					v.set_cliente(new Cliente());
+					v.set_prenda(new Prenda());
 					v.setNroVenta(rs.getInt("nroVenta"));
 					v.setFechaVenta(rs.getObject("fechaVenta",LocalDateTime.class));
 					v.setImporteTotal(rs.getDouble("importeTotal"));
@@ -62,6 +64,8 @@ public class DataVenta {
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
 				v=new Venta();
+				v.set_cliente(new Cliente());
+				v.set_prenda(new Prenda());
 				v.setNroVenta(rs.getInt("nroVenta"));
 				v.setFechaVenta(rs.getObject("fechaVenta",LocalDateTime.class));
 				v.setImporteTotal(rs.getDouble("importeTotal"));
@@ -91,7 +95,7 @@ public class DataVenta {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into venta(fechaVenta, importeTotal, idPrenda, idUsuario) values(?,?,?,?)",
+							"insert into venta(fechaVenta, importeTotal, idPrenda, idCliente) values(?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setObject(1, venta.getFechaVenta());
@@ -125,7 +129,7 @@ public class DataVenta {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update venta set fechaVenta=?, importeTotal=?, idPrenda=?, idUsuario=? where nroVenta=?");
+							"update venta set fechaVenta=?, importeTotal=?, idPrenda=?, idCliente=? where nroVenta=?");
 			stmt.setObject(1, venta.getFechaVenta());
 			stmt.setDouble(2, venta.getImporteTotal());
 			stmt.setInt(3, venta.get_prenda().getCodPrenda());

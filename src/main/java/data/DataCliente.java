@@ -56,7 +56,7 @@ public class DataCliente {
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"select * from usuario where idUsuario=?"
+					"select * from usuario where idUsuario=? and informacionPago is not null"
 					);
 			stmt.setInt(1, ClienteToSearch.getIdUsuario());
 			rs=stmt.executeQuery();
@@ -133,7 +133,7 @@ public class DataCliente {
 					+ "from usuario "
 					+ "inner join venta "
 					+ "on usuario.idUsuario = venta.idCliente "
-					+ "where nroVenta=?"
+					+ "where nroVenta=? and informacionPago is not null"
 					);
 			stmt.setInt(1, ven.getNroVenta());
 			rs= stmt.executeQuery();

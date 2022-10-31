@@ -25,8 +25,8 @@
     <link href="style/list.css" rel="stylesheet">
     
     <%
-
     	LinkedList<Cliente> lc = (LinkedList<Cliente>)request.getAttribute("listaClientes");
+   		Cliente ucli = (Cliente)request.getAttribute("updateCliente");
 	%>
 	
 </head>
@@ -34,7 +34,7 @@
 	<div class="container">
 		<div class="row">
         	<h1>Clientes</h1>
-        	<a class="btn btn-lg btn-primary btn-block" href='Signin'>Atras</a>
+        	<a class="btn btn-lg btn-primary btn-block" href='Usuarios'>Atras</a>
             	<div class="col-12 col-sm-12 col-lg-12">
                 	<div class="table-responsive">
                     	<table class="table">
@@ -67,7 +67,6 @@
                     				<td><%=cli.getCodigoPostal()%></td>
                     				
                     				<td><a href='EditCliente?updCli=<%=cli.getIdUsuario()%>' class=''>Edit</a></td><!-- editar -->
-                    				<td><a href='Clientes?delCli=<%=cli.getIdUsuario()%>' class=''>Delete</a></td><!-- borrar -->
                     			</tr>
                     		<% } %>
                     		</tbody>	
@@ -76,36 +75,40 @@
 			</div>
 		</div>
 	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="Clientes" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Crear nuevo Cliente</h2>
+	<form class="form-list" action="EditCliente" method="post">
+      <h2 class="h3 mb-3 font-weight-normal">Editar Cliente</h2>
+      
+      <label for="inputIdUsuario" class="sr-only">ID del cliente actual</label>
+      <input id="inputIdUsuario" name="idUsuario" class="form-control" required type="number" readonly value="<%=ucli.getIdUsuario()%>">
+      
       <label for="inputNomUsuario" class="sr-only">Nombre de usuario</label>
-      <input id="inputNomUsuario" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required type="text">
+      <input id="inputNomUsuario" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required type="text" value="<%=ucli.getNomUsuario()%>">
       
       <label for="inputPassword" class="sr-only">Password</label>
-      <input id="inputPassword" name="password" class="form-control" placeholder="Password" required type="password">
+      <input id="inputPassword" name="password" class="form-control" placeholder="Password" required type="password" value="<%=ucli.getContraseña()%>">
       
       <label for="inputNombre" class="sr-only">Nombre</label>
-      <input id="inputNombre" name="nombre" class="form-control" placeholder="Nombre" required type="text">
+      <input id="inputNombre" name="nombre" class="form-control" placeholder="Nombre" required type="text" value="<%=ucli.getNombre()%>">
       
       <label for="inputApellido" class="sr-only">Apellido</label>
-      <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required type="text">
+      <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required type="text" value="<%=ucli.getApellido()%>">
       
       <label for="inputEmail" class="sr-only">Email</label>
-      <input id="inputEmail" name="email" class="form-control" placeholder="Email" required type="email">
+      <input id="inputEmail" name="email" class="form-control" placeholder="Email" required type="email" value="<%=ucli.getEmail()%>">
       
       <label for="inputLocalidad" class="sr-only">Localidad</label>
-      <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text">
+      <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text" value="<%=ucli.getLocalidad()%>">
       
       <label for="inputDireccion" class="sr-only">Direccion</label>
-      <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text">
+      <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text" value="<%=ucli.getDireccion()%>">
       
       <label for="inputInformacionPago" class="sr-only">Informacion de pago</label>
-      <input id="inputInformacionPago" name="informacionPago" class="form-control" placeholder="Informacion de pago" required type="text">
+      <input id="inputInformacionPago" name="informacionPago" class="form-control" placeholder="Informacion de pago" required type="text" value="<%=ucli.getInformacionPago()%>">
       
       <label for="inputCodigoPostal" class="sr-only">Codigo postal</label>
-      <input id="inputCodigoPostal" name="codigoPostal" class="form-control" placeholder="Codigo Postal" required type="number">
+      <input id="inputCodigoPostal" name="codigoPostal" class="form-control" placeholder="Codigo Postal" required type="number" value="<%=ucli.getCodigoPostal()%>">
       
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
     </form>
     </div>
 </body>

@@ -34,6 +34,7 @@
         DataPrenda dp = new DataPrenda();
     	LinkedList<Prenda> lpre =  dp.getAll();
     	LinkedList<Venta> lv = (LinkedList<Venta>)request.getAttribute("listaVentas");
+    	Venta uven = (Venta)request.getAttribute("updateVenta");
 	%>
 	
 </head>
@@ -65,7 +66,6 @@
                     				<td><%=ven.get_prenda().getNombrePrenda()%></td>
                     				
                     				<td><a href='EditVenta?updVen=<%=ven.getNroVenta()%>' class=''>Edit</a></td><!-- editar -->
-                    				<td><a href='Ventas?delVen=<%=ven.getNroVenta()%>' class=''>Delete</a></td><!-- borrar -->
                     			</tr>
                     		<% } %>
                     		</tbody>	
@@ -73,15 +73,20 @@
 				</div>
 			</div>
 		</div>
-	<a class="btn btn-lg btn-primary btn-block" href='Signin'>Atras</a>
+	<a class="btn btn-lg btn-primary btn-block" href='Ventas'>Atras</a>
 	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="Ventas" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Registrar nueva venta</h2>
+	<form class="form-list" action="EditVenta" method="post">
+      <h2 class="h3 mb-3 font-weight-normal">Editar venta</h2>
+      
+      <label for="inputNroVenta" class="sr-only">Numero de la venta actual</label>
+      <input id="inputNroVenta" name="nroVenta" class="form-control" required type="number" readonly value="<%=uven.getNroVenta()%>">
+      
+      
       <label for="inputImporteTotal" class="sr-only">Importe Total</label>
-      <input id="inputImporteTotal" name="importeTotal" class="form-control" placeholder="Importe total" required type="number" step="0.01">
+      <input id="inputImporteTotal" name="importeTotal" class="form-control" placeholder="Importe total" required type="number" step="0.01" value="<%=uven.getImporteTotal()%>">
       
       <label for="inputVenta" class="sr-only">Fecha de la Venta</label>
-      <input id="inputVenta" name="fechaVenta" class="form-control" required type="date">
+      <input id="inputVenta" name="fechaVenta" class="form-control" required type="date" value="<%=uven.getFechaVenta()%>">
       
       <label for="inputCliente" class="sr-only">Cliente</label>
       
@@ -99,7 +104,7 @@
       	<% } %>
       </select>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
     </form>
     </div>
 </body>
