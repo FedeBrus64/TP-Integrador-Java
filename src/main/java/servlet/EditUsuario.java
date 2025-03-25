@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import data.*;
 import entities.*;
+import utils.DataAccessException;
 
 /**
  * Servlet implementation class EditUsuario
@@ -35,14 +36,21 @@ public class EditUsuario extends HttpServlet {
 		DataUsuario du = new DataUsuario();
 		Usuario updUsu = new Usuario();
 		
-		LinkedList<Usuario> usuarios = du.getAll();
-		request.setAttribute("listaUsuarios", usuarios);
+		try {
+			LinkedList<Usuario> usuarios = du.getAll();
+			request.setAttribute("listaUsuarios", usuarios);
+			
+			updUsu.setIdUsuario(Integer.parseInt(request.getParameter("updUsu")));
+			Usuario updateUsuario = du.getByIdUsuario(updUsu);
+			request.setAttribute("updateUsuario", updateUsuario);
+			
+			request.getRequestDispatcher("WEB-INF/EditUsuarioManagement.jsp").forward(request, response);
+			
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		updUsu.setIdUsuario(Integer.parseInt(request.getParameter("updUsu")));
-		Usuario updateUsuario = du.getByIdUsuario(updUsu);
-		request.setAttribute("updateUsuario", updateUsuario);
-		
-		request.getRequestDispatcher("WEB-INF/EditUsuarioManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -64,20 +72,25 @@ public class EditUsuario extends HttpServlet {
 		
 		usu.setIdUsuario(Integer.parseInt(idUsuario));
 		usu.setNomUsuario(nomUsuario);
-		usu.setContraseña(password);
+		usu.setContraseÃ±a(password);
 		usu.setNombre(nombre);
 		usu.setApellido(apellido);
 		usu.setEmail(email);
 		usu.setDireccion(direccion);
 		usu.setLocalidad(localidad);
 		
-		du.update(usu);
-		
-		LinkedList<Usuario> usuarios = du.getAll();
-		
-		request.setAttribute("listaUsuarios", usuarios);
-		
-		request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
+		try {
+			du.update(usu);
+			
+			LinkedList<Usuario> usuarios = du.getAll();
+			
+			request.setAttribute("listaUsuarios", usuarios);
+			
+			request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
 	}
 

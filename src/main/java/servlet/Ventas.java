@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.*;
+import utils.DataAccessException;
 import data.*;
 
 /**
@@ -38,14 +39,25 @@ public class Ventas extends HttpServlet {
 		if(request.getParameter("delVen") != null) {
 			Venta delVen = new Venta();
 			delVen.setNroVenta(Integer.parseInt(request.getParameter("delVen")));
-			Venta deletedVenta = dv.getByNroVenta(delVen);
-			dv.remove(deletedVenta);
+			try {
+				Venta deletedVenta = dv.getByNroVenta(delVen);
+				dv.remove(deletedVenta);
+			} catch (DataAccessException e) {
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("error.html").forward(request, response);
+			}
 		}
 		
-		LinkedList<Venta> ventas = dv.getAll();
-		request.setAttribute("listaVentas", ventas);
+		try {
+			LinkedList<Venta> ventas = dv.getAll();
+			request.setAttribute("listaVentas", ventas);
+			request.getRequestDispatcher("WEB-INF/VentaManagement.jsp").forward(request, response);
+		} catch (DataAccessException e){
+			 request.setAttribute("error", e.getMessage());
+			 request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		request.getRequestDispatcher("WEB-INF/VentaManagement.jsp").forward(request, response);
+		
 	}
 
 	/**
@@ -62,25 +74,34 @@ public class Ventas extends HttpServlet {
 		
 		String importeTotal = request.getParameter("importeTotal");
 		String fechaVenta = request.getParameter("fechaVenta") + "T00:00:00";
+		String formaPago = request.getParameter("formaPago");
 		
-		pre.setCodPrenda(Integer.parseInt(request.getParameter("prenda")));
-		Prenda prenda = dp.getByCodPrenda(pre);
+		try {
+			pre.setCodPrenda(Integer.parseInt(request.getParameter("prenda")));
+			Prenda prenda = dp.getByCodPrenda(pre);
+			
+			cli.setIdUsuario(Integer.parseInt(request.getParameter("cliente")));
+			Cliente cliente = dc.getByIdUsuario(cli);
+			ven.setImporteTotal(Double.parseDouble(importeTotal));
+			ven.setFechaVenta(LocalDateTime.parse(fechaVenta));
+			ven.set_cliente(cliente);
+			ven.set_prenda(prenda);
+			ven.setFormaPago(formaPago);
+			dv.add(ven);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		cli.setIdUsuario(Integer.parseInt(request.getParameter("cliente")));
-		Cliente cliente = dc.getByIdUsuario(cli);
+		try {
+			LinkedList<Venta> ventas = dv.getAll();
+			request.setAttribute("listaVentas", ventas);
+			request.getRequestDispatcher("WEB-INF/VentaManagement.jsp").forward(request, response);
+		} catch (DataAccessException e){
+			 request.setAttribute("error", e.getMessage());
+			 request.getRequestDispatcher("error.html").forward(request, response);
+		}	
 		
-		ven.setImporteTotal(Double.parseDouble(importeTotal));
-		ven.setFechaVenta(LocalDateTime.parse(fechaVenta));
-		ven.set_cliente(cliente);
-		ven.set_prenda(prenda);
-		
-		dv.add(ven);
-		
-		LinkedList<Venta> ventas = dv.getAll();
-		
-		request.setAttribute("listaVentas", ventas);
-		
-		request.getRequestDispatcher("WEB-INF/VentaManagement.jsp").forward(request, response);
 	}
 
 }

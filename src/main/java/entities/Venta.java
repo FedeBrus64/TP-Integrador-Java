@@ -6,6 +6,7 @@ public class Venta {
 	private int nroVenta;
 	private LocalDateTime fechaVenta;
 	private double importeTotal;
+	private String formaPago;
 	private Cliente _cliente;
 	private Prenda _prenda;
 	public int getNroVenta() {
@@ -25,6 +26,12 @@ public class Venta {
 	}
 	public void setImporteTotal(double importeTotal) {
 		this.importeTotal = importeTotal;
+	}
+	public String getFormaPago() {
+		return formaPago;
+	}
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
 	}
 	public Cliente get_cliente() {
 		return _cliente;

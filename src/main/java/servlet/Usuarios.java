@@ -10,6 +10,7 @@ import java.util.LinkedList;
 
 import entities.*;
 import data.*;
+import utils.DataAccessException;
 
 
 /**
@@ -38,15 +39,26 @@ public class Usuarios extends HttpServlet {
 		if(request.getParameter("delUsu") != null) {
 			Usuario delUsu = new Usuario();
 			delUsu.setIdUsuario(Integer.parseInt(request.getParameter("delUsu")));
-			Usuario deletedUsuario = du.getByIdUsuario(delUsu);
-			du.remove(deletedUsuario);
+			try {
+				Usuario deletedUsuario = du.getByIdUsuario(delUsu);
+				du.remove(deletedUsuario);
+			} catch (DataAccessException e) {
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("error.html").forward(request, response);
+			}
+			
+		}
+		try {
+			LinkedList<Usuario> usuarios = du.getAll();
+			
+			request.setAttribute("listaUsuarios", usuarios);
+			
+			request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
-		LinkedList<Usuario> usuarios = du.getAll();
-		
-		request.setAttribute("listaUsuarios", usuarios);
-		
-		request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -64,24 +76,28 @@ public class Usuarios extends HttpServlet {
 		String direccion = request.getParameter("direccion");
 		String localidad = request.getParameter("localidad");
 		String password = request.getParameter("password");
+		String tipoUsuario = request.getParameter("tipoUsuario");
 		
 		usu.setNomUsuario(nomUsuario);
-		usu.setContraseña(password);
+		usu.setContraseÃ±a(password);
 		usu.setNombre(nombre);
 		usu.setApellido(apellido);
 		usu.setEmail(email);
 		usu.setDireccion(direccion);
 		usu.setLocalidad(localidad);
+		usu.setTipoUsuario(tipoUsuario);
 		
-		du.add(usu);
-		
-		LinkedList<Usuario> usuarios = du.getAll();
-		
-		request.setAttribute("listaUsuarios", usuarios);
-		
-		request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
-		
-		
+		try {
+			du.add(usu);
+			LinkedList<Usuario> usuarios = du.getAll();
+			
+			request.setAttribute("listaUsuarios", usuarios);
+			request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
+			
 	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

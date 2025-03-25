@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entities.*;
 import data.*;
+import utils.DataAccessException;
 
 /**
  * Servlet implementation class Prendas
@@ -37,14 +38,25 @@ public class Prendas extends HttpServlet {
 		if(request.getParameter("delPre") != null) {
 			Prenda delPre = new Prenda();
 			delPre.setCodPrenda(Integer.parseInt(request.getParameter("delPre")));
-			Prenda deletedPrenda = dp.getByCodPrenda(delPre);
-			dp.remove(deletedPrenda);
+			try {
+				Prenda deletedPrenda = dp.getByCodPrenda(delPre);
+				dp.remove(deletedPrenda);
+			} catch (DataAccessException e) {
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("error.html").forward(request, response);
+			}
+			
 		}
 		
-		LinkedList<Prenda> prendas = dp.getAll();
-		request.setAttribute("listaPrendas", prendas);
+		try {
+			LinkedList<Prenda> prendas = dp.getAll();
+			request.setAttribute("listaPrendas", prendas);
+			request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -56,29 +68,44 @@ public class Prendas extends HttpServlet {
 		TipoPrenda tp = new TipoPrenda();
 		DataPrenda dp = new DataPrenda();
 		DataTipoPrenda dtp = new DataTipoPrenda();
+		request.setCharacterEncoding("UTF-8");
 		
 		String nombrePrenda = request.getParameter("nombrePrenda");
 		String talle = request.getParameter("talle");
 		String color = request.getParameter("color");
 		String marca = request.getParameter("marca");
+		String precioUnitario= request.getParameter("precioUnitario");
 		
 		tp.setCodTipoPrenda(Integer.parseInt(request.getParameter("tipoPrenda")));
 		
-		TipoPrenda tipoPrenda = dtp.getById(tp);
+		try {
+			TipoPrenda tipoPrenda = dtp.getById(tp);
+			
+			pre.setNombrePrenda(nombrePrenda);
+			pre.setTalle(talle);
+			pre.setColor(color);
+			pre.setMarca(marca);
+			pre.set_tipoPrenda(tipoPrenda);
+			pre.setPrecioUnitario(Double.parseDouble(precioUnitario));
+			
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
+			
+		try {
+			dp.add(pre);
+			
+			LinkedList<Prenda> prendas = dp.getAll();
+			
+			request.setAttribute("listaPrendas", prendas);
+			
+			request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		pre.setNombrePrenda(nombrePrenda);
-		pre.setTalle(talle);
-		pre.setColor(color);
-		pre.setMarca(marca);
-		pre.set_tipoPrenda(tipoPrenda);
-		
-		dp.add(pre);
-		
-		LinkedList<Prenda> prendas = dp.getAll();
-		
-		request.setAttribute("listaPrendas", prendas);
-		
-		request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
 	}
 
 }

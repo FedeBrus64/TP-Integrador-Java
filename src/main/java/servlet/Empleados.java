@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entities.*;
 import data.*;
+import utils.DataAccessException;
 
 /**
  * Servlet implementation class Empleados
@@ -39,14 +40,26 @@ public class Empleados extends HttpServlet {
 		if(request.getParameter("delEmp") != null) {
 			Empleado delEmp = new Empleado();
 			delEmp.setIdUsuario(Integer.parseInt(request.getParameter("delEmp")));
-			Empleado deletedEmpleado = de.getByIdUsuario(delEmp);
-			de.remove(deletedEmpleado);
+			try {
+				Empleado deletedEmpleado = de.getByIdUsuario(delEmp);
+				de.remove(deletedEmpleado);
+			} catch (DataAccessException e) {
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("error.html").forward(request, response);
+			}
+			
 		}
 		
-		LinkedList<Empleado> empleados = de.getAll();
-		request.setAttribute("listaEmpleados", empleados);
+		try {
+			LinkedList<Empleado> empleados = de.getAll();
+			request.setAttribute("listaEmpleados", empleados);
+			
+			request.getRequestDispatcher("WEB-INF/EmpleadoManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		request.getRequestDispatcher("WEB-INF/EmpleadoManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -70,22 +83,28 @@ public class Empleados extends HttpServlet {
 		
 		
 		emp.setNomUsuario(nomUsuario);
-		emp.setContraseña(password);
+		emp.setContraseÃ±a(password);
 		emp.setNombre(nombre);
 		emp.setApellido(apellido);
 		emp.setEmail(email);
 		emp.setDireccion(direccion);
 		emp.setLocalidad(localidad);
 		emp.setFechaIngreso(LocalDateTime.parse(fechaIngreso));
+		emp.setTipoUsuario("empleado");
 		
-		de.add(emp);
-		
-		LinkedList<Empleado> empleados = de.getAll();
-		
-		request.setAttribute("listaEmpleados", empleados);
-		
-		request.getRequestDispatcher("WEB-INF/EmpleadoManagement.jsp").forward(request, response);
-		
+		try {
+			de.add(emp);
+			
+			LinkedList<Empleado> empleados = de.getAll();
+			
+			request.setAttribute("listaEmpleados", empleados);
+			
+			request.getRequestDispatcher("WEB-INF/EmpleadoManagement.jsp").forward(request, response);
+			
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
 	}
 

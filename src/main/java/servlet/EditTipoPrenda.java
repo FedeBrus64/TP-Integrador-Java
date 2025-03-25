@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import data.DataTipoPrenda;
 import entities.TipoPrenda;
+import utils.DataAccessException;
 
 /**
  * Servlet implementation class EditTipoPrenda
@@ -35,13 +36,18 @@ public class EditTipoPrenda extends HttpServlet {
 		DataTipoPrenda dtp = new DataTipoPrenda();
 		TipoPrenda updTp = new TipoPrenda();
 		
-		LinkedList<TipoPrenda> tiposprendas = dtp.getAll();
-		request.setAttribute("listaTiposPrendas", tiposprendas);
-		updTp.setCodTipoPrenda(Integer.parseInt(request.getParameter("updTp")));
-		TipoPrenda updateTipoPrenda = dtp.getById(updTp);
-		request.setAttribute("updateTipoPrenda", updateTipoPrenda);
+		try {
+			LinkedList<TipoPrenda> tiposprendas = dtp.getAll();
+			request.setAttribute("listaTiposPrendas", tiposprendas);
+			updTp.setCodTipoPrenda(Integer.parseInt(request.getParameter("updTp")));
+			TipoPrenda updateTipoPrenda = dtp.getById(updTp);
+			request.setAttribute("updateTipoPrenda", updateTipoPrenda);
+			request.getRequestDispatcher("WEB-INF/EditTipoPrendaManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		request.getRequestDispatcher("WEB-INF/EditTipoPrendaManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -58,13 +64,19 @@ public class EditTipoPrenda extends HttpServlet {
 		tp.setCodTipoPrenda(Integer.parseInt(codtipoprenda));
 		tp.setDescTipoPrenda(descripcion);
 		
-		dtp.update(tp);
+		try {
+			dtp.update(tp);
+			
+			LinkedList<TipoPrenda> tiposprendas = dtp.getAll();
+			
+			request.setAttribute("listaTiposPrendas", tiposprendas);
+			
+			request.getRequestDispatcher("WEB-INF/TipoPrendaManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		LinkedList<TipoPrenda> tiposprendas = dtp.getAll();
-		
-		request.setAttribute("listaTiposPrendas", tiposprendas);
-		
-		request.getRequestDispatcher("WEB-INF/TipoPrendaManagement.jsp").forward(request, response);
 	}
 
 }

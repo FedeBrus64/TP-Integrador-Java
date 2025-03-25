@@ -1,17 +1,16 @@
 package entities;
 
-import java.util.HashMap;
-
 public class Usuario {
 	private int idUsuario;
 	private String nomUsuario;
-	private String contraseña;
+	private String contraseÃ±a;
 	private String nombre;
 	private String apellido;
 	private String email;
 	private String localidad;
 	private String direccion;
-	private HashMap<Integer, Rol> roles;
+	private String tipoUsuario;
+
 	
 	
 	public int getIdUsuario() {
@@ -26,11 +25,11 @@ public class Usuario {
 	public void setNomUsuario(String nomUsuario) {
 		this.nomUsuario = nomUsuario;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getContraseÃ±a() {
+		return contraseÃ±a;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContraseÃ±a(String contraseÃ±a) {
+		this.contraseÃ±a = contraseÃ±a;
 	}
 	public String getNombre() {
 		return nombre;
@@ -62,22 +61,13 @@ public class Usuario {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	
-	public Usuario() {
-		this.roles=new HashMap<>();
+	public String getTipoUsuario() {
+		return tipoUsuario;
 	}
-	
-	public void addRol(Rol rolToBeAdded) {
-		this.roles.put(rolToBeAdded.getIdRol(), rolToBeAdded);
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
-	
-	public void removeRol(Rol rolToBeRemoved) {
-		this.roles.remove(rolToBeRemoved.getIdRol());
-	}
-	
-	public boolean hasRol(Rol rolToCheck) {
-		return this.roles.containsKey(rolToCheck.getIdRol());
-	}
+
 	
 	@Override
 	public String toString() {
@@ -87,7 +77,7 @@ public class Usuario {
 				+ ", direccion=" + direccion
 				+ "]\n";
 	}
-
+	
 }
 
 

@@ -6,10 +6,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import entities.*;
+import utils.DataAccessException;
+
 
 public class DataTipoPrenda {
 
-	public LinkedList<TipoPrenda> getAll(){
+	public LinkedList<TipoPrenda> getAll() throws DataAccessException{
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<TipoPrenda> tipoprenda= new LinkedList<>();
@@ -27,7 +29,7 @@ public class DataTipoPrenda {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DataAccessException("No se pudo obtener la lista de tipos de prenda", e);
 			
 		} finally {
 			try {
@@ -35,7 +37,7 @@ public class DataTipoPrenda {
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DataAccessException("Error al cerrar la conexión.", e);
 			}
 		}
 		
@@ -43,7 +45,7 @@ public class DataTipoPrenda {
 		return tipoprenda;
 	}
 	
-	public TipoPrenda getById(TipoPrenda TipoPrendaToSearch) {
+	public TipoPrenda getById(TipoPrenda TipoPrendaToSearch) throws DataAccessException {
 		TipoPrenda tp=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -59,21 +61,21 @@ public class DataTipoPrenda {
 				tp.setDescTipoPrenda(rs.getString("descTipoPrenda"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DataAccessException("No se pudo obtener el/los tipo/s de prenda", e);
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DataAccessException("Error al cerrar la conexión.", e);
 			}
 		}
 		
 		return tp;
 	}
 	
-	public TipoPrenda getByDesc(TipoPrenda TipoPrendaToSearch) {
+	public TipoPrenda getByDesc(TipoPrenda TipoPrendaToSearch) throws DataAccessException{
 		TipoPrenda tp=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -89,21 +91,21 @@ public class DataTipoPrenda {
 				tp.setDescTipoPrenda(rs.getString("descTipoPrenda"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DataAccessException("No se pudo obtener el/los tipo/s de prenda", e);
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DataAccessException("Error al cerrar la conexión.", e);
 			}
 		}
 		
 		return tp;
 	}
 	
-	public void setPrendas(Prenda pre) {
+	public void setPrendas(Prenda pre) throws DataAccessException{
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
@@ -126,19 +128,19 @@ public class DataTipoPrenda {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DataAccessException("No se pudo obtener el/los tipo/s de prenda y sus prendas correspondientes", e);
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DataAccessException("Error al cerrar la conexión.", e);
 			}
 		}
 	}
 	
-	public void add(TipoPrenda TipoPrenda) {
+	public void add(TipoPrenda TipoPrenda) throws DataAccessException {
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		try {
@@ -157,20 +159,20 @@ public class DataTipoPrenda {
 
 			
 		} catch (SQLException e) {
-            e.printStackTrace();
+			throw new DataAccessException("No se pudo agregar el tipo de prenda", e);
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
-            	e.printStackTrace();
+            	throw new DataAccessException("Error al cerrar la conexión.", e);
             }
 		}
 
 	}
 	
-	public void update(TipoPrenda TipoPrenda) {
+	public void update(TipoPrenda TipoPrenda) throws DataAccessException {
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -180,18 +182,18 @@ public class DataTipoPrenda {
 			stmt.setInt(2, TipoPrenda.getCodTipoPrenda());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-            e.printStackTrace();
+			throw new DataAccessException("No se pudo editar el tipo de prenda", e);
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
-            	e.printStackTrace();
+            	throw new DataAccessException("Error al cerrar la conexión.", e);
             }
 		}
 	}
 	
-	public void remove(TipoPrenda TipoPrenda) {
+	public void remove(TipoPrenda TipoPrenda) throws DataAccessException{
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -200,13 +202,13 @@ public class DataTipoPrenda {
 			stmt.setInt(1, TipoPrenda.getCodTipoPrenda());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-            e.printStackTrace();
+			throw new DataAccessException("No se pudo eliminar el tipo de prenda", e);
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
-            	e.printStackTrace();
+            	throw new DataAccessException("Error al cerrar la conexión.", e);
             }
 		}
 	}

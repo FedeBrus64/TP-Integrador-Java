@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import entities.*;
+import utils.DataAccessException;
+
 
 public class DataPrenda {
-	public LinkedList<Prenda> getAll(){
+	public LinkedList<Prenda> getAll() throws DataAccessException{
 		DataTipoPrenda dtp = new DataTipoPrenda();
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -27,13 +29,14 @@ public class DataPrenda {
 					p.setMarca(rs.getString("marca"));
 					p.setTalle(rs.getString("talle"));
 					p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
+					p.setPrecioUnitario(rs.getDouble("precioUnitario"));
 					dtp.setPrendas(p);
 					prendas.add(p);
 				}
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DataAccessException("Error al obtener la lista de prendas.", e);
 			
 		} finally {
 			try {
@@ -41,7 +44,7 @@ public class DataPrenda {
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DataAccessException("Error al cerrar la conexión.", e);
 			}
 		}
 		
@@ -49,7 +52,7 @@ public class DataPrenda {
 		return prendas;
 	}
 	
-	public Prenda getByCodPrenda(Prenda PrendaToSearch) {
+	public Prenda getByCodPrenda(Prenda PrendaToSearch) throws DataAccessException{
 		Prenda p=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -67,24 +70,25 @@ public class DataPrenda {
 				p.setColor(rs.getString("color"));
 				p.setMarca(rs.getString("marca"));
 				p.setTalle(rs.getString("talle"));
+				p.setPrecioUnitario(rs.getDouble("precioUnitario"));
 				p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DataAccessException("Error al obtener la/las prenda/s", e);
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DataAccessException("Error al cerrar la conexión.", e);
 			}
 		}
 		
 		return p;
 	}
 	
-	public Prenda getByNombrePrenda(Prenda PrendaToSearch) {
+	public Prenda getByNombrePrenda(Prenda PrendaToSearch) throws DataAccessException{
 		Prenda p=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -101,24 +105,25 @@ public class DataPrenda {
 				p.setColor(rs.getString("color"));
 				p.setMarca(rs.getString("marca"));
 				p.setTalle(rs.getString("talle"));
+				p.setPrecioUnitario(rs.getDouble("precioUnitario"));
 				p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DataAccessException("Error al obtener la/las prenda/s", e);
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DataAccessException("Error al cerrar la conexión.", e);
 			}
 		}
 		
 		return p;
 	}
 	
-	public void setVenta(Venta ven) {
+	public void setVenta(Venta ven) throws DataAccessException {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
@@ -140,31 +145,32 @@ public class DataPrenda {
 					pre.setColor(rs.getString("color"));
 					pre.setMarca(rs.getString("marca"));
 					pre.setTalle(rs.getString("talle"));
+					pre.setPrecioUnitario(rs.getDouble("precioUnitario"));
 					pre.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
 					ven.set_prenda(pre);
 				}
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DataAccessException("Error al establecer la venta en la prenda designada.", e);
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				DbConnector.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DataAccessException("Error al cerrar la conexión.", e);
 			}
 		}
 	}
 
-	public void add(Prenda prenda) {
+	public void add(Prenda prenda) throws DataAccessException{
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into prenda(nombrePrenda, color, marca, talle, codTipoPrenda) values(?,?,?,?,?)",
+							"insert into prenda(nombrePrenda, color, marca, talle, codTipoPrenda, precioUnitario) values(?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, prenda.getNombrePrenda());
@@ -172,6 +178,7 @@ public class DataPrenda {
 			stmt.setString(3, prenda.getMarca());
 			stmt.setString(4, prenda.getTalle());
 			stmt.setInt(5, prenda.get_tipoPrenda().getCodTipoPrenda());
+			stmt.setDouble(6, prenda.getPrecioUnitario());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
@@ -181,45 +188,46 @@ public class DataPrenda {
 
 			
 		} catch (SQLException e) {
-            e.printStackTrace();
+			throw new DataAccessException("Error al agregar la prenda", e);
 		} finally {
             try {
                 if(keyResultSet!=null)keyResultSet.close();
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
-            	e.printStackTrace();
+            	throw new DataAccessException("Error al cerrar la conexión.", e);
             }
 		}
 
 	}
 	
-	public void update(Prenda prenda) {
+	public void update(Prenda prenda) throws DataAccessException{
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update prenda set nombrePrenda=?,color=?,marca=?,talle=?,codTipoPrenda=? where codPrenda=?");
+							"update prenda set nombrePrenda=?,color=?,marca=?,talle=?,codTipoPrenda=?,precioUnitario=? where codPrenda=?");
 			stmt.setString(1, prenda.getNombrePrenda());
 			stmt.setString(2, prenda.getColor());
 			stmt.setString(3, prenda.getMarca());
 			stmt.setString(4, prenda.getTalle());
 			stmt.setInt(5, prenda.get_tipoPrenda().getCodTipoPrenda());
-			stmt.setInt(6, prenda.getCodPrenda());
+			stmt.setDouble(6, prenda.getPrecioUnitario());
+			stmt.setInt(7, prenda.getCodPrenda());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-            e.printStackTrace();
+			throw new DataAccessException("Error al editar la prenda.", e);
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
-            	e.printStackTrace();
+            	throw new DataAccessException("Error al cerrar la conexión.", e);
             }
 		}
 	}
 	
-	public void remove(Prenda prenda) {
+	public void remove(Prenda prenda) throws DataAccessException{
 		PreparedStatement stmt= null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
@@ -228,13 +236,13 @@ public class DataPrenda {
 			stmt.setInt(1, prenda.getCodPrenda());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-            e.printStackTrace();
+			throw new DataAccessException("Error al eliminar la prenda.", e);
 		} finally {
             try {
                 if(stmt!=null)stmt.close();
                 DbConnector.getInstancia().releaseConn();
             } catch (SQLException e) {
-            	e.printStackTrace();
+            	throw new DataAccessException("Error al cerrar la conexión.", e);
             }
 		}
 	}

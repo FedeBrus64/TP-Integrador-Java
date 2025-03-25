@@ -13,6 +13,7 @@ import data.DataPrenda;
 import data.DataTipoPrenda;
 import entities.Prenda;
 import entities.TipoPrenda;
+import utils.DataAccessException;
 
 /**
  * Servlet implementation class EditPrenda
@@ -37,14 +38,21 @@ public class EditPrenda extends HttpServlet {
 		DataPrenda dp = new DataPrenda();
 		Prenda updPre = new Prenda();
 		
-		LinkedList<Prenda> prendas = dp.getAll();
-		request.setAttribute("listaPrendas", prendas);
+		try {
+			LinkedList<Prenda> prendas = dp.getAll();
+			request.setAttribute("listaPrendas", prendas);
+			
+			updPre.setCodPrenda(Integer.parseInt(request.getParameter("updPre")));
+			Prenda updatePrenda = dp.getByCodPrenda(updPre);
+			request.setAttribute("updatePrenda", updatePrenda);
+			
+			request.getRequestDispatcher("WEB-INF/EditPrendaManagement.jsp").forward(request, response);
+			
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		updPre.setCodPrenda(Integer.parseInt(request.getParameter("updPre")));
-		Prenda updatePrenda = dp.getByCodPrenda(updPre);
-		request.setAttribute("updatePrenda", updatePrenda);
-		
-		request.getRequestDispatcher("WEB-INF/EditPrendaManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -65,22 +73,29 @@ public class EditPrenda extends HttpServlet {
 		
 		tp.setCodTipoPrenda(Integer.parseInt(request.getParameter("tipoPrenda")));
 		
-		TipoPrenda tipoPrenda = dtp.getById(tp);
+		try {
+			TipoPrenda tipoPrenda = dtp.getById(tp);
+			
+			pre.setCodPrenda(Integer.parseInt(codPrenda));
+			pre.setNombrePrenda(nombrePrenda);
+			pre.setTalle(talle);
+			pre.setColor(color);
+			pre.setMarca(marca);
+			pre.set_tipoPrenda(tipoPrenda);
+			
+			dp.update(pre);
+			
+			LinkedList<Prenda> prendas = dp.getAll();
+			
+			request.setAttribute("listaPrendas", prendas);
+			
+			request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
+			
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		pre.setCodPrenda(Integer.parseInt(codPrenda));
-		pre.setNombrePrenda(nombrePrenda);
-		pre.setTalle(talle);
-		pre.setColor(color);
-		pre.setMarca(marca);
-		pre.set_tipoPrenda(tipoPrenda);
-		
-		dp.update(pre);
-		
-		LinkedList<Prenda> prendas = dp.getAll();
-		
-		request.setAttribute("listaPrendas", prendas);
-		
-		request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
 	}
 
 }

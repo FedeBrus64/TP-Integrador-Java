@@ -7,6 +7,7 @@ public class Prenda {
 	private String color;
 	private String marca;
 	private TipoPrenda _tipoPrenda;
+	private double precioUnitario;
 	public int getCodPrenda() {
 		return codPrenda;
 	}
@@ -37,6 +38,12 @@ public class Prenda {
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
+	public double getPrecioUnitario() {
+		return precioUnitario;
+	}
+	public void setPrecioUnitario(double precioUnitario) {
+		this.precioUnitario = precioUnitario;
+	}
 	public TipoPrenda get_tipoPrenda() {
 		return _tipoPrenda;
 	}
@@ -48,7 +55,7 @@ public class Prenda {
 	public String toString() {
 		
 		return "Prenda [Codigo=" + codPrenda + ", Nombre=" + nombrePrenda + ", Talle=" + talle
-				+ ", Color=" + color + ", Marca=" + marca +"\nDatos del tipo de prenda:\n" +
+				+ ", Color=" + color + ", Marca=" + marca +", Precio Unitario?" + precioUnitario +"\nDatos del tipo de prenda:\n" +
 				"codigo=" + _tipoPrenda.getCodTipoPrenda() + ", descripcion=" + _tipoPrenda.getDescTipoPrenda()
 				+ "]\n";
 	}

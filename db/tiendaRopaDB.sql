@@ -84,7 +84,7 @@ CREATE TABLE `prenda` (
   PRIMARY KEY (`codPrenda`),
   KEY `prenda_tipoPrenda_fk_idx` (`codTipoPrenda`),
   CONSTRAINT `prenda_tipoPrenda_fk` FOREIGN KEY (`codTipoPrenda`) REFERENCES `tipoprenda` (`codTipoPrenda`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,6 @@ CREATE TABLE `prenda` (
 
 LOCK TABLES `prenda` WRITE;
 /*!40000 ALTER TABLE `prenda` DISABLE KEYS */;
-INSERT INTO `prenda` VALUES (1,'pantalon polo M negro','M','negro','polo',1),(2,'Campera verde marca Crawford','L','Verde','Crawford',4),(3,'Remera Union Pacific azul','S','Azul','Union Pacific',2);
 /*!40000 ALTER TABLE `prenda` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +133,7 @@ CREATE TABLE `tipoprenda` (
   `codTipoPrenda` int NOT NULL AUTO_INCREMENT,
   `descTipoPrenda` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`codTipoPrenda`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,7 +142,6 @@ CREATE TABLE `tipoprenda` (
 
 LOCK TABLES `tipoprenda` WRITE;
 /*!40000 ALTER TABLE `tipoprenda` DISABLE KEYS */;
-INSERT INTO `tipoprenda` VALUES (1,'pantalon'),(2,'remera'),(3,'medias'),(4,'campera'),(5,'Ambo');
 /*!40000 ALTER TABLE `tipoprenda` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,7 +166,7 @@ CREATE TABLE `usuario` (
   `direccion` varchar(45) DEFAULT NULL,
   `fechaIngreso` date DEFAULT NULL,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,7 +175,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'fedeBruschi','fede1234','Federico','Bruschi','fedejbruschi@gmail.com','cliente','Visa nro 123456789012 cvv 123 fecha venc 02/30',2000,'Rosario','España 270','2022-10-19'),(2,'John',NULL,'John','Doe','johndoe@gmail.com',NULL,NULL,NULL,'Rosario','España 400',NULL),(4,'EdwardElric',NULL,'Edward','Elric','edElric@gmail.com',NULL,NULL,NULL,'Venado Tuerto','Santa Fe 1975','2000-05-10'),(5,'RoyMustang',NULL,'Roy','Mustang','royMustang@gmail.com',NULL,NULL,NULL,'Funes','Italia 1400','1999-11-20'),(8,'AlphonseElric',NULL,'Alphonse','Elric','alElric@gmail.com',NULL,'Mastercard nro 1231234334564567 cvv 444 fecha venc 05/28',2400,'Venado Tuerto','Santa Fe 1978',NULL),(9,'MarioSantos',NULL,'Mario','Santos','mSantos@gmail.com',NULL,'Visa nro 584379164852 cvv 888 fecha venc 02/32',2100,'Caballito','San Lorenzo 458',NULL);
+INSERT INTO `usuario` VALUES (1,'fedeBruschi','fede1234','Federico','Bruschi','fedejbruschi@gmail.com','cliente','Visa nro 123456789012 cvv 123 fecha venc 02/30',2000,'Rosario','España 270','2022-10-19');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +187,7 @@ DROP TABLE IF EXISTS `venta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `venta` (
-  `nroVenta` int NOT NULL AUTO_INCREMENT,
+  `nroVenta` int NOT NULL,
   `fechaVenta` date DEFAULT NULL,
   `importeTotal` float DEFAULT NULL,
   `idCliente` int DEFAULT NULL,
@@ -199,7 +197,7 @@ CREATE TABLE `venta` (
   KEY `ventaPrendaFK_idx` (`idPrenda`),
   CONSTRAINT `ventaClienteFK` FOREIGN KEY (`idCliente`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `ventaPrendaFK` FOREIGN KEY (`idPrenda`) REFERENCES `prenda` (`codPrenda`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,9 +206,12 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (1,'2022-11-20',250.32,8,2),(2,'2022-11-20',250.32,8,2),(3,'1999-11-20',500.64,1,3),(4,'1999-11-20',456.3,9,3);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'tienda_ropa'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -221,4 +222,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-31  3:07:33
+-- Dump completed on 2022-10-19 14:31:09

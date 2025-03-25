@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import data.DataCliente;
 import entities.Cliente;
+import utils.DataAccessException;
 
 /**
  * Servlet implementation class EditCliente
@@ -35,14 +36,20 @@ public class EditCliente extends HttpServlet {
 		DataCliente dc = new DataCliente();
 		Cliente updCli = new Cliente();
 		
-		LinkedList<Cliente> clientes = dc.getAll();
-		request.setAttribute("listaClientes", clientes);
+		try {
+			LinkedList<Cliente> clientes = dc.getAll();
+			request.setAttribute("listaClientes", clientes);
+			
+			updCli.setIdUsuario(Integer.parseInt(request.getParameter("updCli")));
+			Cliente updateCliente = dc.getByIdUsuario(updCli);
+			request.setAttribute("updateCliente", updateCliente);
+			
+			request.getRequestDispatcher("WEB-INF/EditClienteManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
-		updCli.setIdUsuario(Integer.parseInt(request.getParameter("updCli")));
-		Cliente updateCliente = dc.getByIdUsuario(updCli);
-		request.setAttribute("updateCliente", updateCliente);
-		
-		request.getRequestDispatcher("WEB-INF/EditClienteManagement.jsp").forward(request, response);
 	}
 
 	/**
@@ -66,7 +73,7 @@ public class EditCliente extends HttpServlet {
 		
 		cli.setIdUsuario(Integer.parseInt(idUsuario));
 		cli.setNomUsuario(nomUsuario);
-		cli.setContraseña(password);
+		cli.setContraseÃ±a(password);
 		cli.setNombre(nombre);
 		cli.setApellido(apellido);
 		cli.setEmail(email);
@@ -75,14 +82,18 @@ public class EditCliente extends HttpServlet {
 		cli.setInformacionPago(informacionPago);
 		cli.setCodigoPostal(Integer.parseInt(codigoPostal));
 		
-		dc.update(cli);
-		
-		LinkedList<Cliente> clientes = dc.getAll();
-		
-		request.setAttribute("listaClientes", clientes);
-		
-		request.getRequestDispatcher("WEB-INF/ClienteManagement.jsp").forward(request, response);
-		
+		try {
+			dc.update(cli);
+			
+			LinkedList<Cliente> clientes = dc.getAll();
+			
+			request.setAttribute("listaClientes", clientes);
+			
+			request.getRequestDispatcher("WEB-INF/ClienteManagement.jsp").forward(request, response);
+		} catch (DataAccessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("error.html").forward(request, response);
+		}
 		
 	}
 
