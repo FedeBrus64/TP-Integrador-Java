@@ -1,3 +1,5 @@
+<%@ page import="entities.Usuario" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,11 +20,14 @@
             padding-top: 20px;
         }
     </style>
+    <%
+    	Usuario usu= (Usuario)session.getAttribute("usuario");
+	%>
 </head>
 
 <body class="bg-light">
 
-    <!-- MenÃº de NavegaciÃ³n -->
+    <!-- Menú de Navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -47,16 +52,11 @@
 
     <!-- Contenido Principal -->
     <div class="container text-center mt-5">
-        <h1 class="mb-4">Bienvenido/a al sistema. Por favor, seleccione una opcion</h1>
+        <h1 class="mb-4">¡Bienvenido/a <%=usu.getNombre()%> <%=usu.getApellido()%>! Por favor, seleccione una opción</h1>
 
         <div class="containerButtons">
             <div class="row row-cols-1 row-cols-md-2 g-3">
-                <div class="col"><form action="usuarios"><button class="btn btn-primary btn-lg w-100">Ver Usuarios</button></form></div>
-                <div class="col"><form action="clientes"><button class="btn btn-primary btn-lg w-100">Ver Clientes</button></form></div>
-                <div class="col"><form action="empleados"><button class="btn btn-primary btn-lg w-100">Ver Empleados</button></form></div>
-                <div class="col"><form action="tiposprendas"><button class="btn btn-primary btn-lg w-100">Ver Tipos de prenda</button></form></div>
-                <div class="col"><form action="prendas"><button class="btn btn-primary btn-lg w-100">Ver Prendas</button></form></div>
-                <div class="col"><form action="ventas"><button class="btn btn-primary btn-lg w-100">Ver Ventas</button></form></div>
+                <div class="col"><form action="compras"><button class="btn btn-primary btn-lg w-100">Ver Compras Realizadas</button></form></div>
                 <div class="col"><form action="comprar"><button class="btn btn-success btn-lg w-100">Comprar una prenda</button></form></div>
             </div>
         </div>

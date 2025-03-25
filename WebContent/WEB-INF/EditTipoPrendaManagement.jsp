@@ -54,7 +54,6 @@
                     				<td><%=tp.getCodTipoPrenda()%></td>
                     				<td><%=tp.getDescTipoPrenda()%></td>
                     				
-                    				<td><input type="Submit" name="edit_tipoprenda" value="Edit"/></td><!-- editar -->
                     				<td><a href='TiposPrendas?updTp=<%=tp.getCodTipoPrenda()%>' class=''>Edit</a></td>
                     			</tr>
                     		<% } %>

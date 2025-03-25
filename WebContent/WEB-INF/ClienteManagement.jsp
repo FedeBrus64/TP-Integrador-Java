@@ -1,112 +1,109 @@
 <%@ page import="java.util.LinkedList" %>
 <%@ page import="entities.Cliente" %>
-<%@ page import="java.util.LinkedList" %>
-
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-	<title>Sistema online Vincenzo</title>
-	
-	<!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.css" rel="stylesheet">
+    <title>Sistema online Vincenzo - Clientes</title>
 
-    <!-- Custom styles for this template -->
-    <link href="style/list.css" rel="stylesheet">
-    
-    <%
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-    	LinkedList<Cliente> lc = (LinkedList<Cliente>)request.getAttribute("listaClientes");
-	%>
-	
+    <% LinkedList<Cliente> lc = (LinkedList<Cliente>) request.getAttribute("listaClientes"); %>
 </head>
-<body>
-	<div class="container">
-		<div class="row">
-        	<h1>Clientes</h1>
-        	<a class="btn btn-lg btn-primary btn-block" href='Signin'>Atras</a>
-            	<div class="col-12 col-sm-12 col-lg-12">
-                	<div class="table-responsive">
-                    	<table class="table">
-                    		<thead>
-                    			<tr>
-                    				<th>ID</th>
-                    				<th>Nombre de usuario</th>
-                    		    	<th>nombre</th>
-                        			<th>apellido</th>
-                        			<th>email</th>
-                        			<th>dirección</th>
-                        			<th>localidad</th>
-                        			<th>Informacion de pago</th>
-                        			<th>Codigo postal</th>
-                        			<th></th>
-                        			<th></th>
-                      			</tr>
-                      		</thead>
-                    		<tbody>
-                    		<% for (Cliente cli : lc) { %>
-                    			<tr>
-                    				<td><%=cli.getIdUsuario()%></td>
-                    				<td><%=cli.getNomUsuario()%></td>
-                    				<td><%=cli.getNombre()%></td>
-                    				<td><%=cli.getApellido()%></td>
-                    				<td><%=cli.getEmail()%></td>
-                    				<td><%=cli.getDireccion()%></td>
-                    				<td><%=cli.getLocalidad()%></td>
-                    				<td><%=cli.getInformacionPago()%></td>
-                    				<td><%=cli.getCodigoPostal()%></td>
-                    				
-                    				<td><a href='EditCliente?updCli=<%=cli.getIdUsuario()%>' class=''>Edit</a></td><!-- editar -->
-                    				<td><a href='Clientes?delCli=<%=cli.getIdUsuario()%>' class=''>Delete</a></td><!-- borrar -->
-                    			</tr>
-                    		<% } %>
-                    		</tbody>	
-	</div> <!-- /container -->
-				</div>
-			</div>
-		</div>
-	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="Clientes" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Crear nuevo Cliente</h2>
-      <label for="inputNomUsuario" class="sr-only">Nombre de usuario</label>
-      <input id="inputNomUsuario" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required type="text">
-      
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input id="inputPassword" name="password" class="form-control" placeholder="Password" required type="password">
-      
-      <label for="inputNombre" class="sr-only">Nombre</label>
-      <input id="inputNombre" name="nombre" class="form-control" placeholder="Nombre" required type="text">
-      
-      <label for="inputApellido" class="sr-only">Apellido</label>
-      <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required type="text">
-      
-      <label for="inputEmail" class="sr-only">Email</label>
-      <input id="inputEmail" name="email" class="form-control" placeholder="Email" required type="email">
-      
-      <label for="inputLocalidad" class="sr-only">Localidad</label>
-      <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text">
-      
-      <label for="inputDireccion" class="sr-only">Direccion</label>
-      <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text">
-      
-      <label for="inputInformacionPago" class="sr-only">Informacion de pago</label>
-      <input id="inputInformacionPago" name="informacionPago" class="form-control" placeholder="Informacion de pago" required type="text">
-      
-      <label for="inputCodigoPostal" class="sr-only">Codigo postal</label>
-      <input id="inputCodigoPostal" name="codigoPostal" class="form-control" placeholder="Codigo Postal" required type="number">
-      
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
-    </form>
+<body class="bg-light">
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Clientes</h1>
+        <a class="btn btn-primary mb-3" href='Signin'>Atrás</a>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
+                        <th>Dirección</th>
+                        <th>Localidad</th>
+                        <th>Código Postal</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (Cliente cli : lc) { %>
+                    <tr>
+                        <td><%= cli.getIdUsuario() %></td>
+                        <td><%= cli.getNomUsuario() %></td>
+                        <td><%= cli.getNombre() %></td>
+                        <td><%= cli.getApellido() %></td>
+                        <td><%= cli.getEmail() %></td>
+                        <td><%= cli.getDireccion() %></td>
+                        <td><%= cli.getLocalidad() %></td>
+                        <td><%= cli.getCodigoPostal() %></td>
+                        <td>
+                            <a href='EditCliente?updCli=<%= cli.getIdUsuario() %>' class='btn btn-warning btn-sm'>Editar</a>
+                        </td>
+                        <td>
+                            <a href='Clientes?delCli=<%= cli.getIdUsuario() %>' class='btn btn-danger btn-sm'>Eliminar</a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card p-4 mt-4">
+            <h2 class="h4 text-center mb-3">Crear nuevo Cliente</h2>
+            <form action="Clientes" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Nombre de usuario</label>
+                        <input type="text" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="nombre" class="form-control" placeholder="Nombre" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Apellido</label>
+                        <input type="text" name="apellido" class="form-control" placeholder="Apellido" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Localidad</label>
+                        <input type="text" name="localidad" class="form-control" placeholder="Localidad" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Dirección</label>
+                        <input type="text" name="direccion" class="form-control" placeholder="Dirección" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Información de pago</label>
+                        <input type="text" name="informacionPago" class="form-control" placeholder="Información de pago" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Código Postal</label>
+                        <input type="number" name="codigoPostal" class="form-control" placeholder="Código Postal" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Registrar</button>
+            </form>
+        </div>
     </div>
+
+    <!-- Bootstrap JavaScript Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

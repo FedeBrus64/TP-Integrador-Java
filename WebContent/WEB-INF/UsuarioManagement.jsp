@@ -1,104 +1,106 @@
 <%@ page import="java.util.LinkedList" %>
 <%@ page import="entities.Usuario" %>
 <%@ page import="data.DataUsuario" %>
-<%@ page import="java.util.LinkedList" %>
 
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-	<title>Sistema online Vincenzo</title>
-	
-	<!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="style/list.css" rel="stylesheet">
-    
+    <title>Usuarios - Sistema Vincenzo</title>
+    <!-- Bootstrap desde CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <%
-		DataUsuario du = new DataUsuario();
-    	LinkedList<Usuario> lu = (LinkedList<Usuario>)request.getAttribute("listaUsuarios");
-	%>
-	
+        DataUsuario du = new DataUsuario();
+        LinkedList<Usuario> lu = (LinkedList<Usuario>) request.getAttribute("listaUsuarios");
+    %>
 </head>
-<body>
-	<div class="container">
-		<div class="row">
-        	<h1>Usuarios</h1>
-            	<div class="col-12 col-sm-12 col-lg-12">
-                	<div class="table-responsive">
-                    	<table class="table">
-                    		<thead>
-                    			<tr>
-                    				<th>ID</th>
-                    				<th>Nombre de usuario</th>
-                    		    	<th>nombre</th>
-                        			<th>apellido</th>
-                        			<th>email</th>
-                        			<th>dirección</th>
-                        			<th>localidad</th>
-                        			<th></th>
-                        			<th></th>
-                      			</tr>
-                      		</thead>
-                    		<tbody>
-                    		<% for (Usuario usu : lu) { %>
-                    			<tr>
-                    				<td><%=usu.getIdUsuario()%></td>
-                    				<td><%=usu.getNomUsuario()%></td>
-                    				<td><%=usu.getNombre()%></td>
-                    				<td><%=usu.getApellido()%></td>
-                    				<td><%=usu.getEmail()%></td>
-                    				<td><%=usu.getDireccion()%></td>
-                    				<td><%=usu.getLocalidad()%></td>
-                    				
-                    				<td><a href='EditUsuario?updUsu=<%=usu.getIdUsuario()%>' class=''>Edit</a></td><!-- editar -->
-                    				<td><a href='Usuarios?delUsu=<%=usu.getIdUsuario()%>' class=''>Delete</a></td><!-- borrar -->
-                    			</tr>
-                    		<% } %>
-                    		</tbody>	
-                    		</table>
-					</div> <!-- /container -->
-				</div>
-			</div>
-		</div>
-	<a class="btn btn-lg btn-primary btn-block" href='Signin'>Atras</a>
-	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="Usuarios" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Crear nuevo Usuario</h2>
-      <label for="inputNomUsuario" class="sr-only">Nombre de usuario</label>
-      <input id="inputNomUsuario" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required type="text">
-      
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input id="inputPassword" name="password" class="form-control" placeholder="Password" required type="password">
-      
-      <label for="inputNombre" class="sr-only">Nombre</label>
-      <input id="inputNombre" name="nombre" class="form-control" placeholder="Nombre" required type="text">
-      
-      <label for="inputApellido" class="sr-only">Apellido</label>
-      <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required type="text">
-      
-      <label for="inputEmail" class="sr-only">Email</label>
-      <input id="inputEmail" name="email" class="form-control" placeholder="Email" required type="email">
-      
-      <label for="inputLocalidad" class="sr-only">Localidad</label>
-      <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text">
-      
-      <label for="inputDireccion" class="sr-only">Direccion</label>
-      <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text">
-      
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
-    </form>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Usuarios</h1>
+        <div class="card shadow p-4">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre de Usuario</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>Dirección</th>
+                            <th>Localidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (Usuario usu : lu) { %>
+                            <tr>
+                                <td><%=usu.getIdUsuario()%></td>
+                                <td><%=usu.getNomUsuario()%></td>
+                                <td><%=usu.getNombre()%></td>
+                                <td><%=usu.getApellido()%></td>
+                                <td><%=usu.getEmail()%></td>
+                                <td><%=usu.getDireccion()%></td>
+                                <td><%=usu.getLocalidad()%></td>
+                                <td>
+                                    <a href='EditUsuario?updUsu=<%=usu.getIdUsuario()%>' class='btn btn-warning btn-sm'>Editar</a>
+                                    <a href='Usuarios?delUsu=<%=usu.getIdUsuario()%>' class='btn btn-danger btn-sm'>Eliminar</a>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card shadow p-4 mt-4">
+            <h2 class="text-center mb-3">Crear nuevo Usuario</h2>
+            <form action="Usuarios" method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="inputNomUsuario" class="form-label">Nombre de Usuario</label>
+                        <input id="inputNomUsuario" name="nomUsuario" class="form-control" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPassword" class="form-label">Contraseña</label>
+                        <input id="inputPassword" name="password" class="form-control" required type="password">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputNombre" class="form-label">Nombre</label>
+                        <input id="inputNombre" name="nombre" class="form-control" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputApellido" class="form-label">Apellido</label>
+                        <input id="inputApellido" name="apellido" class="form-control" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputEmail" class="form-label">Email</label>
+                        <input id="inputEmail" name="email" class="form-control" required type="email">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputLocalidad" class="form-label">Localidad</label>
+                        <input id="inputLocalidad" name="localidad" class="form-control" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputDireccion" class="form-label">Dirección</label>
+                        <input id="inputDireccion" name="direccion" class="form-control" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputTipoUsuario" class="form-label">Tipo de Usuario</label>
+                        <select name="tipoUsuario" id="inputTipoUsuario" class="form-select">
+                            <option value="cliente">Cliente</option>
+                            <option value="empleado">Empleado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-success" type="submit">Registrar</button>
+                    <a href='Signin' class="btn btn-secondary">Atrás</a>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
