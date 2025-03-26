@@ -57,6 +57,7 @@
                 <div class="col"><form action="tiposprendas"><button class="btn btn-primary btn-lg w-100">Ver Tipos de prenda</button></form></div>
                 <div class="col"><form action="prendas"><button class="btn btn-primary btn-lg w-100">Ver Prendas</button></form></div>
                 <div class="col"><form action="ventas"><button class="btn btn-primary btn-lg w-100">Ver Ventas</button></form></div>
+                <div class="col"><form action="locales"><button class="btn btn-primary btn-lg w-100">Ver locales</button></form></div>
                 <div class="col"><form action="comprar"><button class="btn btn-success btn-lg w-100">Comprar una prenda</button></form></div>
             </div>
         </div>
