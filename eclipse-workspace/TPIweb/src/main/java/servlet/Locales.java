@@ -39,8 +39,8 @@ public class Locales extends HttpServlet {
 			Local delLoc = new Local();
 			delLoc.setCodLocal(Integer.parseInt(request.getParameter("delLoc")));
 			try {
-				Local deletedTipoPrenda = dl.getByIdLocal(delLoc);
-				dl.remove(deletedTipoPrenda);	
+				Local deletedLocal = dl.getByIdLocal(delLoc);
+				dl.remove(deletedLocal);	
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());
 				request.getRequestDispatcher("error.html").forward(request, response);
