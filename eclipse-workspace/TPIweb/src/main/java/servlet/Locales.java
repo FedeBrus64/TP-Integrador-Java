@@ -70,9 +70,11 @@ public class Locales extends HttpServlet {
 		
 		String descLocal = request.getParameter("descLocal");
 		String direccion = request.getParameter("direccion");
+		String telefono = request.getParameter("telefono");
 		
 		l.setDescLocal(descLocal);
 		l.setDireccionLocal(direccion);
+		l.setTelefonoLocal(Integer.parseInt(telefono));
 		
 		try {
 			dl.add(l);

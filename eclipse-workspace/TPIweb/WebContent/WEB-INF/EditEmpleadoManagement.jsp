@@ -98,7 +98,7 @@
       <label for="inputLocalidad" class="sr-only">Localidad</label>
       <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text" value="<%=uemp.getLocalidad()%>">
       
-      <label for="inputDireccion" class="sr-only">Direccion</label>
+      <label for="inputDireccion" class="sr-only">Dirección</label>
       <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text" value="<%=uemp.getDireccion()%>">
       
       <label for="inputFechaIngreso" class="sr-only">Fecha de Ingreso</label>

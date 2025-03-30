@@ -4,6 +4,7 @@ public class Local {
 	private int codLocal;
 	private String descLocal;
 	private String direccionLocal;
+	private int telefonoLocal;
 	
 	
 	public int getCodLocal() {
@@ -23,6 +24,12 @@ public class Local {
 	}
 	public void setDireccionLocal(String direccionLocal) {
 		this.direccionLocal = direccionLocal;
+	}
+	public int getTelefonoLocal() {
+		return telefonoLocal;
+	}
+	public void setTelefonoLocal(int telefonoLocal) {
+		this.telefonoLocal = telefonoLocal;
 	}
 	
 	@Override

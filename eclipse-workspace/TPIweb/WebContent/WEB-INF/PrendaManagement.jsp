@@ -2,6 +2,8 @@
 <%@ page import="entities.Prenda" %>
 <%@ page import="entities.TipoPrenda" %>
 <%@ page import="data.DataTipoPrenda" %>
+<%@ page import="entities.Local" %>
+<%@ page import="data.DataLocal" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +18,9 @@
 
     <%
         DataTipoPrenda dtp = new DataTipoPrenda();
+    	DataLocal dl = new DataLocal();
         LinkedList<TipoPrenda> ltp = dtp.getAll();
+        LinkedList<Local> lloc = dl.getAll();
         LinkedList<Prenda> lp = (LinkedList<Prenda>) request.getAttribute("listaPrendas");
     %>
 </head>
@@ -39,6 +43,7 @@
                         <th>Color</th>
                         <th>Marca</th>
                         <th>Tipo de Prenda</th>
+                        <th>Local de la Prenda</th>
                         <th>Precio</th>
                         <th>Acciones</th>
                     </tr>
@@ -52,6 +57,7 @@
                             <td><%= pre.getColor() %></td>
                             <td><%= pre.getMarca() %></td>
                             <td><%= pre.get_tipoPrenda().getDescTipoPrenda() %></td>
+                            <td><%= pre.get_local().getDescLocal() %></td>
                             <td><%= pre.getPrecioUnitario() %></td>
                             <td>
                                 <a href='EditPrenda?updPre=<%= pre.getCodPrenda() %>' class='btn btn-warning btn-sm'>Editar</a>
@@ -93,6 +99,15 @@
                 <select name="tipoPrenda" id="inputTipoPrenda" class="form-select">
                     <% for (TipoPrenda tp : ltp) { %>
                         <option value='<%= tp.getCodTipoPrenda() %>'><%= tp.getDescTipoPrenda() %></option>
+                    <% } %>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="inputLocal" class="form-label">Local en el que se vende la prenda</label>
+                <select name="local" id="inputLocal" class="form-select">
+                    <% for (Local l : lloc) { %>
+                        <option value='<%= l.getCodLocal() %>'><%= l.getDescLocal() %> (<%= l.getDireccionLocal() %>)</option>
                     <% } %>
                 </select>
             </div>

@@ -66,8 +66,10 @@ public class Prendas extends HttpServlet {
 		// TODO Auto-generated method stub
 		Prenda pre = new Prenda();
 		TipoPrenda tp = new TipoPrenda();
+		Local loc = new Local();
 		DataPrenda dp = new DataPrenda();
 		DataTipoPrenda dtp = new DataTipoPrenda();
+		DataLocal dl = new DataLocal();
 		request.setCharacterEncoding("UTF-8");
 		
 		String nombrePrenda = request.getParameter("nombrePrenda");
@@ -77,15 +79,18 @@ public class Prendas extends HttpServlet {
 		String precioUnitario= request.getParameter("precioUnitario");
 		
 		tp.setCodTipoPrenda(Integer.parseInt(request.getParameter("tipoPrenda")));
+		loc.setCodLocal(Integer.parseInt(request.getParameter("local")));
 		
 		try {
 			TipoPrenda tipoPrenda = dtp.getById(tp);
+			Local local = dl.getByIdLocal(loc);
 			
 			pre.setNombrePrenda(nombrePrenda);
 			pre.setTalle(talle);
 			pre.setColor(color);
 			pre.setMarca(marca);
 			pre.set_tipoPrenda(tipoPrenda);
+			pre.set_local(local);
 			pre.setPrecioUnitario(Double.parseDouble(precioUnitario));
 			
 		} catch (DataAccessException e) {

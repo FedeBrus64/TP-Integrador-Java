@@ -25,6 +25,7 @@ public class DataLocal {
 					loc.setCodLocal(rs.getInt("codLocal"));
 					loc.setDescLocal(rs.getString("descLocal"));
 					loc.setDireccionLocal(rs.getString("direccion"));
+					loc.setTelefonoLocal(rs.getInt("telefono"));
 					locales.add(loc);
 				}
 			}
@@ -59,6 +60,7 @@ public class DataLocal {
 				l.setCodLocal(rs.getInt("codLocal"));
 				l.setDescLocal(rs.getString("descLocal"));
 				l.setDireccionLocal(rs.getString("direccion"));
+				l.setTelefonoLocal(rs.getInt("telefono"));
 			}
 		} catch (SQLException e) {
 			throw new DataAccessException("Error al obtener el local especificado.", e);
@@ -75,17 +77,55 @@ public class DataLocal {
 		return l;
 	}
 	
+	public void setPrendas(Prenda pre) throws DataAccessException{
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					  "select local.* "
+					+ "from local "
+					+ "inner join prenda "
+					+ "on local.codLocal=prenda.codLocal "
+					+ "where codPrenda=?"
+					);
+			stmt.setInt(1, pre.getCodPrenda());
+			rs= stmt.executeQuery();
+			if(rs!=null) {
+				while(rs.next()) {
+					Local loc = new Local();
+					loc.setCodLocal(rs.getInt("codLocal"));
+					loc.setDescLocal(rs.getString("descLocal"));
+					loc.setDireccionLocal(rs.getString("direccion"));
+					loc.setTelefonoLocal(rs.getInt("telefono"));
+					pre.set_local(loc);
+				}
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException("No se pudo obtener el/los local/es y sus prendas correspondientes", e);
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				throw new DataAccessException("Error al cerrar la conexión.", e);
+			}
+		}
+	}
+	
 	public void add(Local Local) throws DataAccessException{
 		PreparedStatement stmt= null;
 		ResultSet keyResultSet=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into local(descLocal, direccion) values(?,?)",
+							"insert into local(descLocal, direccion, telefono) values(?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, Local.getDescLocal());
 			stmt.setString(2, Local.getDireccionLocal());
+			stmt.setInt(3, Local.getTelefonoLocal());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
@@ -112,10 +152,11 @@ public class DataLocal {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update local set descLocal=?, direccion=? where codLocal=?");
+							"update local set descLocal=?, direccion=?, telefono=? where codLocal=?");
 			stmt.setString(1, Local.getDescLocal());
 			stmt.setString(2, Local.getDireccionLocal());
-			stmt.setInt(3, Local.getCodLocal());
+			stmt.setInt(3, Local.getTelefonoLocal());
+			stmt.setInt(4, Local.getCodLocal());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException("Error al editar el local.", e);

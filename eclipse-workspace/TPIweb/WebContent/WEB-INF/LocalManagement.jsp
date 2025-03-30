@@ -27,6 +27,7 @@
                             <th>ID</th>
                             <th>Descripción del Local</th>
                             <th>Dirección</th>
+                            <th>Teléfono</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -36,6 +37,7 @@
                                 <td><%=loc.getCodLocal()%></td>
                                 <td><%=loc.getDescLocal()%></td>
                                 <td><%=loc.getDireccionLocal()%></td>
+                                <td><%=loc.getTelefonoLocal()%></td>
                                 <td>
                                     <a href='EditLocal?updLoc=<%=loc.getCodLocal()%>' class='btn btn-warning btn-sm'>Editar</a>
                                     <a href='Locales?delLoc=<%=loc.getCodLocal()%>' class='btn btn-danger btn-sm'>Eliminar</a>
@@ -57,7 +59,11 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputDireccionLocal" class="form-label">Dirección del local</label>
-                        <input id="inputDireccionLocal" name="direccion" class="form-control" required type="password">
+                        <input id="inputDireccionLocal" name="direccion" class="form-control" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputTelefonoLocal" class="form-label">Teléfono del local</label>
+                        <input id="inputTelefonoLocal" name="telefono" class="form-control" required type="number">
                     </div>
                 </div>
                 <div class="text-center mt-4">

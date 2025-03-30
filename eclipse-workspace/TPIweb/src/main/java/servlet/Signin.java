@@ -47,7 +47,10 @@ public class Signin extends HttpServlet {
 					} else {
 						request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
 					}
-				} /* Hacer el else acá. Es igual para todas las páginas del Cliente así que okay.*/
+				} else {
+					request.setAttribute("error", "Ocurrió un error. Por favor, vuelva a iniciar sesión.");
+					request.getRequestDispatcher("error.html").forward(request, response);
+				}
 				
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());

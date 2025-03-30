@@ -41,7 +41,7 @@ public class EditLocal extends HttpServlet {
 			request.setAttribute("listaLocales", locales);
 			updLoc.setCodLocal(Integer.parseInt(request.getParameter("updLoc")));
 			Local updateLocal = dl.getByIdLocal(updLoc);
-			request.setAttribute("updateTipoPrenda", updateLocal);
+			request.setAttribute("updateLocal", updateLocal);
 			request.getRequestDispatcher("WEB-INF/EditLocalManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
@@ -61,10 +61,12 @@ public class EditLocal extends HttpServlet {
 		String codLocal = request.getParameter("codLocal");
 		String descripcion = request.getParameter("descLocal");
 		String direccion = request.getParameter("direccion");
+		String telefono = request.getParameter("telefono");
 		
 		loc.setCodLocal(Integer.parseInt(codLocal));
 		loc.setDescLocal(descripcion);
 		loc.setDireccionLocal(direccion);
+		loc.setTelefonoLocal(Integer.parseInt(telefono));
 		
 		try {
 			dl.update(loc);

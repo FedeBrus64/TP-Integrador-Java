@@ -3,6 +3,8 @@
 <%@ page import="entities.TipoPrenda" %>
 <%@ page import="data.DataTipoPrenda" %>
 <%@ page import="java.util.LinkedList" %>
+<%@ page import="entities.Local" %>
+<%@ page import="data.DataLocal" %>
 
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -28,7 +30,9 @@
     
     <%
     	DataTipoPrenda dtp = new DataTipoPrenda();
+    	DataLocal dl = new DataLocal();
 		LinkedList<TipoPrenda> ltp =  dtp.getAll();
+		LinkedList<Local> lloc = dl.getAll();
     	LinkedList<Prenda> lp = (LinkedList<Prenda>)request.getAttribute("listaPrendas");
     	Prenda upre = (Prenda)request.getAttribute("updatePrenda");
 	%>
@@ -50,6 +54,8 @@
                         			<th>Color</th>
                         			<th>Marca</th>
                         			<th>Tipo de prenda</th>
+                        			<th>Local de la prenda</th>
+                        			<th>Precio unitario de la prenda</th>
                         			<th></th>
                         			<th></th>
                       			</tr>
@@ -63,6 +69,9 @@
                     				<td><%=pre.getColor()%></td>
                     				<td><%=pre.getMarca()%></td>
                     				<td><%=pre.get_tipoPrenda().getDescTipoPrenda()%></td>
+                    				<td><%=pre.get_local().getDescLocal() %></td>
+                    				<td><%=pre.getPrecioUnitario()%></td>
+                    				<td></td>
                     				
                     				<td><a href='EditPrenda?updPre=<%=pre.getCodPrenda()%>' class=''>Edit</a></td><!-- editar -->
                     			</tr>
@@ -97,6 +106,15 @@
       		<option value ='<%=tp.getCodTipoPrenda()%>'><%=tp.getDescTipoPrenda()%></option>
       	<% } %>
       </select>
+      
+     <div class="mb-3">
+         <label for="inputLocal" class="form-label">Local en el que se vende la prenda</label>
+         <select name="local" id="inputLocal" class="form-select">
+             <% for (Local l : lloc) { %>
+                 <option value='<%= l.getCodLocal() %>'><%= l.getDescLocal() %></option>
+             <% } %>
+         </select>
+     </div>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
     </form>

@@ -43,6 +43,7 @@
                     				<th>ID</th>
                     				<th>Descripción del local/th>
                     		    	<th>Dirección del local</th>
+                    		    	<th>Teléfono del local</th>
                         			<th></th>
                         			<th></th>
                       			</tr>
@@ -53,6 +54,7 @@
                     				<td><%=loc.getCodLocal()%></td>
                     				<td><%=loc.getDescLocal()%></td>
                     				<td><%=loc.getDireccionLocal()%></td>
+                    				<td><%=loc.getTelefonoLocal()%></td>
          
                     				<td><a href='EditLocal?updLoc=<%=loc.getCodLocal()%>' class=''>Edit</a></td><!-- editar -->
                     			</tr>
@@ -66,7 +68,7 @@
 	<a class="btn btn-lg btn-primary btn-block" href='Usuarios'>Atras</a>
 	<div class ='col-12 col-sm-12 col-lg-12'>
 	<form class="form-list" action="EditLocal" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Editar Usuario</h2>
+      <h2 class="h3 mb-3 font-weight-normal">Editar Local</h2>
       
       <label for="inputCodLocal" class="sr-only">ID de Local Actual</label>
       <input id="inputCodLocal" name="codLocal" class="form-control" required type="number" readonly value="<%=locu.getCodLocal()%>">
@@ -76,6 +78,9 @@
       
       <label for="inputDireccionLocal" class="sr-only">Dirección del local</label>
       <input id="inputDireccionLocal" name="direccion" class="form-control" placeholder="Dirección" required type="text" value="<%=locu.getDireccionLocal()%>">
+      
+      <label for="inputTelefonoLocal" class="sr-only">Teléfono del local</label>
+      <input id="inputTelefonoLocal" name="telefono" class="form-control" placeholder="Teléfono" required type="number" value="<%=locu.getTelefonoLocal()%>">
       
       <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
     </form>

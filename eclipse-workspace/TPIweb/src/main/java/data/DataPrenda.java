@@ -12,6 +12,7 @@ import utils.DataAccessException;
 public class DataPrenda {
 	public LinkedList<Prenda> getAll() throws DataAccessException{
 		DataTipoPrenda dtp = new DataTipoPrenda();
+		DataLocal dl = new DataLocal();
 		Statement stmt=null;
 		ResultSet rs=null;
 		LinkedList<Prenda> prendas= new LinkedList<>();
@@ -23,14 +24,17 @@ public class DataPrenda {
 				while(rs.next()) {
 					Prenda p=new Prenda();
 					p.set_tipoPrenda(new TipoPrenda());
+					p.set_local(new Local());
 					p.setCodPrenda(rs.getInt("codPrenda"));
 					p.setNombrePrenda(rs.getString("nombrePrenda"));
 					p.setColor(rs.getString("color"));
 					p.setMarca(rs.getString("marca"));
 					p.setTalle(rs.getString("talle"));
 					p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
+					p.get_local().setCodLocal(rs.getInt("codLocal"));
 					p.setPrecioUnitario(rs.getDouble("precioUnitario"));
 					dtp.setPrendas(p);
+					dl.setPrendas(p);
 					prendas.add(p);
 				}
 			}
@@ -72,6 +76,7 @@ public class DataPrenda {
 				p.setTalle(rs.getString("talle"));
 				p.setPrecioUnitario(rs.getDouble("precioUnitario"));
 				p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
+				p.get_local().setCodLocal(rs.getInt("codLocal"));
 			}
 		} catch (SQLException e) {
 			throw new DataAccessException("Error al obtener la/las prenda/s", e);
@@ -107,6 +112,7 @@ public class DataPrenda {
 				p.setTalle(rs.getString("talle"));
 				p.setPrecioUnitario(rs.getDouble("precioUnitario"));
 				p.get_tipoPrenda().setCodTipoPrenda(rs.getInt("codTipoPrenda"));
+				p.get_local().setCodLocal(rs.getInt("codLocal"));
 			}
 		} catch (SQLException e) {
 			throw new DataAccessException("Error al obtener la/las prenda/s", e);
@@ -170,7 +176,7 @@ public class DataPrenda {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into prenda(nombrePrenda, color, marca, talle, codTipoPrenda, precioUnitario) values(?,?,?,?,?,?)",
+							"insert into prenda(nombrePrenda, color, marca, talle, codTipoPrenda, codLocal, precioUnitario) values(?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, prenda.getNombrePrenda());
@@ -178,7 +184,8 @@ public class DataPrenda {
 			stmt.setString(3, prenda.getMarca());
 			stmt.setString(4, prenda.getTalle());
 			stmt.setInt(5, prenda.get_tipoPrenda().getCodTipoPrenda());
-			stmt.setDouble(6, prenda.getPrecioUnitario());
+			stmt.setInt(6, prenda.get_local().getCodLocal());
+			stmt.setDouble(7, prenda.getPrecioUnitario());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
@@ -206,14 +213,15 @@ public class DataPrenda {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update prenda set nombrePrenda=?,color=?,marca=?,talle=?,codTipoPrenda=?,precioUnitario=? where codPrenda=?");
+							"update prenda set nombrePrenda=?,color=?,marca=?,talle=?,codTipoPrenda=?,codLocal=?,precioUnitario=? where codPrenda=?");
 			stmt.setString(1, prenda.getNombrePrenda());
 			stmt.setString(2, prenda.getColor());
 			stmt.setString(3, prenda.getMarca());
 			stmt.setString(4, prenda.getTalle());
 			stmt.setInt(5, prenda.get_tipoPrenda().getCodTipoPrenda());
-			stmt.setDouble(6, prenda.getPrecioUnitario());
-			stmt.setInt(7, prenda.getCodPrenda());
+			stmt.setInt(6, prenda.get_local().getCodLocal());
+			stmt.setDouble(7, prenda.getPrecioUnitario());
+			stmt.setInt(8, prenda.getCodPrenda());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException("Error al editar la prenda.", e);

@@ -7,6 +7,7 @@ public class Prenda {
 	private String color;
 	private String marca;
 	private TipoPrenda _tipoPrenda;
+	private Local _local;
 	private double precioUnitario;
 	public int getCodPrenda() {
 		return codPrenda;
@@ -49,6 +50,12 @@ public class Prenda {
 	}
 	public void set_tipoPrenda(TipoPrenda _tipoPrenda) {
 		this._tipoPrenda = _tipoPrenda;
+	}
+	public Local get_local() {
+		return _local;
+	}
+	public void set_local(Local _local) {
+		this._local = _local;
 	}
 	
 	@Override
