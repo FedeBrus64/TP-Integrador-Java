@@ -30,7 +30,6 @@ public class DataCliente {
 					c.setEmail(rs.getString("email"));
 					c.setLocalidad(rs.getString("localidad"));
 					c.setCodigoPostal(rs.getInt("codigoPostal"));
-					c.setInformacionPago(rs.getString("informacionPago"));
 					clientes.add(c);
 				}
 			}
@@ -72,7 +71,6 @@ public class DataCliente {
 				c.setDireccion(rs.getString("direccion"));
 				c.setEmail(rs.getString("email"));
 				c.setLocalidad(rs.getString("localidad"));
-				c.setInformacionPago(rs.getString("informacionPago"));
 				c.setCodigoPostal(rs.getInt("codigoPostal"));
 			}
 		} catch (SQLException e) {
@@ -110,7 +108,6 @@ public class DataCliente {
 				c.setDireccion(rs.getString("direccion"));
 				c.setEmail(rs.getString("email"));
 				c.setLocalidad(rs.getString("localidad"));
-				c.setInformacionPago(rs.getString("informacionPago"));
 				c.setCodigoPostal(rs.getInt("codigoPostal"));
 			}
 		} catch (SQLException e) {
@@ -147,7 +144,6 @@ public class DataCliente {
 				c.setDireccion(rs.getString("direccion"));
 				c.setEmail(rs.getString("email"));
 				c.setLocalidad(rs.getString("localidad"));
-				c.setInformacionPago(rs.getString("informacionPago"));
 				c.setCodigoPostal(rs.getInt("codigoPostal"));
 			}
 		} catch (SQLException e) {
@@ -227,7 +223,6 @@ public class DataCliente {
 					cli.setDireccion(rs.getString("direccion"));
 					cli.setEmail(rs.getString("email"));
 					cli.setLocalidad(rs.getString("localidad"));
-					cli.setInformacionPago(rs.getString("informacionPago"));
 					cli.setCodigoPostal(rs.getInt("codigoPostal"));
 					ven.set_cliente(cli);
 				}
@@ -252,7 +247,7 @@ public class DataCliente {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into usuario(nomUsuario,nombre,apellido,direccion,email,localidad, informacionPago, codigoPostal) values(?,?,?,?,?,?,?,?)",
+							"insert into usuario(nomUsuario,nombre,apellido,direccion,email,localidad, codigoPostal) values(?,?,?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, cliente.getNomUsuario());
@@ -261,8 +256,7 @@ public class DataCliente {
 			stmt.setString(4, cliente.getDireccion());
 			stmt.setString(5, cliente.getEmail());
 			stmt.setString(6, cliente.getLocalidad());
-			stmt.setString(7, cliente.getInformacionPago());
-			stmt.setInt(8, cliente.getCodigoPostal());
+			stmt.setInt(7, cliente.getCodigoPostal());
 
 			stmt.executeUpdate();
 			
@@ -291,16 +285,15 @@ public class DataCliente {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update usuario set nomUsuario=?,nombre=?,apellido=?,direccion=?,email=?,localidad=?, informacionPago=?, codigoPostal=? where idUsuario=?");
+							"update usuario set nomUsuario=?,nombre=?,apellido=?,direccion=?,email=?,localidad=?, codigoPostal=? where idUsuario=?");
 			stmt.setString(1, cliente.getNomUsuario());
 			stmt.setString(2, cliente.getNombre());
 			stmt.setString(3, cliente.getApellido());
 			stmt.setString(4, cliente.getDireccion());
 			stmt.setString(5, cliente.getEmail());
 			stmt.setString(6, cliente.getLocalidad());
-			stmt.setString(7, cliente.getInformacionPago());
-			stmt.setInt(8, cliente.getCodigoPostal());
-			stmt.setInt(9, cliente.getIdUsuario());
+			stmt.setInt(7, cliente.getCodigoPostal());
+			stmt.setInt(8, cliente.getIdUsuario());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException("Error al editar el cliente.", e);
