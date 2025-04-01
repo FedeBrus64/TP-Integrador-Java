@@ -75,6 +75,7 @@ public class Ventas extends HttpServlet {
 		String importeTotal = request.getParameter("importeTotal");
 		String fechaVenta = request.getParameter("fechaVenta") + "T00:00:00";
 		String formaPago = request.getParameter("formaPago");
+		String estado = request.getParameter("estado");
 		
 		try {
 			pre.setCodPrenda(Integer.parseInt(request.getParameter("prenda")));
@@ -87,6 +88,7 @@ public class Ventas extends HttpServlet {
 			ven.set_cliente(cliente);
 			ven.set_prenda(prenda);
 			ven.setFormaPago(formaPago);
+			ven.setEstado(estado);
 			dv.add(ven);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());

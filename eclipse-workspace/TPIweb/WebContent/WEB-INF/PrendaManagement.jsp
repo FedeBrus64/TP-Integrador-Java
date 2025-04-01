@@ -21,7 +21,7 @@
     	DataLocal dl = new DataLocal();
         LinkedList<TipoPrenda> ltp = dtp.getAll();
         LinkedList<Local> lloc = dl.getAll();
-        LinkedList<Prenda> lp = (LinkedList<Prenda>) request.getAttribute("listaPrendas");
+        LinkedList<Prenda> lp = (LinkedList<Prenda>)request.getAttribute("listaPrendas");
     %>
 </head>
 

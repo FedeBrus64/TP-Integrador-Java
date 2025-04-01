@@ -69,6 +69,7 @@ public class EditUsuario extends HttpServlet {
 		String direccion = request.getParameter("direccion");
 		String localidad = request.getParameter("localidad");
 		String password = request.getParameter("password");
+		String tipoUsuario = request.getParameter("tipoUsuario");
 		
 		usu.setIdUsuario(Integer.parseInt(idUsuario));
 		usu.setNomUsuario(nomUsuario);
@@ -78,6 +79,7 @@ public class EditUsuario extends HttpServlet {
 		usu.setEmail(email);
 		usu.setDireccion(direccion);
 		usu.setLocalidad(localidad);
+		usu.setTipoUsuario(tipoUsuario);
 		
 		try {
 			du.update(usu);

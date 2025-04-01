@@ -29,6 +29,7 @@ public class DataVenta {
 					v.setFechaVenta(rs.getObject("fechaVenta",LocalDateTime.class));
 					v.setImporteTotal(rs.getDouble("importeTotal"));
 					v.setFormaPago(rs.getString("formaPago"));
+					v.setEstado(rs.getString("estado"));
 					v.get_cliente().setIdUsuario(rs.getInt("idCliente"));
 					v.get_prenda().setCodPrenda(rs.getInt("idPrenda"));
 					dc.setVenta(v);
@@ -77,6 +78,7 @@ public class DataVenta {
 					v.setNroVenta(rs.getInt("nroVenta"));
 					v.setFechaVenta(rs.getObject("fechaVenta",LocalDateTime.class));
 					v.setImporteTotal(rs.getDouble("importeTotal"));
+					v.setEstado(rs.getString("estado"));
 					v.get_cliente().setIdUsuario(rs.getInt("idCliente"));
 					v.get_prenda().setCodPrenda(rs.getInt("idPrenda"));
 					v.setFormaPago(rs.getString("formaPago"));
@@ -121,6 +123,7 @@ public class DataVenta {
 				v.setFechaVenta(rs.getObject("fechaVenta",LocalDateTime.class));
 				v.setImporteTotal(rs.getDouble("importeTotal"));
 				v.setFormaPago(rs.getString("formaPago"));
+				v.setEstado(rs.getString("estado"));
 				v.get_cliente().setIdUsuario(rs.getInt("idCliente"));
 				v.get_prenda().setCodPrenda(rs.getInt("idPrenda"));
 			}
@@ -157,6 +160,7 @@ public class DataVenta {
 				v.setFechaVenta(rs.getObject("fechaVenta",LocalDateTime.class));
 				v.setImporteTotal(rs.getDouble("importeTotal"));
 				v.setFormaPago(rs.getString("formaPago"));
+				v.setEstado(rs.getString("estado"));
 				v.get_cliente().setIdUsuario(rs.getInt("idCliente"));
 				v.get_prenda().setCodPrenda(rs.getInt("idPrenda"));
 			}
@@ -183,14 +187,15 @@ public class DataVenta {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into venta(fechaVenta, importeTotal, formaPago, idPrenda, idCliente) values(?,?,?,?,?)",
+							"insert into venta(fechaVenta, importeTotal, formaPago, estado, idPrenda, idCliente) values(?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setObject(1, venta.getFechaVenta());
 			stmt.setDouble(2, venta.getImporteTotal());
 			stmt.setString(3, venta.getFormaPago());
-			stmt.setInt(4, venta.get_prenda().getCodPrenda());
-			stmt.setInt(5, venta.get_cliente().getIdUsuario());
+			stmt.setString(4, venta.getEstado());
+			stmt.setInt(5, venta.get_prenda().getCodPrenda());
+			stmt.setInt(6, venta.get_cliente().getIdUsuario());
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
@@ -218,13 +223,14 @@ public class DataVenta {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"update venta set fechaVenta=?, importeTotal=?, formaPago=?, idPrenda=?, idCliente=? where nroVenta=?");
+							"update venta set fechaVenta=?, importeTotal=?, formaPago=?, estado=?, idPrenda=?, idCliente=? where nroVenta=?");
 			stmt.setObject(1, venta.getFechaVenta());
 			stmt.setDouble(2, venta.getImporteTotal());
 			stmt.setString(3, venta.getFormaPago());
-			stmt.setInt(4, venta.get_prenda().getCodPrenda());
-			stmt.setInt(5, venta.get_cliente().getIdUsuario());
-			stmt.setInt(6, venta.getNroVenta());
+			stmt.setString(4, venta.getEstado());
+			stmt.setInt(5, venta.get_prenda().getCodPrenda());
+			stmt.setInt(6, venta.get_cliente().getIdUsuario());
+			stmt.setInt(7, venta.getNroVenta());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DataAccessException("No se pudo editar la venta", e);

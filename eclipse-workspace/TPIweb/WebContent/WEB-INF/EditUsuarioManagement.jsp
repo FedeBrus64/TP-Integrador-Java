@@ -19,89 +19,108 @@
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 	<title>Sistema online Vincenzo</title>
 	
-	<!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="style/list.css" rel="stylesheet">
-    
     <%
     	LinkedList<Usuario> lu = (LinkedList<Usuario>)request.getAttribute("listaUsuarios");
     	Usuario uusu = (Usuario)request.getAttribute("updateUsuario");
 	%>
 	
 </head>
-<body>
-	<div class="container">
-		<div class="row">
-        	<h1>Usuarios</h1>
-            	<div class="col-12 col-sm-12 col-lg-12">
-                	<div class="table-responsive">
-                    	<table class="table">
-                    		<thead>
-                    			<tr>
-                    				<th>ID</th>
-                    				<th>Nombre de usuario</th>
-                    		    	<th>nombre</th>
-                        			<th>apellido</th>
-                        			<th>email</th>
-                        			<th>dirección</th>
-                        			<th>localidad</th>
-                        			<th></th>
-                        			<th></th>
-                      			</tr>
-                      		</thead>
-                    		<tbody>
-                    		<% for (Usuario usu : lu) { %>
-                    			<tr>
-                    				<td><%=usu.getIdUsuario()%></td>
-                    				<td><%=usu.getNomUsuario()%></td>
-                    				<td><%=usu.getNombre()%></td>
-                    				<td><%=usu.getApellido()%></td>
-                    				<td><%=usu.getEmail()%></td>
-                    				<td><%=usu.getDireccion()%></td>
-                    				<td><%=usu.getLocalidad()%></td>
-         
-                    				<td><a href='EditUsuario?updUsu=<%=usu.getIdUsuario()%>' class=''>Edit</a></td><!-- editar -->
-                    			</tr>
-                    		<% } %>
-                    		</tbody>	
-                    		</table>
-					</div> <!-- /container -->
-				</div>
-			</div>
-		</div>
-	<a class="btn btn-lg btn-primary btn-block" href='Usuarios'>Atras</a>
-	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="EditUsuario" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Editar Usuario</h2>
-      
-      <label for="inputIdUsuario" class="sr-only">ID de usuario actual</label>
-      <input id="inputIdUsuario" name="idUsuario" class="form-control" required type="number" readonly value="<%=uusu.getIdUsuario()%>">
-      
-      <label for="inputNomUsuario" class="sr-only">Nombre de usuario</label>
-      <input id="inputNomUsuario" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required type="text" value="<%=uusu.getNomUsuario()%>">
-      
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input id="inputPassword" name="password" class="form-control" placeholder="Password" required type="password" value="<%=uusu.getContraseña()%>">
-      
-      <label for="inputNombre" class="sr-only">Nombre</label>
-      <input id="inputNombre" name="nombre" class="form-control" placeholder="Nombre" required type="text" value="<%=uusu.getNombre()%>">
-      
-      <label for="inputApellido" class="sr-only">Apellido</label>
-      <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required type="text" value="<%=uusu.getApellido()%>">
-      
-      <label for="inputEmail" class="sr-only">Email</label>
-      <input id="inputEmail" name="email" class="form-control" placeholder="Email" required type="email" value="<%=uusu.getEmail()%>">
-      
-      <label for="inputLocalidad" class="sr-only">Localidad</label>
-      <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text" value="<%=uusu.getLocalidad()%>">
-      
-      <label for="inputDireccion" class="sr-only">Direccion</label>
-      <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text" value="<%=uusu.getDireccion()%>">
-      
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
-    </form>
-    </div>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Usuarios</h1>
+        <a class="btn btn-primary mb-3" href='Usuarios'>Atrás</a>
+
+        <div class="row">
+            <!-- Tabla de Usuarios -->
+            <div class="card shadow p-4">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre de usuario</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Email</th>
+                                <th>Dirección</th>
+                                <th>Localidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (Usuario usu : lu) { %>
+                                <tr>
+                                    <td><%=usu.getIdUsuario()%></td>
+                                    <td><%=usu.getNomUsuario()%></td>
+                                    <td><%=usu.getNombre()%></td>
+                                    <td><%=usu.getApellido()%></td>
+                                    <td><%=usu.getEmail()%></td>
+                                    <td><%=usu.getDireccion()%></td>
+                                    <td><%=usu.getLocalidad()%></td>
+                                    <td>
+                                        <a href='EditUsuario?updUsu=<%=usu.getIdUsuario()%>' class='btn btn-warning btn-sm'>Editar</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Formulario de Edición -->
+            <div class="card shadow p-4 mt-4">
+                    <h2 class="h4 text-center">Editar Usuario</h2>
+                    <form action="EditUsuario" method="post">
+                        <div class="row g-3">
+               
+                    <div class="col-md-6">
+                        <label for="inputIdUsuario" class="form-label">ID del usuario</label>
+                        <input id="inputIdUsuario" name="idUsuario" class="form-control" readonly value="<%=uusu.getIdUsuario()%>" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputNomUsuario" class="form-label">Nombre de Usuario</label>
+                        <input id="inputNomUsuario" name="nomUsuario" class="form-control" value = "<%=uusu.getNomUsuario()%>" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPassword" class="form-label">Contraseña</label>
+                        <input id="inputPassword" name="password" class="form-control" value = "<%=uusu.getContraseña()%>" required type="password">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputNombre" class="form-label">Nombre</label>
+                        <input id="inputNombre" name="nombre" class="form-control" value = "<%=uusu.getNombre()%>" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputApellido" class="form-label">Apellido</label>
+                        <input id="inputApellido" name="apellido" class="form-control" value = "<%=uusu.getApellido()%>" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputEmail" class="form-label">Email</label>
+                        <input id="inputEmail" name="email" class="form-control" value = "<%=uusu.getEmail()%>" required type="email">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputLocalidad" class="form-label">Localidad</label>
+                        <input id="inputLocalidad" name="localidad" class="form-control" value = "<%=uusu.getLocalidad()%>" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputDireccion" class="form-label">Dirección</label>
+                        <input id="inputDireccion" name="direccion" class="form-control" value = "<%=uusu.getDireccion()%>" required type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputTipoUsuario" class="form-label">Tipo de Usuario</label>
+                        <select name="tipoUsuario" id="inputTipoUsuario" value = "<%=uusu.getTipoUsuario()%>" class="form-select">
+                            <option value="cliente">Cliente</option>
+                            <option value="empleado">Empleado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-success" type="submit">Editar</button>
+                </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

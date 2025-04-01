@@ -69,6 +69,7 @@ public class DataPrenda {
 			if(rs!=null && rs.next()) {
 				p=new Prenda();
 				p.set_tipoPrenda(new TipoPrenda());
+				p.set_local(new Local());
 				p.setCodPrenda(rs.getInt("codPrenda"));
 				p.setNombrePrenda(rs.getString("nombrePrenda"));
 				p.setColor(rs.getString("color"));

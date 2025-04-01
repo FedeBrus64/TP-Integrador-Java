@@ -77,6 +77,7 @@ public class Checkout extends HttpServlet {
 			ven.setFechaVenta(LocalDateTime.now());
 			ven.set_cliente(cliente);
 			ven.set_prenda(prenda);
+			ven.setEstado("Pendiente");
 			ven.setFormaPago(formaPago);
 			
 			dv.add(ven);

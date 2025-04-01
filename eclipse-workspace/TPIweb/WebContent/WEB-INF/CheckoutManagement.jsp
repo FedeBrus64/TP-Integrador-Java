@@ -1,4 +1,6 @@
 <%@ page import="entities.Prenda" %>
+<%@ page import="entities.Local" %>
+<%@ page import="data.DataLocal" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,7 +12,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <%
-        Prenda cpre = (Prenda) request.getAttribute("checkoutPrenda");
+    	DataLocal dl = new DataLocal();
+        Prenda cpre = (Prenda)request.getAttribute("checkoutPrenda");
+        Local loc = dl.getByIdLocal(cpre.get_local());
     %>
 </head>
 <body class="bg-light">
@@ -26,6 +30,8 @@
                         <li class="list-group-item"><strong>Talle:</strong> <%= cpre.getTalle() %></li>
                         <li class="list-group-item"><strong>Color:</strong> <%= cpre.getColor() %></li>
                         <li class="list-group-item"><strong>Marca:</strong> <%= cpre.getMarca() %></li>
+                        <li class="list-group-item"><strong>Dirección del local en el que se encuentra la prenda:</strong> <%= loc.getDireccionLocal() %></li>
+                        <li class="list-group-item"><strong>Teléfono del local</strong> <%= loc.getTelefonoLocal() %></li>
                         <li class="list-group-item"><strong>Precio:</strong> $<%= cpre.getPrecioUnitario() %></li>
                     </ul>
                 </div>
@@ -39,7 +45,7 @@
                         <div class="mb-3">
                             <label for="inputMetodoPago" class="form-label fw-bold">Seleccione el método de pago:</label>
                             <select name="metodoPago" id="inputMetodoPago" class="form-select">
-                                <option value="Efectivo/Transferencia">Efectivo/Transferencia</option>
+                                <option value="Transferencia">Transferencia</option>
                                 <option value="Tarjeta de Débito">Tarjeta de Débito</option>
                                 <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
                             </select>

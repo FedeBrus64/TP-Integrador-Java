@@ -51,6 +51,7 @@
                         			<th>Talle</th>
                         			<th>Color</th>
                         			<th>Marca</th>
+                        			<th>Estado</th>
                       			</tr>
                       		</thead>
                     		<tbody>
@@ -63,6 +64,7 @@
                     				<td><%=ven.get_prenda().getTalle()%></td>
                     				<td><%=ven.get_prenda().getColor()%></td>
                     				<td><%=ven.get_prenda().getMarca()%></td>
+                    				<td><%=ven.getEstado()%></td>
                     			</tr>
                     		<% } %>
                     		</tbody>	

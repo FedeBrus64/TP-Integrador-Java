@@ -50,6 +50,7 @@
                     		    	<th>Forma de pago</th>
                         			<th>Cliente</th>
                         			<th>Prenda</th>
+                        			<th>Estado</th>
                         			<th>Acciones</th>
                       			</tr>
                       		</thead>
@@ -62,6 +63,7 @@
                     				<td><%=ven.getFormaPago()%></td>
                     				<td><%=ven.get_cliente().getNomUsuario()%></td>
                     				<td><%=ven.get_prenda().getNombrePrenda()%></td>
+                    				<td><%=ven.getEstado()%></td>
                     				<td>
                     					<a href='EditVenta?updVen=<%=ven.getNroVenta()%>' class='btn btn-warning btn-sm'>Editar</a><!-- editar -->
                     					<a href='Ventas?delVen=<%=ven.getNroVenta()%>' class='btn btn-danger btn-sm'>Eliminar</a><!-- borrar -->
@@ -85,14 +87,27 @@
       <input id="inputVenta" name="fechaVenta" class="form-control" required type="date">
     </div> 
     <div class="mb-3">
-        <label for="inputFormaPago" class="form-label">Forma de pago</label>
-        <input id="inputFormaPago" name="formaPago" class="form-control" placeholder="Ingrese la forma de pago" required type="text">
+        <label for="inputMetodoPago" class="form-label fw-bold">Método de pago</label>
+        <select name="formaPago" id="inputMetodoPago" class="form-select">
+            <option value="Transferencia">Transferencia</option>
+            <option value="Tarjeta de Débito">Tarjeta de Débito</option>
+            <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="inputEstado" class="form-label fw-bold">Estado</label>
+        <select name="formaPago" id="inputEstado" class="form-select">
+            <option value="Pendiente">Pendiente</option>
+            <option value="Aprobado">Aprobado</option>
+            <option value="Entregado">Entregado</option>
+            <option value="Rechazado">Rechazado</option>
+        </select>
     </div>
     <div class="mb-3">
       <label for="inputCliente" class="form-label">Cliente</label>
       <select name="cliente" id="inputCliente" class="form-select">
       	<% for (Cliente c : lc) { %>
-      		<option value ='<%=c.getIdUsuario()%>'><%=c.getNomUsuario()%></option>
+      		<option value ='<%=c.getIdUsuario()%>'><%=c.getNomUsuario()%> (<%=c.getNombre()%> <%=c.getApellido()%>) </option>
       	<% } %>
       </select>
      </div>

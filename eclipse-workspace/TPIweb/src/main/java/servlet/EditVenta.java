@@ -74,6 +74,7 @@ public class EditVenta extends HttpServlet {
 		String importeTotal = request.getParameter("importeTotal");
 		String fechaVenta = request.getParameter("fechaVenta") + "T00:00:00";
 		String formaPago = request.getParameter("formaPago");
+		String estado = request.getParameter("estado");
 		
 		try {
 			pre.setCodPrenda(Integer.parseInt(request.getParameter("prenda")));
@@ -86,6 +87,7 @@ public class EditVenta extends HttpServlet {
 			ven.setImporteTotal(Double.parseDouble(importeTotal));
 			ven.setFechaVenta(LocalDateTime.parse(fechaVenta));
 			ven.setFormaPago(formaPago);
+			ven.setEstado(estado);
 			ven.set_cliente(cliente);
 			ven.set_prenda(prenda);
 			
