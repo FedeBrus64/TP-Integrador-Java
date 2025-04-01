@@ -28,6 +28,7 @@ CREATE TABLE `local` (
   `codLocal` int NOT NULL AUTO_INCREMENT,
   `descLocal` varchar(45) DEFAULT NULL,
   `direccion` varchar(45) DEFAULT NULL,
+  `telefono` int DEFAULT NULL,
   PRIMARY KEY (`codLocal`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38,7 +39,7 @@ CREATE TABLE `local` (
 
 LOCK TABLES `local` WRITE;
 /*!40000 ALTER TABLE `local` DISABLE KEYS */;
-INSERT INTO `local` VALUES (1,'Local 1','España 1237'),(2,'Local 2','Córdoba 1171'),(3,'Local 3','San Martín 1001');
+INSERT INTO `local` VALUES (1,'Local 1','España 1237',4498669),(2,'Local 2','Córdoba 1171',4498924),(3,'Local 3','San Martín 1001',4242551);
 /*!40000 ALTER TABLE `local` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,7 +73,7 @@ CREATE TABLE `prenda` (
 
 LOCK TABLES `prenda` WRITE;
 /*!40000 ALTER TABLE `prenda` DISABLE KEYS */;
-INSERT INTO `prenda` VALUES (4,'Pantalon Polo','M','Negro','Polo',1,NULL,NULL),(5,'Camisa Polo','S','Blanco','Polo',2,NULL,NULL),(6,'Pantalón Polo','L','Azul','Polo',1,NULL,NULL),(7,'Camisa Polo','L','Azul','Polo',2,0,NULL),(8,'Camisa Polo','L','Rojo','Polo',2,2500,NULL),(9,'Pantalón Polo','L','Azul','Polo',1,2500,NULL),(10,'Pantalón Polo','L','Blanco','Polo',1,2500,NULL),(11,'Saco Crawford Negro Largo','42','Negro','Crawford',5,32000,NULL);
+INSERT INTO `prenda` VALUES (4,'Pantalon Polo','M','Negro','Polo',1,28000,1),(5,'Camisa Polo','S','Blanco','Polo',2,23000,1),(6,'Pantalón Polo','L','Azul','Polo',1,31000,2),(7,'Camisa Polo','L','Azul','Polo',2,30000,3),(8,'Camisa Polo','L','Rojo','Polo',2,2500,3),(9,'Pantalón Polo','L','Azul','Polo',1,2500,2),(10,'Pantalón Polo','L','Blanco','Polo',1,2500,1),(11,'Saco Crawford Negro Largo','42','Negro','Crawford',5,32000,2);
 /*!40000 ALTER TABLE `prenda` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +116,6 @@ CREATE TABLE `usuario` (
   `apellido` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `tipoUsuario` varchar(45) DEFAULT NULL,
-  `informacionPago` varchar(255) DEFAULT NULL,
   `codigoPostal` int DEFAULT NULL,
   `localidad` varchar(45) DEFAULT NULL,
   `direccion` varchar(45) DEFAULT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'fedeBruschi','fede1234','Federico','Bruschi','fedejbruschi@gmail.com','cliente','Visa nro 123456789012 cvv 123 fecha venc 02/30',2000,'Rosario','España 270','2022-10-19'),(2,'johnDoe','john456','John','Doe','johnDoe@gmail.com','empleado',NULL,NULL,'San NicolÃ¡s de los Arroyos','Pte Roca 123456','2017-02-23'),(23,'TMinamino','fulbo123','Takumi','Minamino','tkm@gmail.com','empleado',NULL,NULL,'Osaka','Pasaje Snorlax 666','2020-01-29');
+INSERT INTO `usuario` VALUES (1,'fedeBruschi','fede1234','Federico','Bruschi','fedejbruschi@gmail.com','cliente',2000,'Rosario','EspaÃ±a 2700','2022-10-19'),(2,'johnDoe','john456','John','Doe','johnDoe@gmail.com','empleado',NULL,'San NicolÃ¡s de los Arroyos','Pte Roca 123456','2017-02-23');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,12 +148,13 @@ CREATE TABLE `venta` (
   `idCliente` int DEFAULT NULL,
   `idPrenda` int DEFAULT NULL,
   `formaPago` varchar(255) DEFAULT NULL,
+  `estado` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`nroVenta`),
   KEY `ventaClienteFK_idx` (`idCliente`),
   KEY `ventaPrendaFK_idx` (`idPrenda`),
   CONSTRAINT `ventaClienteFK` FOREIGN KEY (`idCliente`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `ventaPrendaFK` FOREIGN KEY (`idPrenda`) REFERENCES `prenda` (`codPrenda`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,17 +163,9 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (1,'2025-03-13',2500,1,8,NULL),(2,'2025-03-13',2500,1,8,NULL),(3,'2025-03-13',2500,1,10,NULL),(4,'2025-03-13',2500,1,8,NULL),(5,'2025-03-13',2500,1,9,NULL),(6,'2025-03-13',2500,1,9,'Efectivo/Transferencia');
+INSERT INTO `venta` VALUES (1,'2025-03-13',2500,1,8,'Transferencia','Pendiente'),(2,'2025-03-13',2500,1,8,'Transferencia','Pendiente'),(3,'2025-03-13',2500,1,10,'Transferencia','Pendiente'),(4,'2025-03-13',2500,1,8,'Transferencia','Pendiente'),(5,'2025-03-13',2500,1,9,'Transferencia','Pendiente'),(6,'2025-03-13',2500,1,9,'Transferencia','Pendiente'),(7,'2025-03-31',30000,1,7,'Transferencia','Pendiente'),(8,'2025-03-31',32000,1,11,'Transferencia','Pendiente');
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'tienda_ropa'
---
-
---
--- Dumping routines for database 'tienda_ropa'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -183,4 +176,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-25 12:07:07
+-- Dump completed on 2025-03-31 22:58:53
