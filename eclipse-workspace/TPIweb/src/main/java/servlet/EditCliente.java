@@ -68,7 +68,6 @@ public class EditCliente extends HttpServlet {
 		String direccion = request.getParameter("direccion");
 		String localidad = request.getParameter("localidad");
 		String password = request.getParameter("password");
-		String informacionPago = request.getParameter("informacionPago");
 		String codigoPostal = request.getParameter("codigoPostal");
 		
 		cli.setIdUsuario(Integer.parseInt(idUsuario));
@@ -79,7 +78,6 @@ public class EditCliente extends HttpServlet {
 		cli.setEmail(email);
 		cli.setDireccion(direccion);
 		cli.setLocalidad(localidad);
-		cli.setInformacionPago(informacionPago);
 		cli.setCodigoPostal(Integer.parseInt(codigoPostal));
 		
 		try {

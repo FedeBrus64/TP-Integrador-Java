@@ -58,7 +58,7 @@ public class Venta {
 		
 		return "Venta [Numero=" + nroVenta + ", Fecha=" + fechaVenta + ", Importe total=" + importeTotal 
 				+"\nDatos del cliente:\n" + "nombre de usuario: " + _cliente.getNomUsuario() + ", nombre: "
-				+ _cliente.getNombre() + ", apellido: " + _cliente.getApellido() + ", informacion de pago: " + _cliente.getInformacionPago()
+				+ _cliente.getNombre() + ", apellido: " + _cliente.getApellido()
 				+"\nDatos de la prenda:\n" + "nombre de la prenda: " + _prenda.getNombrePrenda() 
 				+ ", color: " + _prenda.getColor() + ", marca: " + _prenda.getMarca()
 				+ ", talle: " + _prenda.getTalle()

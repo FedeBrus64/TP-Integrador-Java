@@ -74,7 +74,6 @@ public class Clientes extends HttpServlet {
 		String direccion = request.getParameter("direccion");
 		String localidad = request.getParameter("localidad");
 		String password = request.getParameter("password");
-		String informacionPago = request.getParameter("informacionPago");
 		String codigoPostal = request.getParameter("codigoPostal");
 		
 		cli.setNomUsuario(nomUsuario);
@@ -84,7 +83,6 @@ public class Clientes extends HttpServlet {
 		cli.setEmail(email);
 		cli.setDireccion(direccion);
 		cli.setLocalidad(localidad);
-		cli.setInformacionPago(informacionPago);
 		cli.setCodigoPostal(Integer.parseInt(codigoPostal));
 		cli.setTipoUsuario("cliente");
 		

@@ -90,10 +90,6 @@
                         <input type="text" name="direccion" class="form-control" placeholder="Dirección" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label">Información de pago</label>
-                        <input type="text" name="informacionPago" class="form-control" placeholder="Información de pago" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
                         <label class="form-label">Código Postal</label>
                         <input type="number" name="codigoPostal" class="form-control" placeholder="Código Postal" required>
                     </div>

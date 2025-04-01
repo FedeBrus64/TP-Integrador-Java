@@ -47,7 +47,6 @@
                         			<th>email</th>
                         			<th>dirección</th>
                         			<th>localidad</th>
-                        			<th>Informacion de pago</th>
                         			<th>Codigo postal</th>
                         			<th></th>
                         			<th></th>
@@ -63,7 +62,6 @@
                     				<td><%=cli.getEmail()%></td>
                     				<td><%=cli.getDireccion()%></td>
                     				<td><%=cli.getLocalidad()%></td>
-                    				<td><%=cli.getInformacionPago()%></td>
                     				<td><%=cli.getCodigoPostal()%></td>
                     				
                     				<td><a href='EditCliente?updCli=<%=cli.getIdUsuario()%>' class=''>Edit</a></td><!-- editar -->
@@ -101,9 +99,6 @@
       
       <label for="inputDireccion" class="sr-only">Direccion</label>
       <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text" value="<%=ucli.getDireccion()%>">
-      
-      <label for="inputInformacionPago" class="sr-only">Informacion de pago</label>
-      <input id="inputInformacionPago" name="informacionPago" class="form-control" placeholder="Informacion de pago" required type="text" value="<%=ucli.getInformacionPago()%>">
       
       <label for="inputCodigoPostal" class="sr-only">Codigo postal</label>
       <input id="inputCodigoPostal" name="codigoPostal" class="form-control" placeholder="Codigo Postal" required type="number" value="<%=ucli.getCodigoPostal()%>">
