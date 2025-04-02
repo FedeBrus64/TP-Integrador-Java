@@ -18,11 +18,7 @@
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 	<title>Sistema online Vincenzo</title>
 	
-	<!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="style/list.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <%
     	LinkedList<Empleado> le = (LinkedList<Empleado>)request.getAttribute("listaEmpleados");
@@ -30,15 +26,16 @@
 	%>
 	
 </head>
-<body>
-	<div class="container">
-		<div class="row">
-        	<h1>Empleados</h1>
-        	<a class="btn btn-lg btn-primary btn-block" href='Empleados'>Atras</a>
-            	<div class="col-12 col-sm-12 col-lg-12">
-                	<div class="table-responsive">
-                    	<table class="table">
-                    		<thead>
+<body class="bg-light">
+	<div class="container py-5">
+        <h1 class="text-center mb-4">Empleados</h1>
+        <a class="btn btn-primary mb-3" href='Empleados'>Atrás</a>
+            	<div class="row">
+            <!-- Tabla de Empleados -->
+            <div class="card shadow p-4">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
                     			<tr>
                     				<th>ID</th>
                     				<th>Nombre de usuario</th>
@@ -68,44 +65,68 @@
                     			</tr>
                     		<% } %>
                     		</tbody>	
-	</div> <!-- /container -->
+                    	</table>
+					</div> <!-- /container -->
 				</div>
-			</div>
-		</div>
-	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="EditEmpleado" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Editar Empleado</h2>
+				
+	<!-- Formulario de Edición -->
+            <div class="card shadow p-4 mt-4">
+                    <h2 class="h4 text-center">Editar Empleado</h2>
+                    <form action="EditEmpleado" method="post">
+                        <div class="row g-3">
       
-      <label for="inputIdUsuario" class="sr-only">ID del cliente actual</label>
+      <div class="col-md-6">
+      <label for="inputIdUsuario" class="form-label">ID del cliente actual</label>
       <input id="inputIdUsuario" name="idUsuario" class="form-control" required type="number" readonly value="<%=uemp.getIdUsuario()%>">
+      </div>
       
-      
-      <label for="inputNomUsuario" class="sr-only">Nombre de usuario</label>
+      <div class="col-md-6">
+      <label for="inputNomUsuario" class="form-label">Nombre de usuario</label>
       <input id="inputNomUsuario" name="nomUsuario" class="form-control" placeholder="Nombre de usuario" required type="text" value="<%=uemp.getNomUsuario()%>">
+      </div>
       
-      <label for="inputPassword" class="sr-only">Password</label>
+      <div class="col-md-6">
+      <label for="inputPassword" class="form-label">Password</label>
       <input id="inputPassword" name="password" class="form-control" placeholder="Password" required type="password" value="<%=uemp.getContraseña()%>">
+      </div>
       
-      <label for="inputNombre" class="sr-only">Nombre</label>
+      <div class="col-md-6">
+      <label for="inputNombre" class="form-label">Nombre</label>
       <input id="inputNombre" name="nombre" class="form-control" placeholder="Nombre" required type="text" value="<%=uemp.getNombre()%>">
+      </div>
       
-      <label for="inputApellido" class="sr-only">Apellido</label>
+      <div class="col-md-6">
+      <label for="inputApellido" class="form-label">Apellido</label>
       <input id="inputApellido" name="apellido" class="form-control" placeholder="Apellido" required type="text" value="<%=uemp.getApellido()%>">
+      </div>
       
-      <label for="inputEmail" class="sr-only">Email</label>
+      <div class="col-md-6">
+      <label for="inputEmail" class="form-label">Email</label>
       <input id="inputEmail" name="email" class="form-control" placeholder="Email" required type="email" value="<%=uemp.getEmail()%>">
+      </div>
       
-      <label for="inputLocalidad" class="sr-only">Localidad</label>
+      <div class="col-md-6">
+      <label for="inputLocalidad" class="form-label">Localidad</label>
       <input id="inputLocalidad" name="localidad" class="form-control" placeholder="Localidad" required type="text" value="<%=uemp.getLocalidad()%>">
+      </div>
       
-      <label for="inputDireccion" class="sr-only">Dirección</label>
+      <div class="col-md-6">
+      <label for="inputDireccion" class="form-label">Dirección</label>
       <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text" value="<%=uemp.getDireccion()%>">
+      </div>
       
-      <label for="inputFechaIngreso" class="sr-only">Fecha de Ingreso</label>
+      <div class="col-md-6">
+      <label for="inputFechaIngreso" class="form-label">Fecha de Ingreso</label>
       <input id="inputFechaIngreso" name="fechaIngreso" class="form-control" required type="date" value="<%=uemp.getFechaIngreso()%>">
+      </div>
       
+      <div class="text-center mt-4">
       <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
+      </div>
+      
     </form>
+    </div>
+    </div>
     </div>
 </body>
 </html>

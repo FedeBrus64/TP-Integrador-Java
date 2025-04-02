@@ -45,11 +45,12 @@ public class EditPrenda extends HttpServlet {
 			updPre.setCodPrenda(Integer.parseInt(request.getParameter("updPre")));
 			Prenda updatePrenda = dp.getByCodPrenda(updPre);
 			request.setAttribute("updatePrenda", updatePrenda);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/EditPrendaManagement.jsp").forward(request, response);
 			
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -88,11 +89,12 @@ public class EditPrenda extends HttpServlet {
 			LinkedList<Prenda> prendas = dp.getAll();
 			
 			request.setAttribute("listaPrendas", prendas);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
 			
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

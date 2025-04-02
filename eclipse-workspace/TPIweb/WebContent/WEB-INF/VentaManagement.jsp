@@ -96,7 +96,7 @@
     </div>
     <div class="mb-3">
         <label for="inputEstado" class="form-label fw-bold">Estado</label>
-        <select name="formaPago" id="inputEstado" class="form-select">
+        <select name="estado" id="inputEstado" class="form-select">
             <option value="Pendiente">Pendiente</option>
             <option value="Aprobado">Aprobado</option>
             <option value="Entregado">Entregado</option>
@@ -113,7 +113,7 @@
      </div>
      <div class="mb-3">
       <label for="inputPrenda" class="form-label">Prenda</label>
-      <select name="prenda" id="inputPrenda" class="sr-only">
+      <select name="prenda" id="inputPrenda" class="form-select">
       	<% for (Prenda pre : lpre) { %>
       		<option value ='<%=pre.getCodPrenda()%>'><%=pre.getNombrePrenda()%></option>
       	<% } %>

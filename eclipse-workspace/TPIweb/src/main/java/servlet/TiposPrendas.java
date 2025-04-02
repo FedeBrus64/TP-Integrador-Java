@@ -43,6 +43,7 @@ public class TiposPrendas extends HttpServlet {
 				dtp.remove(deletedTipoPrenda);	
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());
+				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("error.html").forward(request, response);
 			}
 			
@@ -50,10 +51,11 @@ public class TiposPrendas extends HttpServlet {
 		try {
 			LinkedList<TipoPrenda> tiposprendas = dtp.getAll();
 			request.setAttribute("listaTiposPrendas", tiposprendas);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/TipoPrendaManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -78,10 +80,11 @@ public class TiposPrendas extends HttpServlet {
 			LinkedList<TipoPrenda> tiposprendas = dtp.getAll();
 			
 			request.setAttribute("listaTiposPrendas", tiposprendas);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/TipoPrendaManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

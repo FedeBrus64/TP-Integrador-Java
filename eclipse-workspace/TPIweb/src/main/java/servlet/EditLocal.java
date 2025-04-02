@@ -42,9 +42,11 @@ public class EditLocal extends HttpServlet {
 			updLoc.setCodLocal(Integer.parseInt(request.getParameter("updLoc")));
 			Local updateLocal = dl.getByIdLocal(updLoc);
 			request.setAttribute("updateLocal", updateLocal);
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/EditLocalManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -74,10 +76,11 @@ public class EditLocal extends HttpServlet {
 			LinkedList<Local> locales = dl.getAll();
 			
 			request.setAttribute("listaLocales", locales);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/LocalManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

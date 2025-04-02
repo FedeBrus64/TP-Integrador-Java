@@ -22,11 +22,7 @@
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 	<title>Sistema online Vincenzo</title>
 	
-	<!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="style/list.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <%
     	DataTipoPrenda dtp = new DataTipoPrenda();
@@ -38,15 +34,17 @@
 	%>
 	
 </head>
-<body>
-	<div class="container">
-		<div class="row">
-        	<h1>Prendas</h1>
-        	<a class="btn btn-lg btn-primary btn-block" href='Signin'>Atras</a>
-            	<div class="col-12 col-sm-12 col-lg-12">
-                	<div class="table-responsive">
-                    	<table class="table">
-                    		<thead>
+<body class="bg-light">
+	<div class="container py-5">
+        <h1 class="text-center mb-4">Prendas</h1>
+        <a class="btn btn-primary mb-3" href='Prendas'>Atrás</a>
+
+        <div class="row">
+            	<!-- Tabla de Prendas -->
+            <div class="card shadow p-4">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
                     			<tr>
                     				<th>ID</th>
                     				<th>Nombre</th>
@@ -76,38 +74,52 @@
                     				<td><a href='EditPrenda?updPre=<%=pre.getCodPrenda()%>' class=''>Edit</a></td><!-- editar -->
                     			</tr>
                     		<% } %>
-                    		</tbody>	
-	</div> <!-- /container -->
+                    		</tbody>
+                    	</table>	
+					</div> <!-- /container -->
 				</div>
-			</div>
-		</div>
-	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="EditPrenda" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Editar prenda</h2>
+				
+	<!-- Formulario de Edición -->
+            <div class="card shadow p-4 mt-4">
+                    <h2 class="h4 text-center">Editar Prenda</h2>
+                    <form action="EditPrenda" method="post">
+                        <div class="row g-3">
       
-      <label for="inputCodPrenda" class="sr-only">Codigo de la prenda actual</label>
+      <div class="col-md-6">
+      <label for="inputCodPrenda" class="form-label">Codigo de la prenda actual</label>
       <input id="inputCodPrenda" name="codPrenda" class="form-control" required type="number" readonly value="<%=upre.getCodPrenda()%>">
+      </div>
       
-      <label for="inputNombrePrenda" class="sr-only">Nombre de la prenda</label>
+      <div class="col-md-6">
+      <label for="inputNombrePrenda" class="form-label">Nombre de la prenda</label>
       <input id="inputNombrePrenda" name="nombrePrenda" class="form-control" placeholder="Nombre de la prenda" required type="text" value="<%=upre.getNombrePrenda()%>">
+      </div>
       
-      <label for="inputTalle" class="sr-only">Talle</label>
+      <div class="col-md-6">
+      <label for="inputTalle" class="form-label">Talle</label>
       <input id="inputTalle" name="talle" class="form-control" placeholder="Talle" required type="text" value="<%=upre.getTalle()%>">
+      </div>
       
-      <label for="inputColor" class="sr-only">Color</label>
+      <div class="col-md-6">
+      <label for="inputColor" class="form-label">Color</label>
       <input id="inputColor" name="color" class="form-control" placeholder="Color" required type="text" value="<%=upre.getColor()%>">
+      </div>
       
-      <label for="inputMarca" class="sr-only">Marca</label>
+      <div class="col-md-6">
+      <label for="inputMarca" class="form-label">Marca</label>
       <input id="inputMarca" name="marca" class="form-control" placeholder="Marca" required type="text" value="<%=upre.getMarca()%>">
+      </div>
       
-      <label for="inputTipoPrenda" class="sr-only">Tipo de Prenda</label>
-      <select name="tipoPrenda" id="inputTipoPrenda" class="sr-only">
+      <div class="col-md-6">
+      <label for="inputTipoPrenda" class="form-label">Tipo de Prenda</label>
+      <select name="tipoPrenda" id="inputTipoPrenda" class="form-select">
       	<% for (TipoPrenda tp : ltp) { %>
       		<option value ='<%=tp.getCodTipoPrenda()%>'><%=tp.getDescTipoPrenda()%></option>
       	<% } %>
       </select>
+      </div>
       
-     <div class="mb-3">
+     <div class="col-md-6">
          <label for="inputLocal" class="form-label">Local en el que se vende la prenda</label>
          <select name="local" id="inputLocal" class="form-select">
              <% for (Local l : lloc) { %>
@@ -115,9 +127,14 @@
              <% } %>
          </select>
      </div>
-
+     </div>
+	<div class="text-center mt-4">
       <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
+    </div>
+    
     </form>
+    </div>
+    </div>
     </div>
 </body>
 </html>

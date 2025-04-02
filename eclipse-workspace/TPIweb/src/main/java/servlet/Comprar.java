@@ -42,6 +42,7 @@ public class Comprar extends HttpServlet {
 			request.getRequestDispatcher("WEB-INF/ComprarPrendaManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

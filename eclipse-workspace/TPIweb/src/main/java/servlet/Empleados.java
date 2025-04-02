@@ -45,6 +45,7 @@ public class Empleados extends HttpServlet {
 				de.remove(deletedEmpleado);
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());
+				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("error.html").forward(request, response);
 			}
 			
@@ -53,10 +54,11 @@ public class Empleados extends HttpServlet {
 		try {
 			LinkedList<Empleado> empleados = de.getAll();
 			request.setAttribute("listaEmpleados", empleados);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/EmpleadoManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -98,11 +100,12 @@ public class Empleados extends HttpServlet {
 			LinkedList<Empleado> empleados = de.getAll();
 			
 			request.setAttribute("listaEmpleados", empleados);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/EmpleadoManagement.jsp").forward(request, response);
 			
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

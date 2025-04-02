@@ -44,6 +44,7 @@ public class Usuarios extends HttpServlet {
 				du.remove(deletedUsuario);
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());
+				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("error.html").forward(request, response);
 			}
 			
@@ -52,10 +53,11 @@ public class Usuarios extends HttpServlet {
 			LinkedList<Usuario> usuarios = du.getAll();
 			
 			request.setAttribute("listaUsuarios", usuarios);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -92,9 +94,11 @@ public class Usuarios extends HttpServlet {
 			LinkedList<Usuario> usuarios = du.getAll();
 			
 			request.setAttribute("listaUsuarios", usuarios);
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 			

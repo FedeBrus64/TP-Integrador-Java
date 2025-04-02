@@ -18,7 +18,7 @@ public class DataUsuario {
 		
 		try {
 			stmt= DbConnector.getInstancia().getConn().createStatement();
-			rs= stmt.executeQuery("select * from usuario");
+			rs= stmt.executeQuery("select * from usuario where tipoUsuario <> 'admin'");
 			if(rs!=null) {
 				while(rs.next()) {
 					Usuario u=new Usuario();

@@ -19,11 +19,7 @@
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 	<title>Sistema online Vincenzo</title>
 	
-	<!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="style/list.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <%
     	LinkedList<Local> ll = (LinkedList<Local>)request.getAttribute("listaLocales");
@@ -31,14 +27,16 @@
 	%>
 	
 </head>
-<body>
-	<div class="container">
-		<div class="row">
-        	<h1>Usuarios</h1>
-            	<div class="col-12 col-sm-12 col-lg-12">
-                	<div class="table-responsive">
-                    	<table class="table">
-                    		<thead>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Locales</h1>
+        <a class="btn btn-primary mb-3" href='Locales'>Atrás</a>
+                	<div class="row">
+            <!-- Tabla de Locales -->
+            <div class="card shadow p-4">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
                     			<tr>
                     				<th>ID</th>
                     				<th>Descripción del local/th>
@@ -60,30 +58,43 @@
                     			</tr>
                     		<% } %>
                     		</tbody>	
-                    		</table>
+                    	</table>
 					</div> <!-- /container -->
 				</div>
-			</div>
-		</div>
-	<a class="btn btn-lg btn-primary btn-block" href='Usuarios'>Atras</a>
-	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="EditLocal" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Editar Local</h2>
+				
+	<!-- Formulario de Edición -->
+            <div class="card shadow p-4 mt-4">
+                <h2 class="h4 text-center">Editar Local</h2>
+                    <form action="EditLocal" method="post">
+                        <div class="row g-3">
       
-      <label for="inputCodLocal" class="sr-only">ID de Local Actual</label>
+      <div class="col-md-6">
+      <label for="inputCodLocal" class="form-label">ID de Local Actual</label>
       <input id="inputCodLocal" name="codLocal" class="form-control" required type="number" readonly value="<%=locu.getCodLocal()%>">
+      </div>
       
-      <label for="inputDescLocal" class="sr-only">Descripción del local</label>
+      <div class="col-md-6">
+      <label for="inputDescLocal" class="form-label">Descripción del local</label>
       <input id="inputDescLocal" name="descLocal" class="form-control" placeholder="Descripción" required type="text" value="<%=locu.getDescLocal()%>">
+      </div>
       
-      <label for="inputDireccionLocal" class="sr-only">Dirección del local</label>
+      <div class="col-md-6">
+      <label for="inputDireccionLocal" class="form-label">Dirección del local</label>
       <input id="inputDireccionLocal" name="direccion" class="form-control" placeholder="Dirección" required type="text" value="<%=locu.getDireccionLocal()%>">
+      </div>
       
+      <div class="col-md-6">
       <label for="inputTelefonoLocal" class="sr-only">Teléfono del local</label>
       <input id="inputTelefonoLocal" name="telefono" class="form-control" placeholder="Teléfono" required type="number" value="<%=locu.getTelefonoLocal()%>">
-      
+      </div>
+      </div>
+      <div class="text-center mt-4">
       <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
+      </div>
+      
     </form>
+    </div>
+    </div>
     </div>
 </body>
 </html>

@@ -43,6 +43,7 @@ public class Clientes extends HttpServlet {
 				dc.remove(deletedCliente);
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());
+				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("error.html").forward(request, response);
 			}
 			
@@ -51,9 +52,11 @@ public class Clientes extends HttpServlet {
 		try {
 			LinkedList<Cliente> clientes = dc.getAll();
 			request.setAttribute("listaClientes", clientes);
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/ClienteManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -92,10 +95,11 @@ public class Clientes extends HttpServlet {
 			LinkedList<Cliente> clientes = dc.getAll();
 			
 			request.setAttribute("listaClientes", clientes);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/ClienteManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

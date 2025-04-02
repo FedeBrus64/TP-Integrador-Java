@@ -43,9 +43,11 @@ public class Compras extends HttpServlet {
 		try {
 			LinkedList<Venta> ventas = dv.getVentasDeUsuario(usu.getIdUsuario());
 			request.setAttribute("listaVentas", ventas);
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/ComprasManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

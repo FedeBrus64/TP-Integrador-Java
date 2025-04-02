@@ -145,6 +145,7 @@ public class DataCliente {
 				c.setEmail(rs.getString("email"));
 				c.setLocalidad(rs.getString("localidad"));
 				c.setCodigoPostal(rs.getInt("codigoPostal"));
+				c.setTipoUsuario(rs.getString("tipoUsuario"));
 			}
 		} catch (SQLException e) {
 			throw new DataAccessException("Error al obtener el cliente especificado.", e);
@@ -247,16 +248,18 @@ public class DataCliente {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into usuario(nomUsuario,nombre,apellido,direccion,email,localidad, codigoPostal) values(?,?,?,?,?,?,?,?)",
+							"insert into usuario(nomUsuario, contraseña, nombre,apellido,direccion,email,localidad, codigoPostal, tipoUsuario) values(?,?,?,?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, cliente.getNomUsuario());
-			stmt.setString(2, cliente.getNombre());
-			stmt.setString(3, cliente.getApellido());
-			stmt.setString(4, cliente.getDireccion());
-			stmt.setString(5, cliente.getEmail());
-			stmt.setString(6, cliente.getLocalidad());
-			stmt.setInt(7, cliente.getCodigoPostal());
+			stmt.setString(2, cliente.getContraseña());
+			stmt.setString(3, cliente.getNombre());
+			stmt.setString(4, cliente.getApellido());
+			stmt.setString(5, cliente.getDireccion());
+			stmt.setString(6, cliente.getEmail());
+			stmt.setString(7, cliente.getLocalidad());
+			stmt.setInt(8, cliente.getCodigoPostal());
+			stmt.setString(9, cliente.getTipoUsuario());
 
 			stmt.executeUpdate();
 			

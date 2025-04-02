@@ -43,6 +43,7 @@ public class Locales extends HttpServlet {
 				dl.remove(deletedLocal);	
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());
+				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("error.html").forward(request, response);
 			}
 			
@@ -51,9 +52,11 @@ public class Locales extends HttpServlet {
 		try {
 			LinkedList<Local> locales = dl.getAll();
 			request.setAttribute("listaLocales", locales);
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/LocalManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -82,10 +85,11 @@ public class Locales extends HttpServlet {
 			LinkedList<Local> locales = dl.getAll();
 			
 			request.setAttribute("listaLocales", locales);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/LocalManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

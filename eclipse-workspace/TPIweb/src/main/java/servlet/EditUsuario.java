@@ -43,11 +43,12 @@ public class EditUsuario extends HttpServlet {
 			updUsu.setIdUsuario(Integer.parseInt(request.getParameter("updUsu")));
 			Usuario updateUsuario = du.getByIdUsuario(updUsu);
 			request.setAttribute("updateUsuario", updateUsuario);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/EditUsuarioManagement.jsp").forward(request, response);
 			
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -87,10 +88,11 @@ public class EditUsuario extends HttpServlet {
 			LinkedList<Usuario> usuarios = du.getAll();
 			
 			request.setAttribute("listaUsuarios", usuarios);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/UsuarioManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

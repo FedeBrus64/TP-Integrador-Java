@@ -23,7 +23,7 @@
 	<title>Sistema online Vincenzo</title>
 	
 	<!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="style/list.css" rel="stylesheet">
@@ -38,21 +38,25 @@
 	%>
 	
 </head>
-<body>
-	<div class="container">
-		<div class="row">
-        	<h1>Ventas</h1>
-            	<div class="col-12 col-sm-12 col-lg-12">
-                	<div class="table-responsive">
-                    	<table class="table">
-                    		<thead>
+<body class ="bg-light">
+	 <div class="container py-5">
+        <h1 class="text-center mb-4">Ventas</h1>
+        <a class="btn btn-primary mb-3" href='Ventas'>Atrás</a>
+
+        <div class="row">
+            <!-- Tabla de Ventas -->
+           <div class="card shadow p-4">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
                     			<tr>
                     				<th>Numero</th>
                     				<th>Fecha</th>
                     		    	<th>Importe total</th>
+                    		    	<th>Forma de pago</th>
                         			<th>Cliente</th>
                         			<th>Prenda</th>
-                        			<th></th>
+                        			<th>Estado</th>
                         			<th></th>
                       			</tr>
                       		</thead>
@@ -62,50 +66,75 @@
                     				<td><%=ven.getNroVenta()%></td>
                     				<td><%=ven.getFechaVenta()%></td>
                     				<td><%=ven.getImporteTotal()%></td>
+                    				<td><%=ven.getFormaPago()%></td>
                     				<td><%=ven.get_cliente().getNomUsuario()%></td>
                     				<td><%=ven.get_prenda().getNombrePrenda()%></td>
+                    				<td><%=ven.getEstado()%></td>
                     				
                     				<td><a href='EditVenta?updVen=<%=ven.getNroVenta()%>' class=''>Edit</a></td><!-- editar -->
                     			</tr>
                     		<% } %>
                     		</tbody>	
-	</div> <!-- /container -->
+                  </table> <!-- /container -->
 				</div>
 			</div>
-		</div>
-	<a class="btn btn-lg btn-primary btn-block" href='Ventas'>Atras</a>
-	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="EditVenta" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Editar venta</h2>
-      
-      <label for="inputNroVenta" class="sr-only">Numero de la venta actual</label>
-      <input id="inputNroVenta" name="nroVenta" class="form-control" required type="number" readonly value="<%=uven.getNroVenta()%>">
-      
-      
-      <label for="inputImporteTotal" class="sr-only">Importe Total</label>
-      <input id="inputImporteTotal" name="importeTotal" class="form-control" placeholder="Importe total" required type="number" step="0.01" value="<%=uven.getImporteTotal()%>">
-      
-      <label for="inputVenta" class="sr-only">Fecha de la Venta</label>
-      <input id="inputVenta" name="fechaVenta" class="form-control" required type="date" value="<%=uven.getFechaVenta()%>">
-      
-      <label for="inputCliente" class="sr-only">Cliente</label>
-      
-      <select name="cliente" id="inputCliente" class="sr-only">
-      	<% for (Cliente c : lc) { %>
-      		<option value ='<%=c.getIdUsuario()%>'><%=c.getNomUsuario()%></option>
-      	<% } %>
-      </select>
-      
-      <label for="inputPrenda" class="sr-only">Prenda</label>
-      
-      <select name="prenda" id="inputPrenda" class="sr-only">
-      	<% for (Prenda pre : lpre) { %>
-      		<option value ='<%=pre.getCodPrenda()%>'><%=pre.getNombrePrenda()%></option>
-      	<% } %>
-      </select>
-
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
-    </form>
-    </div>
+	<div class="card shadow p-4 mt-4">
+         <h2 class="h4 text-center">Editar Venta</h2>
+	<form action="EditVenta" method="post">
+                        <div class="row g-3">
+               
+                    <div class="col-md-6">
+                        <label for="inputNroVenta" class="form-label">Numero de la venta actual</label>
+      					<input id="inputNroVenta" name="nroVenta" class="form-control" required type="number" readonly value="<%=uven.getNroVenta()%>">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputImporteTotal" class="form-label">Importe Total</label>
+      					<input id="inputImporteTotal" name="importeTotal" class="form-control" placeholder="Importe total" required type="number" step="0.01" value="<%=uven.getImporteTotal()%>">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputVenta" class="form-label">Fecha de la Venta</label>
+    					<input id="inputVenta" name="fechaVenta" class="form-control" required type="date" value="<%=uven.getFechaVenta()%>">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputCliente" class="form-label">Cliente</label>
+					      <select name="cliente" id="inputCliente" class="sr-only">
+					      	<% for (Cliente c : lc) { %>
+					      		<option value ='<%=c.getIdUsuario()%>'><%=c.getNomUsuario()%></option>
+					      	<% } %>
+					      </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPrenda" class="sr-only">Prenda</label>
+					      <select name="prenda" id="inputPrenda" class="form-select">
+					      	<% for (Prenda pre : lpre) { %>
+					      		<option value ='<%=pre.getCodPrenda()%>'><%=pre.getNombrePrenda()%></option>
+					      	<% } %>
+					      </select>
+                    </div>
+                    <div class="col-md-6">
+                    <label for="inputMetodoPago" class="form-label fw-bold">Método de pago</label>
+			        <select name="formaPago" id="inputMetodoPago" class="form-select">
+			            <option value="Transferencia">Transferencia</option>
+			            <option value="Tarjeta de Débito">Tarjeta de Débito</option>
+			            <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+			        </select>
+			        </div>
+			        <div class="col-md-6">
+                        <label for="inputEstado" class="form-label fw-bold">Estado</label>
+				        <select name="estado" id="inputEstado" class="form-select">
+				            <option value="Pendiente">Pendiente</option>
+				            <option value="Aprobado">Aprobado</option>
+				            <option value="Entregado">Entregado</option>
+				            <option value="Rechazado">Rechazado</option>
+				        </select>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-success" type="submit">Editar</button>
+                </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

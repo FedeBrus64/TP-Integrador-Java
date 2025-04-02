@@ -43,6 +43,7 @@ public class Prendas extends HttpServlet {
 				dp.remove(deletedPrenda);
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());
+				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("error.html").forward(request, response);
 			}
 			
@@ -51,9 +52,11 @@ public class Prendas extends HttpServlet {
 		try {
 			LinkedList<Prenda> prendas = dp.getAll();
 			request.setAttribute("listaPrendas", prendas);
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -95,6 +98,7 @@ public class Prendas extends HttpServlet {
 			
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 			
@@ -104,10 +108,11 @@ public class Prendas extends HttpServlet {
 			LinkedList<Prenda> prendas = dp.getAll();
 			
 			request.setAttribute("listaPrendas", prendas);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/PrendaManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

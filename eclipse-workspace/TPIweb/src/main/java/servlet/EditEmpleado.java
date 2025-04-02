@@ -44,10 +44,11 @@ public class EditEmpleado extends HttpServlet {
 			updEmp.setIdUsuario(Integer.parseInt(request.getParameter("updEmp")));
 			Empleado updateEmpleado = de.getByIdUsuario(updEmp);
 			request.setAttribute("updateEmpleado", updateEmpleado);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/EditEmpleadoManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -88,11 +89,12 @@ public class EditEmpleado extends HttpServlet {
 			LinkedList<Empleado> empleados = de.getAll();
 			
 			request.setAttribute("listaEmpleados", empleados);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/EmpleadoManagement.jsp").forward(request, response);
 			
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

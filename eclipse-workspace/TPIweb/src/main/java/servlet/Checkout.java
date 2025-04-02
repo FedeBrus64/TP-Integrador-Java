@@ -46,9 +46,11 @@ public class Checkout extends HttpServlet {
 			request.setAttribute("checkoutPrenda", checkoutPrenda);
 			session.setAttribute("prenda", checkoutPrenda);
 			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/CheckoutManagement.jsp").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -81,10 +83,11 @@ public class Checkout extends HttpServlet {
 			ven.setFormaPago(formaPago);
 			
 			dv.add(ven);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("exito.html").forward(request, response);
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

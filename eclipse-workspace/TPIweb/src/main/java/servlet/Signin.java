@@ -43,17 +43,21 @@ public class Signin extends HttpServlet {
 				
 				if(usuaux != null) {
 					if ("cliente".equals(usuaux.getTipoUsuario())){
+						request.setCharacterEncoding("UTF-8");
 						request.getRequestDispatcher("WEB-INF/MenuUsuario.jsp").forward(request, response);
 					} else {
+						request.setCharacterEncoding("UTF-8");
 						request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
 					}
 				} else {
 					request.setAttribute("error", "Ocurrió un error. Por favor, vuelva a iniciar sesión.");
+					request.setCharacterEncoding("UTF-8");
 					request.getRequestDispatcher("error.html").forward(request, response);
 				}
 				
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());
+				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("error.html").forward(request, response);
 			}
 			
@@ -88,15 +92,18 @@ public class Signin extends HttpServlet {
 		            HttpSession session = request.getSession();
 		            session.setAttribute("usuario", usuarioSearch);
 
-		            if ("empleado".equals(usuarioSearch.getTipoUsuario())) {
-		                request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
+		            if ("cliente".equals(usuarioSearch.getTipoUsuario())) {
+		                request.setCharacterEncoding("UTF-8");
+		            	request.getRequestDispatcher("WEB-INF/MenuUsuario.jsp").forward(request, response);
 		            } else {
-		                request.getRequestDispatcher("WEB-INF/MenuUsuario.jsp").forward(request, response);
+		            	request.setCharacterEncoding("UTF-8");
+		                request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
 		            }
 		        }
 			}
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

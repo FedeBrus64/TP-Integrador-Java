@@ -48,11 +48,12 @@ public class EditVenta extends HttpServlet {
 			updVen.setNroVenta(Integer.parseInt(request.getParameter("updVen")));
 			Venta updateVenta = dv.getByNroVenta(updVen);
 			request.setAttribute("updateVenta", updateVenta);
-			
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/EditVentaManagement.jsp").forward(request, response);
 		}
 		catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -95,6 +96,7 @@ public class EditVenta extends HttpServlet {
 			
 		} catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
@@ -102,11 +104,13 @@ public class EditVenta extends HttpServlet {
 		try {
 			LinkedList<Venta> ventas = dv.getAll();
 			request.setAttribute("listaVentas", ventas);
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("WEB-INF/VentaManagement.jsp").forward(request, response);
 		}
 		
 		catch (DataAccessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setCharacterEncoding("UTF-8");
 			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		

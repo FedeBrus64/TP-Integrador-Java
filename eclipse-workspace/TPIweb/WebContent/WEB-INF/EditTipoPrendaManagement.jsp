@@ -19,11 +19,7 @@
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 	<title>Sistema online Vincenzo</title>
 	
-	<!-- Bootstrap core CSS -->
-    <link href="style/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="style/list.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <%
 		DataTipoPrenda dtp = new DataTipoPrenda();
@@ -32,15 +28,17 @@
 	%>
 	
 </head>
-<body>
-	<div class="container">
-		<div class="row">
-        	<h1>Tipos de Prenda</h1>
-        	<a class="btn btn-lg btn-primary btn-block" href='TiposPrendas'>Atras</a>
-            	<div class="col-12 col-sm-12 col-lg-12">
-                	<div class="table-responsive">
-                    	<table class="table">
-                    		<thead>
+<body class="bg-light">
+	<div class="container py-5">
+	        <h1 class="text-center mb-4">Tipos de prenda</h1>
+	        <a class="btn btn-primary mb-3" href='TiposPrendas'>Atrás</a>
+	
+	        <div class="row">
+	            <!-- Tabla de tipos de prenda -->
+	           <div class="card shadow p-4">
+	                <div class="table-responsive">
+	                    <table class="table table-striped table-hover">
+                    		<thead class="table-dark">
                     			<tr>
                     				<th>Codigo</th>
                     				<th>Descripcion</th>
@@ -61,20 +59,29 @@
                     		</table>
 					</div> <!-- /container -->
 				</div>
-			</div>
-		</div>
-	<div class ='col-12 col-sm-12 col-lg-12'>
-	<form class="form-list" action="EditTipoPrenda" method="post">
-      <h2 class="h3 mb-3 font-weight-normal">Editar Tipo de Prenda</h2>
+				
+	<div class="card shadow p-4 mt-4">
+         <h2 class="h4 text-center">Editar Tipo de Prenda</h2>
+	<form action="EditTipoPrenda" method="post">
+		<div class="row g-3">
       
-      <label for="inputId" class="sr-only">ID del tipo de prenda a editar</label>
-      <input id="inputId" name="codtipoprenda" value="<%=utp.getCodTipoPrenda()%>" class="form-control" required type="number" readonly>
-      
-      <label for="inputDescripcion" class="sr-only">Descripcion</label>
-      <input id="inputDescripcion" name="descripcion" value="<%=utp.getDescTipoPrenda()%>" class="form-control" placeholder="Descripcion" required type="text">
-      
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Editar</button>
+	      <div class="col-md-6">
+		      <label for="inputId" class="form-label">ID del tipo de prenda a editar</label>
+		      <input id="inputId" name="codtipoprenda" value="<%=utp.getCodTipoPrenda()%>" class="form-control" required type="number" readonly>
+		  </div>
+	      
+	      <div class="col-md-6">
+	      	<label for="inputDescripcion" class="form-label">Descripcion</label>
+	      	<input id="inputDescripcion" name="descripcion" value="<%=utp.getDescTipoPrenda()%>" class="form-control" placeholder="Descripcion" required type="text">
+	      </div>
+	      
+	    </div>
+	    <div class="text-center mt-4">
+	      <button class="btn btn-success" type="submit">Editar</button>
+      	</div>
     </form>
     </div>
+  </div>
+ </div>
 </body>
 </html>

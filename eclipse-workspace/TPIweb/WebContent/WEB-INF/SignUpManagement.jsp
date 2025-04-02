@@ -69,6 +69,11 @@
       <input id="inputDireccion" name="direccion" class="form-control" placeholder="Direccion" required type="text">
       </div>
       
+      <div class="mb-3">
+      <label for="inputCodigoPostal" class="form-label">Código Postal</label>
+      <input id="inputCodigoPostal" name="codigoPostal" class="form-control" placeholder="Código postal" required type="number">
+      </div>
+      
       <button class="btn btn-primary w-100" type="submit">Registrar</button>
     </form>
     </div>

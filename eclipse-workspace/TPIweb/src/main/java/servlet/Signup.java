@@ -65,7 +65,8 @@ public class Signup extends HttpServlet {
 		cli.setTipoUsuario(tipoUsuario);
 		cli.setCodigoPostal(Integer.parseInt(codigoPostal));
 		
-		Usuario usuarioValidar = new Usuario();
+		Usuario usuarioValidar = new Cliente();
+		
 		try {
 			usuarioValidar = dc.getByEmail(cli);
 		} catch (DataAccessException e) {
@@ -77,12 +78,16 @@ public class Signup extends HttpServlet {
 		if(usuarioValidar == null) {
 			try {
 				dc.add(cli);
+				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("index.html").forward(request, response);
 			} catch (DataAccessException e) {
 				request.setAttribute("error", e.getMessage());
+				e.printStackTrace();
+				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("error.html").forward(request, response);
 			}
 		} else {
+			request.setCharacterEncoding("UTF-8");
 			response.sendRedirect("SignUpManagement.jsp?error=El Email ingresado ya existe. Por favor, ingrese otro Email");
 		}
 		
