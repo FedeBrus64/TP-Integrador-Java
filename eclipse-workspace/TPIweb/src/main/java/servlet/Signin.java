@@ -59,8 +59,11 @@ public class Signin extends HttpServlet {
 				request.setAttribute("error", e.getMessage());
 				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("error.html").forward(request, response);
-			}
+			} 
 			
+		} else {
+			request.setAttribute("error", "Ha ocurrido un error. Por favor, vuelva a iniciar sesión");
+			request.getRequestDispatcher("error.html").forward(request, response);
 		}
 		
 	}

@@ -52,6 +52,7 @@
                         			<th>Color</th>
                         			<th>Marca</th>
                         			<th>Estado</th>
+                        			<th></th>
                       			</tr>
                       		</thead>
                     		<tbody>
@@ -65,6 +66,7 @@
                     				<td><%=ven.get_prenda().getColor()%></td>
                     				<td><%=ven.get_prenda().getMarca()%></td>
                     				<td><%=ven.getEstado()%></td>
+                    				<td><a href='Compras?delCom=<%=ven.getNroVenta()%>' class='btn btn-danger btn-sm'>Eliminar</a></td>
                     			</tr>
                     		<% } %>
                     		</tbody>	

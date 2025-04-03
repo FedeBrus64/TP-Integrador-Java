@@ -31,7 +31,7 @@
                         <li class="list-group-item"><strong>Color:</strong> <%= cpre.getColor() %></li>
                         <li class="list-group-item"><strong>Marca:</strong> <%= cpre.getMarca() %></li>
                         <li class="list-group-item"><strong>Dirección del local en el que se encuentra la prenda:</strong> <%= loc.getDireccionLocal() %></li>
-                        <li class="list-group-item"><strong>Teléfono del local</strong> <%= loc.getTelefonoLocal() %></li>
+                        <li class="list-group-item"><strong>Teléfono del local:</strong> <%= loc.getTelefonoLocal() %></li>
                         <li class="list-group-item"><strong>Precio:</strong> $<%= cpre.getPrecioUnitario() %></li>
                     </ul>
                 </div>

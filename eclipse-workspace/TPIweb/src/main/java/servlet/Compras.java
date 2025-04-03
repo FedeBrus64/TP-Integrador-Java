@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.util.LinkedList;
-import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +38,18 @@ public class Compras extends HttpServlet {
 		DataVenta dv = new DataVenta();
 		HttpSession session = request.getSession();
 		Usuario usu= (Usuario)session.getAttribute("usuario");
+		if(request.getParameter("delCom") != null) {
+			Venta delVen = new Venta();
+			delVen.setNroVenta(Integer.parseInt(request.getParameter("delCom")));
+			try {
+				Venta deletedVenta = dv.getByNroVenta(delVen);
+				dv.remove(deletedVenta);
+			} catch (DataAccessException e) {
+				request.setAttribute("error", e.getMessage());
+				request.setCharacterEncoding("UTF-8");
+				request.getRequestDispatcher("error.html").forward(request, response);
+			}
+		}
 		
 		try {
 			LinkedList<Venta> ventas = dv.getVentasDeUsuario(usu.getIdUsuario());
