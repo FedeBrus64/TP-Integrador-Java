@@ -121,7 +121,7 @@ CREATE TABLE `usuario` (
   `direccion` varchar(45) DEFAULT NULL,
   `fechaIngreso` date DEFAULT NULL,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +130,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'fedeBruschi','fede1234','Federico','Bruschi','fedejbruschi@gmail.com','cliente',2000,'Rosario','EspaÃ±a 2700','2022-10-19'),(2,'johnDoe','john456','John','Doe','johnDoe@gmail.com','empleado',NULL,'San NicolÃ¡s de los Arroyos','Pte Roca 123456','2017-02-23');
+INSERT INTO `usuario` VALUES (1,'fedeBruschi','fede1234','Federico','Bruschi','fedejbruschi@gmail.com','admin',2000,'Rosario','EspaÃ±a 2700','2022-10-19'),(2,'johnDoe','john456','John','Doe','johnDoe@gmail.com','empleado',NULL,'San Nicolas de los Arroyos','Pte Roca 1234','2017-02-23'),(25,'keanu4000','asdasd','Keanu','Reeves','kreeves@gmail.com','cliente',2000,'Rosario','San Marcos 3300',NULL),(26,'ejemplo2000','hola','Nombre','Apellido','ejemplo@gmail.com','cliente',1200,'Rosario','Italia 3000',NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +154,7 @@ CREATE TABLE `venta` (
   KEY `ventaPrendaFK_idx` (`idPrenda`),
   CONSTRAINT `ventaClienteFK` FOREIGN KEY (`idCliente`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `ventaPrendaFK` FOREIGN KEY (`idPrenda`) REFERENCES `prenda` (`codPrenda`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,9 +163,17 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (1,'2025-03-13',2500,1,8,'Transferencia','Pendiente'),(2,'2025-03-13',2500,1,8,'Transferencia','Pendiente'),(3,'2025-03-13',2500,1,10,'Transferencia','Pendiente'),(4,'2025-03-13',2500,1,8,'Transferencia','Pendiente'),(5,'2025-03-13',2500,1,9,'Transferencia','Pendiente'),(6,'2025-03-13',2500,1,9,'Transferencia','Pendiente'),(7,'2025-03-31',30000,1,7,'Transferencia','Pendiente'),(8,'2025-03-31',32000,1,11,'Transferencia','Pendiente');
+INSERT INTO `venta` VALUES (2,'2025-03-13',2500,25,8,'Transferencia','Pendiente'),(3,'2025-03-13',2500,25,10,'Transferencia','Pendiente'),(4,'2025-03-13',2500,25,8,'Transferencia','Pendiente'),(5,'2025-03-13',2500,25,9,'Transferencia','Pendiente'),(6,'2025-03-13',2500,25,9,'Transferencia','Pendiente'),(7,'2025-03-31',30000,25,7,'Transferencia','Pendiente'),(8,'2025-03-31',32000,25,11,'Transferencia','Pendiente'),(9,'2025-04-03',32000,25,11,'Tarjeta de DÃ©bito','Pendiente'),(10,'2025-04-03',32000,26,11,'Tarjeta de CrÃ©dito','Pendiente');
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'tienda_ropa'
+--
+
+--
+-- Dumping routines for database 'tienda_ropa'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -176,4 +184,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-31 22:58:53
+-- Dump completed on 2025-04-03 19:55:29

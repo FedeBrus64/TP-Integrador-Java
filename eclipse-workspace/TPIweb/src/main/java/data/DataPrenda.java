@@ -177,7 +177,7 @@ public class DataPrenda {
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"insert into prenda(nombrePrenda, color, marca, talle, codTipoPrenda, codLocal, precioUnitario) values(?,?,?,?,?,?)",
+							"insert into prenda(nombrePrenda, color, marca, talle, codTipoPrenda, codLocal, precioUnitario) values(?,?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setString(1, prenda.getNombrePrenda());

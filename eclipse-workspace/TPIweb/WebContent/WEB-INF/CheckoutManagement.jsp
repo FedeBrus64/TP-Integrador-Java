@@ -46,8 +46,8 @@
                             <label for="inputMetodoPago" class="form-label fw-bold">Seleccione el método de pago:</label>
                             <select name="metodoPago" id="inputMetodoPago" class="form-select">
                                 <option value="Transferencia">Transferencia</option>
-                                <option value="Tarjeta de Débito">Tarjeta de Débito</option>
-                                <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                                <option value="Tarjeta de Debito">Tarjeta de Débito</option>
+                                <option value="Tarjeta de Credito">Tarjeta de Crédito</option>
                             </select>
                         </div>
                         <div class="d-flex justify-content-center gap-3">
