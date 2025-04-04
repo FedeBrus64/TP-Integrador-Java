@@ -29,7 +29,7 @@
 <body class="bg-light">
 	<div class="container py-5">
         <h1 class="text-center mb-4">Clientes</h1>
-        <a class="btn btn-primary mb-3" href='Clientess'>Atrás</a>
+        <a class="btn btn-primary mb-3" href='Clientes'>Atrás</a>
             	 <div class="row">
             <!-- Tabla de Clientes -->
             <div class="card shadow p-4">

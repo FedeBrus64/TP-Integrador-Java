@@ -2,6 +2,7 @@
 <%@ page import="entities.Venta" %>
 <%@ page import="entities.Cliente" %>
 <%@ page import="entities.Prenda" %>
+<%@ page import="entities.Usuario" %>
 <%@ page import="data.DataCliente" %>
 <%@ page import="data.DataPrenda" %>
 <%@ page import="java.util.LinkedList" %>
@@ -31,6 +32,7 @@
         DataPrenda dp = new DataPrenda();
     	LinkedList<Prenda> lpre =  dp.getAll();
     	LinkedList<Venta> lv = (LinkedList<Venta>)request.getAttribute("listaVentas");
+    	// Usuario usu= (Usuario)session.getAttribute("usuario"); Signin?usuario=<usu.getEmail()
 	%>
 	
 </head>
