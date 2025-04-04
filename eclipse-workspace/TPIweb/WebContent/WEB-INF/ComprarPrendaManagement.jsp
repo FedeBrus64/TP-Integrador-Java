@@ -3,7 +3,6 @@
 <%@ page import="entities.TipoPrenda" %>
 <%@ page import="data.DataTipoPrenda" %>
 <%@ page import="java.util.LinkedList" %>
-<%@ page import="entities.Usuario" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -21,14 +20,12 @@
 	DataTipoPrenda dtp = new DataTipoPrenda();
 	LinkedList<TipoPrenda> ltp =  dtp.getAll();
 	LinkedList<Prenda> lp = (LinkedList<Prenda>)request.getAttribute("listaPrendas");
-	
-	Usuario usu= (Usuario)session.getAttribute("usuario");
 	%>
 </head>
 <body class="bg-light">
 <div class="container mt-4">
     <h1 class="text-center">Comprar una prenda</h1>
-    <a class="btn btn-secondary mb-3" href='Signin?usuario=<%=usu.getEmail()%>'>Atrás</a>
+    <a class="btn btn-secondary mb-3" href='Signin'>Atrás</a>
 
     <!-- Tabla de Prendas -->
     <div class="card shadow p-4">
@@ -62,7 +59,7 @@
                     			</tr>
                     		<% } %>
                     		</tbody>	
-	</div> <!-- /container -->
+					</div> <!-- /container -->
 				</div>
 			</div>
 		</div>

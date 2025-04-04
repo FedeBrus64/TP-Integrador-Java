@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import data.DataPrenda;
 import data.DataTipoPrenda;
+import data.DataLocal;
 import entities.Prenda;
 import entities.TipoPrenda;
+import entities.Local;
 import utils.DataAccessException;
 
 /**
@@ -63,7 +65,9 @@ public class EditPrenda extends HttpServlet {
 		// TODO Auto-generated method stub
 		Prenda pre = new Prenda();
 		TipoPrenda tp = new TipoPrenda();
+		Local l = new Local();
 		DataPrenda dp = new DataPrenda();
+		DataLocal dl = new DataLocal();
 		DataTipoPrenda dtp = new DataTipoPrenda();
 		
 		String codPrenda = request.getParameter("codPrenda");
@@ -71,11 +75,14 @@ public class EditPrenda extends HttpServlet {
 		String talle = request.getParameter("talle");
 		String color = request.getParameter("color");
 		String marca = request.getParameter("marca");
+		String precioUnitario = request.getParameter("precioUnitario");
 		
 		tp.setCodTipoPrenda(Integer.parseInt(request.getParameter("tipoPrenda")));
+		l.setCodLocal(Integer.parseInt(request.getParameter("local")));
 		
 		try {
 			TipoPrenda tipoPrenda = dtp.getById(tp);
+			Local local = dl.getByIdLocal(l);
 			
 			pre.setCodPrenda(Integer.parseInt(codPrenda));
 			pre.setNombrePrenda(nombrePrenda);
@@ -83,6 +90,8 @@ public class EditPrenda extends HttpServlet {
 			pre.setColor(color);
 			pre.setMarca(marca);
 			pre.set_tipoPrenda(tipoPrenda);
+			pre.set_local(local);
+			pre.setPrecioUnitario(Double.parseDouble(precioUnitario));
 			
 			dp.update(pre);
 			

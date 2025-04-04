@@ -111,6 +111,11 @@
       </div>
       
       <div class="col-md-6">
+      <label for="inputPrecioUnitario" class="form-label">Precio Unitario</label>
+      <input id="inputPrecioUnitario" name="precioUnitario" class="form-control" placeholder="Precio Unitario" required type="number" step="0.01" value="<%=upre.getPrecioUnitario()%>">
+      </div>
+      
+      <div class="col-md-6">
       <label for="inputTipoPrenda" class="form-label">Tipo de Prenda</label>
       <select name="tipoPrenda" id="inputTipoPrenda" class="form-select">
       	<% for (TipoPrenda tp : ltp) { %>
@@ -123,7 +128,7 @@
          <label for="inputLocal" class="form-label">Local en el que se vende la prenda</label>
          <select name="local" id="inputLocal" class="form-select">
              <% for (Local l : lloc) { %>
-                 <option value='<%= l.getCodLocal() %>'><%= l.getDescLocal() %></option>
+                 <option value='<%= l.getCodLocal() %>'><%= l.getDescLocal() %> (<%= l.getDireccionLocal() %> )</option>
              <% } %>
          </select>
      </div>

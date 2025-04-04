@@ -97,7 +97,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="inputCliente" class="form-label">Cliente</label>
-					      <select name="cliente" id="inputCliente" class="sr-only">
+					      <select name="cliente" id="inputCliente" class="form-select">
 					      	<% for (Cliente c : lc) { %>
 					      		<option value ='<%=c.getIdUsuario()%>'><%=c.getNomUsuario()%></option>
 					      	<% } %>
@@ -112,7 +112,7 @@
 					      </select>
                     </div>
                     <div class="col-md-6">
-                    <label for="inputMetodoPago" class="form-label fw-bold">Método de pago</label>
+                    <label for="inputMetodoPago" class="form-label">Método de pago</label>
 			        <select name="formaPago" id="inputMetodoPago" class="form-select">
 			            <option value="Transferencia">Transferencia</option>
 			            <option value="Tarjeta de Débito">Tarjeta de Débito</option>
@@ -120,7 +120,7 @@
 			        </select>
 			        </div>
 			        <div class="col-md-6">
-                        <label for="inputEstado" class="form-label fw-bold">Estado</label>
+                        <label for="inputEstado" class="form-label">Estado</label>
 				        <select name="estado" id="inputEstado" class="form-select">
 				            <option value="Pendiente">Pendiente</option>
 				            <option value="Aprobado">Aprobado</option>

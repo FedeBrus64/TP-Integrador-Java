@@ -30,43 +30,41 @@ public class Signin extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		if(session.getAttribute("usuario") != null) {
-			
-			DataUsuario duaux = new DataUsuario();
-			Usuario usu = (Usuario)session.getAttribute("usuario");
-			
-			try {
-				Usuario usuaux = duaux.getByIdUsuario(usu);
-				
-				if(usuaux != null) {
-					if ("cliente".equals(usuaux.getTipoUsuario())){
-						request.setCharacterEncoding("UTF-8");
-						request.getRequestDispatcher("WEB-INF/MenuUsuario.jsp").forward(request, response);
-					} else {
-						request.setCharacterEncoding("UTF-8");
-						request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
-					}
-				} else {
-					request.setAttribute("error", "Ocurrió un error. Por favor, vuelva a iniciar sesión.");
-					request.setCharacterEncoding("UTF-8");
-					request.getRequestDispatcher("error.html").forward(request, response);
-				}
-				
-			} catch (DataAccessException e) {
-				request.setAttribute("error", e.getMessage());
-				request.setCharacterEncoding("UTF-8");
-				request.getRequestDispatcher("error.html").forward(request, response);
-			} 
-			
-		} else {
-			request.setAttribute("error", "Ha ocurrido un error. Por favor, vuelva a iniciar sesión");
-			request.getRequestDispatcher("error.html").forward(request, response);
-		}
-		
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Obtener la sesión existente sin crear una nueva
+        HttpSession session = request.getSession(false);
+
+        if (session == null || session.getAttribute("usuario") == null) {
+            request.setAttribute("error", "Debe iniciar sesión primero.");
+            request.getRequestDispatcher("error.html").forward(request, response);
+            return;
+        }
+
+        DataUsuario duaux = new DataUsuario();
+        Usuario usu = (Usuario) session.getAttribute("usuario");
+
+        try {
+            Usuario usuaux = duaux.getByIdUsuario(usu);
+
+            if (usuaux != null) {
+                request.setCharacterEncoding("UTF-8");
+                if ("cliente".equals(usuaux.getTipoUsuario())) {
+                    request.getRequestDispatcher("WEB-INF/MenuUsuario.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("WEB-INF/Menu.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("error", "Ocurrió un error. Por favor, vuelva a iniciar sesión.");
+                request.setCharacterEncoding("UTF-8");
+                request.getRequestDispatcher("error.html").forward(request, response);
+            }
+
+        } catch (DataAccessException e) {
+            request.setAttribute("error", e.getMessage());
+            request.setCharacterEncoding("UTF-8");
+            request.getRequestDispatcher("error.html").forward(request, response);
+        }
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
